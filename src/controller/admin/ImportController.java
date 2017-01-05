@@ -1,9 +1,6 @@
 package controller.admin;
 
-import model.admin.CategoryConsumer;
-import model.admin.DatabaseProxy;
-import model.admin.FileReader;
-import model.admin.PoiConsumer;
+import model.admin.*;
 import view.admin.AdminView;
 
 import java.io.File;
@@ -40,6 +37,9 @@ public class ImportController {
             categoryConsumer.start();
         }
 
+        ImportProgress importProgress = new ImportProgress(this);
+        importProgress.start();
+
     }
 
     public synchronized void putRow(String s) {
@@ -75,5 +75,9 @@ public class ImportController {
 
     public boolean allRowsProcessed() {
         return counter == rowQueueCount;
+    }
+
+    public void showStatus() {
+
     }
 }
