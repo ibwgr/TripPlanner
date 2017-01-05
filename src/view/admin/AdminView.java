@@ -13,9 +13,11 @@ import java.awt.*;
 public class AdminView extends JFrame {
 
     private JButton chooseFileButton, startImportButton;
-    private JLabel fileName;
+    private JLabel fileName, fileNameLabel, fileTypeLabel, fileDelimiterLabel;
     private ButtonGroup fileTypeGroup;
     private JRadioButton fileTypeCategory, fileTypePoi;
+    private ButtonGroup fileDelimiterGroup;
+    private JRadioButton fileDelimiterComma, fileDelimiterSemicolon, fileDelimiterPipe;
 
     public AdminView() {
 
@@ -28,22 +30,48 @@ public class AdminView extends JFrame {
         chooseFileButton.setActionCommand("open_file");
         chooseFileButton.addActionListener(adminController);
 
+        fileNameLabel = new JLabel("File:");
+        fileNameLabel.setPreferredSize(new Dimension(100,20));
         fileName = new JLabel();
 
+        fileTypeLabel = new JLabel("Type:");
+        fileTypeLabel.setPreferredSize(new Dimension(100,20));
         fileTypeCategory = new JRadioButton("Category", true);
         fileTypePoi = new JRadioButton("Point of interest");
         fileTypeGroup = new ButtonGroup();
         fileTypeGroup.add(fileTypeCategory);
         fileTypeGroup.add(fileTypePoi);
 
+        fileDelimiterLabel = new JLabel("Delimiter:");
+        fileDelimiterLabel.setPreferredSize(new Dimension(100,20));
+        fileDelimiterPipe = new JRadioButton("|", true);
+        fileDelimiterComma = new JRadioButton(",");
+        fileDelimiterSemicolon = new JRadioButton(";");
+        fileDelimiterGroup = new ButtonGroup();
+        fileDelimiterGroup.add(fileDelimiterPipe);
+        fileDelimiterGroup.add(fileDelimiterComma);
+        fileDelimiterGroup.add(fileDelimiterSemicolon);
+
         startImportButton = new JButton("Import file");
         startImportButton.setActionCommand("import_file");
         startImportButton.addActionListener(adminController);
 
         gridPanel.add(chooseFileButton);
-        gridPanel.add(fileName);
-        gridPanel.add(fileTypeCategory);
-        gridPanel.add(fileTypePoi);
+        JPanel jpanelFileName = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        jpanelFileName.add(fileNameLabel);
+        jpanelFileName.add(fileName);
+        gridPanel.add(jpanelFileName);
+        JPanel jpanelFileType = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        jpanelFileType.add(fileTypeLabel);
+        jpanelFileType.add(fileTypeCategory);
+        jpanelFileType.add(fileTypePoi);
+        gridPanel.add(jpanelFileType);
+        JPanel jpanelDelimiter = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        jpanelDelimiter.add(fileDelimiterLabel);
+        jpanelDelimiter.add(fileDelimiterPipe);
+        jpanelDelimiter.add(fileDelimiterComma);
+        jpanelDelimiter.add(fileDelimiterSemicolon);
+        gridPanel.add(jpanelDelimiter);
         gridPanel.add(startImportButton);
 
         this.add(gridPanel, BorderLayout.NORTH);
@@ -63,5 +91,17 @@ public class AdminView extends JFrame {
 
     public String getFileType() {
         return fileTypeCategory.isSelected() ? "category" : "poi";
+    }
+
+    public String getFileDelimiter() {
+        String str = null;
+        if (fileDelimiterPipe.isSelected()) {
+            str = "|";
+        } else if (fileDelimiterComma.isSelected()) {
+            str = ",";
+        } else if (fileDelimiterSemicolon.isSelected()) {
+            str = ";";
+        }
+        return str;
     }
 }

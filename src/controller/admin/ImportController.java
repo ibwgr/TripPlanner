@@ -29,11 +29,11 @@ public class ImportController {
 
         DatabaseProxy databaseProxy = new DatabaseProxy();
 
-        if (adminView.getFileType() == "poi") {
-            PoiConsumer poiConsumer = new PoiConsumer(this, databaseProxy);
+        if ("poi".equals(adminView.getFileType())) {
+            PoiConsumer poiConsumer = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
             poiConsumer.start();
         } else {
-            CategoryConsumer categoryConsumer = new CategoryConsumer(this, databaseProxy);
+            CategoryConsumer categoryConsumer = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
             categoryConsumer.start();
         }
 
@@ -66,6 +66,10 @@ public class ImportController {
         return rowQueue.isEmpty();
     }
 
+    /**
+     * Der Total Row Count muss in einem eigenem Attribut gespeichert werden.
+     * Weil die Einträge in der Queue immer wieder gelöscht werden, wenn etwas gelesen wurde.
+     */
     public void increaseRowQueueCount() {
         if (rowQueueCount < 0) {
             rowQueueCount = 0;
