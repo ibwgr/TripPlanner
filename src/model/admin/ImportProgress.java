@@ -2,8 +2,6 @@ package model.admin;
 
 import controller.admin.ImportController;
 
-import java.util.concurrent.BlockingQueue;
-
 /**
  * Created by dieterbiedermann on 04.01.17.
  */

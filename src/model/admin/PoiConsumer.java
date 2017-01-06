@@ -14,20 +14,26 @@ public class PoiConsumer extends Thread {
     private ImportController importController;
     private DatabaseImport databaseImport;
     private ArrayList<String[]> poiList;
+    private String delimiter;
 
-    public PoiConsumer(ImportController importController, DatabaseProxy databaseProxy) {
+    public PoiConsumer(ImportController importController, DatabaseProxy databaseProxy, String delimiter) {
         this.importController = importController;
         this.databaseImport = new DatabaseImport(importController, databaseProxy);
         this.poiList = new ArrayList<>();
+        this.delimiter = delimiter;
     }
 
     public void run() {
         while (!importController.allRowsProcessed()) {
             String row = importController.getRow();
             if (row != null) {
-                String[] rowItem = row.split("\\|");
-                if (rowItem.length < 4) {
+                String[] rowItem = row.split(delimiter);
+                if (rowItem.length != 5 || rowItem[0].isEmpty()) {
                     System.out.println("Error -> wrong row");
+                    /**
+                     * increase error count
+                     */
+                    importController.increaseErrorCount();
                 } else {
 
                     System.out.println(this.getName() + " -> " + row);
