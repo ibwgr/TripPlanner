@@ -15,6 +15,7 @@ public class ImportController {
     private AdminView adminView;
     private LinkedList<String> rowQueue = new LinkedList<String>();
     private long rowQueueCount = -1;
+    private long errorCount = 0;
     private long counter = 0;
 
     public ImportController(File file, AdminView adminView) {
@@ -24,7 +25,7 @@ public class ImportController {
 
     public void start() {
 
-        FileReader fileReader = new FileReader(file, this);
+        FileReader fileReader = new FileReader(file, this, adminView.getFileHasHeader());
         fileReader.start();
 
         DatabaseProxy databaseProxy = new DatabaseProxy();
@@ -83,5 +84,9 @@ public class ImportController {
 
     public void showStatus() {
 
+    }
+
+    public void increaseErrorCount() {
+        errorCount++;
     }
 }

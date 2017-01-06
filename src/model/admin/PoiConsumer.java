@@ -28,8 +28,12 @@ public class PoiConsumer extends Thread {
             String row = importController.getRow();
             if (row != null) {
                 String[] rowItem = row.split(delimiter);
-                if (rowItem.length < 4) {
+                if (rowItem.length != 5 || rowItem[0].isEmpty()) {
                     System.out.println("Error -> wrong row");
+                    /**
+                     * increase error count
+                     */
+                    importController.increaseErrorCount();
                 } else {
 
                     System.out.println(this.getName() + " -> " + row);

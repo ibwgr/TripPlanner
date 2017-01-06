@@ -28,6 +28,7 @@ public class CategoryConsumer extends Thread {
                 String[] rowItem = row.split(delimiter);
                 if (rowItem.length != 2 || rowItem[0].isEmpty()) {
                     System.out.println("Error -> wrong row");
+                    importController.increaseErrorCount();
                 } else {
 
                     System.out.println(this.getName() + " -> " + row);
