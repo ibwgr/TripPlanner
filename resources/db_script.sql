@@ -1,22 +1,8 @@
 -----------------------------------------------------------
---
--- TripPlanner Database Script
--- ---------------------------
---
--- Tables:
---   poi_category
---   poi
---   tp_user
---   tp_trip
---   tp_activity
---
------------------------------------------------------------
-
------------------------------------------------------------
 -- Drop tables if already exists !
 -----------------------------------------------------------
-DROP TABLE IF EXISTS tp_trip;
 DROP TABLE IF EXISTS tp_activity;
+DROP TABLE IF EXISTS tp_trip;
 DROP TABLE IF EXISTS poi;
 DROP TABLE IF EXISTS poi_category;
 DROP TABLE IF EXISTS tp_user;
@@ -84,7 +70,7 @@ DECLARE
     exists VARCHAR;
 BEGIN
 
-    UPDATE poi SET longitude=new.longitude, latitude=new.latitude, category=new.category, name=new.name
+    UPDATE poi SET longitude=new.longitude, latitude=new.latitude, category_id=new.category_id, name=new.name
     WHERE id=new.id
     RETURNING id INTO exists;
 

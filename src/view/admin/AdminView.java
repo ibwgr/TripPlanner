@@ -2,6 +2,7 @@ package view.admin;
 
 import controller.admin.AdminController;
 import controller.admin.ImportController;
+import view.TripPlannerMain;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,7 +11,7 @@ import java.awt.*;
 /**
  * Created by dieterbiedermann on 04.01.17.
  */
-public class AdminView extends JFrame {
+public class AdminView extends TripPlannerMain {
 
     private JButton chooseFileButton, startImportButton;
     private JLabel fileName, fileNameLabel, fileTypeLabel, fileDelimiterLabel, fileHasHaederLabel;
@@ -24,19 +25,38 @@ public class AdminView extends JFrame {
 
         AdminController adminController = new AdminController(this);
 
-        Dimension labelDimension = new Dimension(100,20);
+        Dimension labelDimension = new Dimension(140,20);
 
-        this.setLayout(new BorderLayout());
+        /**
+         * Layout Panels
+         */
+        //this.setLayout(new BorderLayout());
+        JPanel borderPanel = new JPanel();
         JPanel gridPanel = new JPanel(new GridLayout(6,1));
+        borderPanel.add(gridPanel, BorderLayout.NORTH);
 
+        /**
+         * File öffnen Button
+         */
         chooseFileButton = new JButton("Open file");
         chooseFileButton.setActionCommand("open_file");
         chooseFileButton.addActionListener(adminController);
+        gridPanel.add(chooseFileButton);
 
+        /**
+         * Anzeige des Filenamens
+         */
         fileNameLabel = new JLabel("File:");
         fileNameLabel.setPreferredSize(labelDimension);
         fileName = new JLabel();
+        JPanel jpanelFileName = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        jpanelFileName.add(fileNameLabel);
+        jpanelFileName.add(fileName);
+        gridPanel.add(jpanelFileName);
 
+        /**
+         * File Type: Category oder Point of interest
+         */
         fileTypeLabel = new JLabel("Type:");
         fileTypeLabel.setPreferredSize(labelDimension);
         fileTypeCategory = new JRadioButton("Category", true);
@@ -44,7 +64,15 @@ public class AdminView extends JFrame {
         fileTypeGroup = new ButtonGroup();
         fileTypeGroup.add(fileTypeCategory);
         fileTypeGroup.add(fileTypePoi);
+        JPanel jpanelFileType = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        jpanelFileType.add(fileTypeLabel);
+        jpanelFileType.add(fileTypeCategory);
+        jpanelFileType.add(fileTypePoi);
+        gridPanel.add(jpanelFileType);
 
+        /**
+         * File Delimiter Optionen
+         */
         fileDelimiterLabel = new JLabel("Delimiter:");
         fileDelimiterLabel.setPreferredSize(labelDimension);
         fileDelimiterPipe = new JRadioButton("|", true);
@@ -54,39 +82,37 @@ public class AdminView extends JFrame {
         fileDelimiterGroup.add(fileDelimiterPipe);
         fileDelimiterGroup.add(fileDelimiterComma);
         fileDelimiterGroup.add(fileDelimiterSemicolon);
-
-        fileHasHaederLabel = new JLabel("First row is header:");
-        fileHasHaederLabel.setPreferredSize(labelDimension);
-        fileHasHeader = new JCheckBox();
-
-        startImportButton = new JButton("Import file");
-        startImportButton.setActionCommand("import_file");
-        startImportButton.addActionListener(adminController);
-
-        gridPanel.add(chooseFileButton);
-        JPanel jpanelFileName = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        jpanelFileName.add(fileNameLabel);
-        jpanelFileName.add(fileName);
-        gridPanel.add(jpanelFileName);
-        JPanel jpanelFileType = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        jpanelFileType.add(fileTypeLabel);
-        jpanelFileType.add(fileTypeCategory);
-        jpanelFileType.add(fileTypePoi);
-        gridPanel.add(jpanelFileType);
         JPanel jpanelDelimiter = new JPanel(new FlowLayout(FlowLayout.LEADING));
         jpanelDelimiter.add(fileDelimiterLabel);
         jpanelDelimiter.add(fileDelimiterPipe);
         jpanelDelimiter.add(fileDelimiterComma);
         jpanelDelimiter.add(fileDelimiterSemicolon);
         gridPanel.add(jpanelDelimiter);
+
+        /**
+         * Checkbox für erste Zeile als Header
+         */
+        fileHasHaederLabel = new JLabel("First row is header:");
+        fileHasHaederLabel.setPreferredSize(labelDimension);
+        fileHasHeader = new JCheckBox();
         JPanel jpanelHasHeader = new JPanel(new FlowLayout(FlowLayout.LEADING));
         jpanelHasHeader.add(fileHasHaederLabel);
         jpanelHasHeader.add(fileHasHeader);
         gridPanel.add(jpanelHasHeader);
+
+        /**
+         * Start des Imports Button
+         */
+        startImportButton = new JButton("Import file");
+        startImportButton.setActionCommand("import_file");
+        startImportButton.addActionListener(adminController);
         gridPanel.add(startImportButton);
 
-        this.add(gridPanel, BorderLayout.NORTH);
-        this.setTitle("TripPlanner - Administration");
+        /**
+         * zweite Row des Main GridLayout abfüllen und Parameter für das Fenster
+         */
+        this.setViewTitle("Administration - File Upload");
+        this.addView(borderPanel);
         this.setSize(new Dimension(500,300));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
