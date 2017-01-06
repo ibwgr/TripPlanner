@@ -33,7 +33,7 @@ public class DatabaseImport {
 
             StringBuilder sb;
             sb = new StringBuilder();
-            sb.append("insert into poi (category, id, latitude, longitude, name) values ");
+            sb.append("insert into poi (category_id, id, latitude, longitude, name) values ");
 
             for (int i = 1; i <= poiList.size(); i++) {
                 sb.append("(?,?,?,?,?),");
