@@ -154,3 +154,18 @@ CREATE TRIGGER poi_category_insert_before_trigger
    FOR EACH ROW
 EXECUTE PROCEDURE poi_category_insert_before_func ();
 
+
+-----------------------------------------------------------
+-- some dummy data
+-----------------------------------------------------------
+insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('benutzer','benutzer','reto.kaufmann@adon.li','benutzer',1)
+;
+insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('admin','admin','reto.kaufmann@adon.li','admin',2)
+;
+commit
+;
+--select *
+--from tp_user
+--;
