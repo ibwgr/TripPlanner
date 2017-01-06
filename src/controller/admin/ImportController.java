@@ -15,6 +15,7 @@ public class ImportController {
     private AdminView adminView;
     private LinkedList<String> rowQueue = new LinkedList<String>();
     private long rowQueueCount = -1;
+    private long errorCount = 0;
     private long counter = 0;
 
     public ImportController(File file, AdminView adminView) {
@@ -24,16 +25,16 @@ public class ImportController {
 
     public void start() {
 
-        FileReader fileReader = new FileReader(file, this);
+        FileReader fileReader = new FileReader(file, this, adminView.getFileHasHeader());
         fileReader.start();
 
         DatabaseProxy databaseProxy = new DatabaseProxy();
 
-        if (adminView.getFileType() == "poi") {
-            PoiConsumer poiConsumer = new PoiConsumer(this, databaseProxy);
+        if ("poi".equals(adminView.getFileType())) {
+            PoiConsumer poiConsumer = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
             poiConsumer.start();
         } else {
-            CategoryConsumer categoryConsumer = new CategoryConsumer(this, databaseProxy);
+            CategoryConsumer categoryConsumer = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
             categoryConsumer.start();
         }
 
@@ -66,6 +67,10 @@ public class ImportController {
         return rowQueue.isEmpty();
     }
 
+    /**
+     * Der Total Row Count muss in einem eigenem Attribut gespeichert werden.
+     * Weil die Einträge in der Queue immer wieder gelöscht werden, wenn etwas gelesen wurde.
+     */
     public void increaseRowQueueCount() {
         if (rowQueueCount < 0) {
             rowQueueCount = 0;
@@ -79,5 +84,9 @@ public class ImportController {
 
     public void showStatus() {
 
+    }
+
+    public void increaseErrorCount() {
+        errorCount++;
     }
 }
