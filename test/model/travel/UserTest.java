@@ -28,7 +28,7 @@ public class UserTest {
         a1.setUsername("Hans");
         a1.setPassword("geheim");
         a1.setTypeEnum(UserTypeEnum.USER);
-        // Admin soll auf Wert 2 gemapped sein
+        // User soll auf Wert 1 gemapped sein
         Assert.assertEquals(new Long(1),a1.getType());
     }
 }
