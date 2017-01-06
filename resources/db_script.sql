@@ -40,15 +40,17 @@ CREATE TABLE poi
    FOREIGN KEY (category_id) REFERENCES poi_category (id)
 );
 
+CREATE SEQUENCE userdata_id_seq;
 CREATE TABLE tp_user
 (
-   id          int PRIMARY KEY,
+   id          int PRIMARY KEY NOT NULL DEFAULT nextval('userdata_id_seq'),
    username    varchar (100),
    password    varchar (100),
    email       varchar (100),
    name        varchar (250),
    type        int -- 1 = User, 2 = Administrator
 );
+ALTER SEQUENCE userdata_id_seq OWNED BY userdata.id;
 
 CREATE TABLE tp_trip
 (

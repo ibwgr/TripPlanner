@@ -1,6 +1,0 @@
-TODO: passt location?
-Hoi Dieter
-habe hier einfach mal die SQL Files von vivify hierher gestellt.
-die sollten wir auch unter git fuehren.
-habe den db dump noch angepasst damit es auch bei anderen funktioniert
-
