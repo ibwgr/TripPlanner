@@ -24,6 +24,8 @@ public class ImportProgress extends Thread {
             }
         }
 
+        importController.importIsFinished();
+
         importController.showStatus();
     }
 

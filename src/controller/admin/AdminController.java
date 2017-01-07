@@ -24,6 +24,12 @@ public class AdminController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         switch (e.getActionCommand()) {
+            case "start_new":
+                /**
+                 * schliesst das Progress Panel und öffnet wieder das Grid Panel
+                 */
+                adminView.enableInputForm();
+                break;
             case "open_file":
                 /**
                  * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
@@ -42,6 +48,7 @@ public class AdminController implements ActionListener {
                     /**
                      * Importiere das File
                      */
+                    adminView.disableInputForm();
                     ImportController importController = new ImportController(file, adminView);
                     importController.start();
                 }
