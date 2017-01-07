@@ -8,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class AdminController implements ActionListener {
 
     private AdminView adminView;

@@ -8,9 +8,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class AdminView extends TripPlannerMain {
 
     AdminController adminController;
@@ -143,7 +140,6 @@ public class AdminView extends TripPlannerMain {
         this.setViewTitle("Administration - File Upload");
         this.addView(inputPanel);
         this.setSize(new Dimension(500,300));
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {

@@ -5,9 +5,6 @@ import model.common.DatabaseProxy;
 
 import java.util.ArrayList;
 
-/**
- * Created by dieterbiedermann on 05.01.17.
- */
 public class CategoryConsumer extends Thread {
 
     private ImportController importController;
