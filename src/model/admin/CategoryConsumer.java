@@ -1,6 +1,7 @@
 package model.admin;
 
 import controller.admin.ImportController;
+import model.common.DatabaseProxy;
 
 import java.util.ArrayList;
 
