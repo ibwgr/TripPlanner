@@ -1,6 +1,7 @@
 package controller.admin;
 
 import model.admin.*;
+import model.common.DatabaseProxy;
 import view.admin.AdminView;
 
 import java.io.File;
