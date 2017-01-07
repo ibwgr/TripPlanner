@@ -145,10 +145,10 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 -- some dummy data
 -----------------------------------------------------------
 insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
-values ('benutzer','benutzer','reto.kaufmann@adon.li','benutzer',1)
+values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
 ;
 insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
-values ('admin','admin','reto.kaufmann@adon.li','admin',2)
+values ('admin','admin','admin@example.com','admin',2)
 ;
 commit
 ;
