@@ -42,12 +42,12 @@ public class TripPlannerMain extends JFrame {
 //        headerPanel.setBorder(new CompoundBorder(new EmptyBorder(4, 4, 4, 4), new MatteBorder(0, 0, 1, 0, Color.BLACK)));
 
         viewTitleLabel = new JLabel();
-        viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
+        viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         headerPanel.add(viewTitleLabel);
 
         this.add(headerPanel, constraintsHeader);
 
-        this.setMinimumSize(new Dimension(640,480));
+        //this.setMinimumSize(new Dimension(640,480));
         this.setTitle("TripPlanner");
     }
 
