@@ -8,9 +8,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class AdminView extends TripPlannerMain {
 
     AdminController adminController;
@@ -22,22 +19,29 @@ public class AdminView extends TripPlannerMain {
     ButtonGroup fileDelimiterGroup;
     JRadioButton fileDelimiterComma, fileDelimiterSemicolon, fileDelimiterPipe;
     JCheckBox fileHasHeader;
-    JPanel inputPanel, mainPanel, progressPanel;
+    JPanel inputPanel, progressPanel;
     JLabel statusLabel;
     JButton buttonNewUpload;
 
     public AdminView() {
+        /**
+         * Anzahl Zeilen und Spalten für diese View
+         */
+        super(1,1);
 
         adminController = new AdminController(this);
 
         Dimension labelDimension = new Dimension(140,20);
 
         /**
+         * Input View
+         */
+
+        /**
          * Layout Panels
          */
         //this.setLayout(new BorderLayout());
 //        JPanel borderPanel = new JPanel();
-        mainPanel = new JPanel();
         inputPanel = new JPanel(new GridLayout(6,1));
 //        borderPanel.add(inputPanel, BorderLayout.WEST);
 
@@ -116,13 +120,26 @@ public class AdminView extends TripPlannerMain {
         inputPanel.add(jpanelStartImport);
 
         /**
+         * Progress View
+         */
+        progressPanel = new JPanel(new GridLayout(3,1));
+
+        statusLabel = new JLabel();
+        progressPanel.add(statusLabel);
+
+        buttonNewUpload = new JButton("import new file");
+        buttonNewUpload.setActionCommand("start_new");
+        buttonNewUpload.addActionListener(adminController);
+        buttonNewUpload.setEnabled(false);
+        progressPanel.add(buttonNewUpload);
+
+
+        /**
          * zweite Row des Main GridLayout abfüllen und Parameter für das Fenster
          */
-        mainPanel.add(inputPanel);
         this.setViewTitle("Administration - File Upload");
-        this.addView(mainPanel);
+        this.addView(inputPanel);
         this.setSize(new Dimension(500,300));
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
@@ -154,39 +171,12 @@ public class AdminView extends TripPlannerMain {
         return fileHasHeader.isSelected();
     }
 
-    public void enableProgressForm() {
-        progressPanel = new JPanel(new GridLayout(3,1));
-
-        statusLabel = new JLabel();
-        progressPanel.add(statusLabel);
-
-        buttonNewUpload = new JButton("import new file");
-        buttonNewUpload.setActionCommand("start_new");
-        buttonNewUpload.addActionListener(adminController);
-        buttonNewUpload.setEnabled(false);
-        progressPanel.add(buttonNewUpload);
-
-        progressPanel.setVisible(true);
-        mainPanel.add(progressPanel);
+    public void showProgressView() {
+        this.replaceView(progressPanel, 0);
     }
 
-    public void disableProgressForm() {
-        progressPanel.setVisible(false);
-        mainPanel.remove(progressPanel);
-    }
-
-    public void disableInputForm() {
-        inputPanel.setVisible(false);
-        mainPanel.remove(inputPanel);
-        enableProgressForm();
-        mainPanel.updateUI();
-    }
-
-    public void enableInputForm() {
-        disableProgressForm();
-        inputPanel.setVisible(true);
-        mainPanel.add(inputPanel);
-        mainPanel.updateUI();
+    public void showInputView() {
+        this.replaceView(inputPanel, 0);
     }
 
     public void setStatusText(String str) {
