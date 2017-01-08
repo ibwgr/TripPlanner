@@ -3,9 +3,13 @@ package view.common;
 import controller.common.MainController;
 import sun.applet.Main;
 
+import view.travel.TripView;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class TripPlannerMain extends JFrame {
@@ -18,6 +22,12 @@ public class TripPlannerMain extends JFrame {
     private MainController mainController;
     private ArrayList<Component> componentList = new ArrayList<>();
     private JPanel contentPanel;
+    private JMenuBar jJMenuBar = null;
+    private JMenu loginMenu = null;
+    private JMenu helpMenu = null;
+    private JMenuItem loginMenuItem = null;
+    private JMenuItem exitMenuItem = null;
+    private JMenuItem aboutMenuItem = null;
 
     public TripPlannerMain(int rows, int cols) {
 
@@ -74,6 +84,9 @@ public class TripPlannerMain extends JFrame {
         this.add(contentPanel, constraintsView);
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        this.setJMenuBar(getJJMenuBar());
+
     }
 
     public void refreshView() {
@@ -111,6 +124,111 @@ public class TripPlannerMain extends JFrame {
 
     public void setViewTitle(String viewTitle) {
         viewTitleLabel.setText(viewTitle);
+    }
+
+
+    private JMenuBar getJJMenuBar()
+    {
+        if (jJMenuBar == null)
+        {
+            jJMenuBar = new JMenuBar();
+            jJMenuBar.add(getLoginMenu());
+            jJMenuBar.add(getHelpMenu());
+            //jJMenuBar.add(getLoggedInInformationText());
+//            JMenuItem menuItem = new JMenuItem();
+//            JPanel panelLabel = new JPanel();
+//            JLabel lblSomeText = new JLabel("-- no user --");
+//            lblSomeText.setFont(menuItem.getFont());
+//            lblSomeText.setForeground(menuItem.getForeground());
+//            panelLabel.add(lblSomeText);
+//            jJMenuBar.add(panelLabel);
+        }
+        return jJMenuBar;
+    }
+
+    private JMenu getLoginMenu()
+    {
+        if (loginMenu == null)
+        {
+            loginMenu = new JMenu();
+            loginMenu.setText("Login");
+            loginMenu.add(getLoginMenuItem());
+            loginMenu.add(getExitMenuItem());
+        }
+        return loginMenu;
+    }
+
+    private JMenu getHelpMenu()
+    {
+        if (helpMenu == null)
+        {
+            helpMenu = new JMenu();
+            helpMenu.setText("Help");
+            helpMenu.add(getAboutMenuItem());
+        }
+        return helpMenu;
+    }
+
+    private JMenuItem getAboutMenuItem()
+    {
+        if (aboutMenuItem == null)
+        {
+            aboutMenuItem = new JMenuItem();
+            aboutMenuItem.setText("About");
+            aboutMenuItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JFrame f = new JFrame();
+                    f.setVisible(false);
+                    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    JDialog d = new JDialog(f,true);
+                    d.getContentPane().add(new JLabel("TripPlanner System V1.0",JLabel.CENTER));
+                    d.setTitle("About");
+                    d.setSize(350,100);
+                    d.setLocation(300,180);
+                    d.setVisible(true);
+                    d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                }
+            });
+        }
+        return aboutMenuItem;
+    }
+
+    private JMenuItem getExitMenuItem()
+    {
+        if (exitMenuItem == null)
+        {
+            exitMenuItem = new JMenuItem();
+            exitMenuItem.setText("Exit");
+            exitMenuItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    System.exit(0);
+                }
+            });
+        }
+        return exitMenuItem;
+    }
+
+    private JMenuItem getLoginMenuItem()
+    {
+        if (loginMenuItem == null)
+        {
+            loginMenuItem = new JMenuItem();
+            loginMenuItem.setText("Login");
+            loginMenuItem.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    LoginView lv = new LoginView();
+                    lv.setVisible(true);
+
+                }
+            });
+        }
+        return loginMenuItem;
     }
 
     public void closeErrorPanel() {
