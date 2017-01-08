@@ -9,6 +9,13 @@ public class Poi {
     private String longitude;
     private String latitude;
 
+    public Poi(String id, String name, PoiCategory poiCategory, String longitude, String latitude) {
+        this.id = id;
+        this.name = name;
+        this.poiCategory = poiCategory;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 
     public String getId() {
         return id;
@@ -49,4 +56,7 @@ public class Poi {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
+
+
+
 }

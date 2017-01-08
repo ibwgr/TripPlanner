@@ -69,7 +69,7 @@ public class ImportControllerTest {
         ImportController importController = new ImportController(file, adminView);
 
         importController.rowQueueCount = 5;
-        importController.counter = 5;
+        importController.processedCount = 5;
         Boolean result = importController.allRowsProcessed();
         Assert.assertEquals(true, result);
     }
@@ -84,7 +84,7 @@ public class ImportControllerTest {
         ImportController importController = new ImportController(file, adminView);
 
         importController.rowQueueCount = 5;
-        importController.counter = 2;
+        importController.processedCount = 2;
         Boolean result = importController.allRowsProcessed();
         Assert.assertEquals(false, result);
     }

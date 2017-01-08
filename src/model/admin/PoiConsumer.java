@@ -4,6 +4,7 @@ import controller.admin.ImportController;
 import model.common.DatabaseProxy;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class PoiConsumer extends Thread {
 
@@ -23,7 +24,7 @@ public class PoiConsumer extends Thread {
         while (!importController.allRowsProcessed()) {
             String row = importController.getRow();
             if (row != null) {
-                String[] rowItem = row.split(delimiter);
+                String[] rowItem = row.split(Pattern.quote(delimiter));
                 if (rowItem.length != 5 || rowItem[0].isEmpty()) {
                     System.out.println("Error -> wrong row");
                     /**
@@ -32,11 +33,12 @@ public class PoiConsumer extends Thread {
                     importController.increaseErrorCount();
                 } else if (!importController.poiCategoryExists(rowItem[0])) {
                     System.out.println("Error -> category does not exist");
-                    importController.increaseErrorCount();
+                    importController.increaseErrorCategoryCount();
                 } else {
 
                     System.out.println(this.getName() + " -> " + row);
                     poiList.add(rowItem);
+                    importController.increaseProcessedCount();
 
                     if (poiList.size() >= 2000) {
                         databaseImport.insertMultiValuePois(poiList);
