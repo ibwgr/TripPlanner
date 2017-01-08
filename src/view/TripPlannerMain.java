@@ -2,17 +2,17 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-/**
- * Created by dieterbiedermann on 06.01.17.
- */
 public class TripPlannerMain extends JFrame {
 
     private JLabel titleLabel, viewTitleLabel;
     private GridBagLayout mainLayout;
     private GridBagConstraints constraintsHeader, constraintsView;
+    private ArrayList<Component> componentList = new ArrayList<>();
+    private JPanel contentPanel;
 
-    public TripPlannerMain() {
+    public TripPlannerMain(int rows, int cols) {
 
         mainLayout = new GridBagLayout();
         this.setLayout(mainLayout);
@@ -49,18 +49,43 @@ public class TripPlannerMain extends JFrame {
 
         //this.setMinimumSize(new Dimension(640,480));
         this.setTitle("TripPlanner");
+
+        contentPanel = new JPanel(new GridLayout(rows,cols));
+        this.add(contentPanel, constraintsView);
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public void refreshView() {
+        contentPanel.removeAll();
+        for (Component component: componentList) {
+            contentPanel.add(new JScrollPane(component));
+        }
+        contentPanel.updateUI();
     }
 
     public void addView(Component component) {
-        this.add(new JScrollPane(component), constraintsView);
+        componentList.add(component);
+        refreshView();
+    }
+
+    public void replaceView(Component component, int index) {
+        if (componentList.get(index) != null) {
+            componentList.set(index, component);
+            refreshView();
+        }
+    }
+
+    public void removeView(int index) {
+        if (componentList.get(index) != null) {
+            componentList.remove(index);
+            refreshView();
+        }
+        
     }
 
     public void setViewTitle(String viewTitle) {
         viewTitleLabel.setText(viewTitle);
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }

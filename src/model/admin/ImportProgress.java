@@ -2,9 +2,6 @@ package model.admin;
 
 import controller.admin.ImportController;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class ImportProgress extends Thread {
 
     private ImportController importController;
