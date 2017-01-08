@@ -171,6 +171,10 @@ public class User {
         System.out.println("DB Zugriff, EMAIL: " +resultset.getString("email"));
         tempUser.setId(resultset.getLong("id"));
         tempUser.setEmail(resultset.getString("email"));
+        tempUser.setPassword(resultset.getString("password"));
+        tempUser.setUsername(resultset.getString("username"));
+      //tempUser.setTypeEnum(resultset.getLong("type"));
+        tempUser.setName(resultset.getString("name"));
       }
     } catch (SQLException e) {
       e.printStackTrace();
