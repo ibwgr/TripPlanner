@@ -1,11 +1,9 @@
 package view.admin;
 
 import controller.admin.AdminController;
-import controller.admin.ImportController;
-import view.TripPlannerMain;
+import view.common.TripPlannerMain;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -57,7 +55,7 @@ public class AdminView extends TripPlannerMain {
         inputPanel.add(jpanelFileName);
 
         /**
-         * File Type: Category oder Point of interest
+         * File Type: PoiCategory oder Point of interest
          */
         fileTypeLabel = new JLabel("Type:");
         fileTypeLabel.setPreferredSize(labelDimension);

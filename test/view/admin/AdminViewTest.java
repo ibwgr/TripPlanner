@@ -53,7 +53,7 @@ public class AdminViewTest {
     }
 
     /**
-     * getFileType gibt für den RadioButton Category "category" zurück
+     * getFileType gibt für den RadioButton PoiCategory "category" zurück
      */
     @Test
     public void getFileTypeReturnsCategoryWhenCategoryRadioButtonIsSelected() {
