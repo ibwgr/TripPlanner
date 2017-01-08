@@ -187,7 +187,4 @@ public class AdminView extends TripPlannerMain {
         buttonNewUpload.setEnabled(true);
     }
 
-    public void enableInputForm() {
-        this.replaceView(inputPanelBorder,0);
-    }
 }

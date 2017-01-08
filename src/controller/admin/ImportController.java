@@ -43,7 +43,7 @@ public class ImportController {
              */
             poiCategories = databaseHandler.getAllPoiCategories();
             if (poiCategories.isEmpty()) {
-                adminView.enableInputForm();
+                adminView.showInputView();
                 adminView.showErrorMessage("POI Categories are empty. Cannot import POI file.");
                 return;
             }
