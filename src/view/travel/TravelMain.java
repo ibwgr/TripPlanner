@@ -1,6 +1,6 @@
 package view.travel;
 
-import view.TripPlannerMain;
+import view.common.TripPlannerMain;
 
 import javax.swing.*;
 import java.awt.*;

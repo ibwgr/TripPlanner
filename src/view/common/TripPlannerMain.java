@@ -1,8 +1,12 @@
-package view;
+package view.common;
+
+import controller.common.MainController;
+import sun.applet.Main;
 
 import view.travel.TripView;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +14,12 @@ import java.util.ArrayList;
 
 public class TripPlannerMain extends JFrame {
 
-    private JLabel titleLabel, viewTitleLabel;
+    private JLabel titleLabel, viewTitleLabel, errorMessageLabel;
+    private JPanel errorPanel, headerPanel;
+    private JButton closeErrorPanel;
     private GridBagLayout mainLayout;
     private GridBagConstraints constraintsHeader, constraintsView;
+    private MainController mainController;
     private ArrayList<Component> componentList = new ArrayList<>();
     private JPanel contentPanel;
     private JMenuBar jJMenuBar = null;
@@ -24,12 +31,13 @@ public class TripPlannerMain extends JFrame {
 
     public TripPlannerMain(int rows, int cols) {
 
+        mainController = new MainController(this);
+
         mainLayout = new GridBagLayout();
         this.setLayout(mainLayout);
 
         constraintsHeader = new GridBagConstraints();
         constraintsHeader.gridx = 0;
-//        constraintsHeader.gridy = 0;
         constraintsHeader.anchor = GridBagConstraints.FIRST_LINE_START;
         constraintsHeader.fill = GridBagConstraints.HORIZONTAL;
         constraintsHeader.weightx = 0.1;
@@ -42,20 +50,32 @@ public class TripPlannerMain extends JFrame {
         constraintsView.weightx = 0.1;
         constraintsView.weighty = 0.1;
 
-        JPanel headerPanel = new JPanel(new GridLayout(1,2));
+        headerPanel = new JPanel(new GridLayout(1,2));
         headerPanel.setBackground(Color.decode("#96BFE1"));
+        headerPanel.setSize(new Dimension(200, 60));
 
         titleLabel = new JLabel("TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 36));
-        titleLabel.setPreferredSize(new Dimension(200, 60));
         headerPanel.add(titleLabel);
-//        headerPanel.setBorder(new CompoundBorder(new EmptyBorder(4, 4, 4, 4), new MatteBorder(0, 0, 1, 0, Color.BLACK)));
 
         viewTitleLabel = new JLabel();
         viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         headerPanel.add(viewTitleLabel);
 
         this.add(headerPanel, constraintsHeader);
+
+        errorPanel = new JPanel(new FlowLayout());
+        errorMessageLabel = new JLabel();
+        errorMessageLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        errorPanel.add(errorMessageLabel);
+        closeErrorPanel = new JButton("close");
+        closeErrorPanel.setActionCommand("close_error");
+        closeErrorPanel.addActionListener(mainController);
+        errorPanel.add(closeErrorPanel);
+        errorPanel.setVisible(false);
+        errorPanel.setBackground(Color.decode("#EB8B8B"));
+        errorPanel.setSize(new Dimension(200, 60));
+        this.add(errorPanel, constraintsHeader);
 
         //this.setMinimumSize(new Dimension(640,480));
         this.setTitle("TripPlanner");
@@ -87,6 +107,11 @@ public class TripPlannerMain extends JFrame {
             componentList.set(index, component);
             refreshView();
         }
+    }
+
+    public void showErrorMessage(String message) {
+        errorPanel.setVisible(true);
+        errorMessageLabel.setText(message);
     }
 
     public void removeView(int index) {
@@ -206,4 +231,7 @@ public class TripPlannerMain extends JFrame {
         return loginMenuItem;
     }
 
+    public void closeErrorPanel() {
+        errorPanel.setVisible(false);
+    }
 }

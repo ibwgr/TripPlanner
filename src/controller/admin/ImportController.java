@@ -1,10 +1,13 @@
 package controller.admin;
 
 import model.admin.*;
+import model.common.DatabaseHandler;
 import model.common.DatabaseProxy;
+import model.common.PoiCategory;
 import view.admin.AdminView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
@@ -12,16 +15,21 @@ public class ImportController {
 
     private File file;
     private AdminView adminView;
+    private DatabaseHandler databaseHandler;
+    private DatabaseProxy databaseProxy;
     LinkedList<String> rowQueue = new LinkedList<String>();
     long rowQueueCount = -1;
     long errorCount = 0;
     long counter = 0;
     private final int threadNo = 4;
     private long startTime = System.nanoTime();
+    private ArrayList<PoiCategory> poiCategories;
 
     public ImportController(File file, AdminView adminView) {
         this.file = file;
         this.adminView = adminView;
+        databaseProxy = new DatabaseProxy();
+        databaseHandler = new DatabaseHandler(databaseProxy);
     }
 
     public void start() {
@@ -29,9 +37,16 @@ public class ImportController {
         FileReader fileReader = new FileReader(file, this, adminView.getFileHasHeader());
         fileReader.start();
 
-        DatabaseProxy databaseProxy = new DatabaseProxy();
-
         if ("poi".equals(adminView.getFileType())) {
+            /**
+             * Wenn keine Kategorien vorhanden sind, eine Fehlermeldung anzeigen und zurück zu der Input Form
+             */
+            poiCategories = databaseHandler.getAllPoiCategories();
+            if (poiCategories.isEmpty()) {
+                adminView.showInputView();
+                adminView.showErrorMessage("POI Categories are empty. Cannot import POI file.");
+                return;
+            }
             PoiConsumer[] poiConsumer = new PoiConsumer[threadNo];
             for (int i = 0; i < threadNo; i++) {
                 poiConsumer[i] = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
@@ -100,5 +115,16 @@ public class ImportController {
 
     public void importIsFinished() {
         adminView.importIsFinished();
+    }
+
+    public Boolean poiCategoryExists(String id) {
+        if (poiCategories != null) {
+            for (PoiCategory poiCategory : poiCategories) {
+                if (id.equals(poiCategory.getId())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
