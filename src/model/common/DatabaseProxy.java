@@ -5,9 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class DatabaseProxy {
 
     private Connection conn;

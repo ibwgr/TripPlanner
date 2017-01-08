@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class ImportController {
 
     private File file;

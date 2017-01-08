@@ -8,9 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class AdminController implements ActionListener {
 
     private AdminView adminView;
@@ -26,9 +23,9 @@ public class AdminController implements ActionListener {
         switch (e.getActionCommand()) {
             case "start_new":
                 /**
-                 * schliesst das Progress Panel und öffnet wieder das Grid Panel
+                 * schliesst das Progress Panel und öffnet wieder das Input Panel
                  */
-                adminView.enableInputForm();
+                adminView.showInputView();
                 break;
             case "open_file":
                 /**
@@ -48,7 +45,7 @@ public class AdminController implements ActionListener {
                     /**
                      * Importiere das File
                      */
-                    adminView.disableInputForm();
+                    adminView.showProgressView();
                     ImportController importController = new ImportController(file, adminView);
                     importController.start();
                 }

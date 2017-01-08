@@ -7,9 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- * Created by dieterbiedermann on 04.01.17.
- */
 public class DatabaseImport {
 
     ImportController importController;
