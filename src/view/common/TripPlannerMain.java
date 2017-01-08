@@ -79,9 +79,7 @@ public class TripPlannerMain extends JFrame {
     public void refreshView() {
         contentPanel.removeAll();
         for (Component component: componentList) {
-            JPanel borderPanel = new JPanel();
-            borderPanel.add(component, BorderLayout.NORTH);
-            contentPanel.add(new JScrollPane(borderPanel));
+            contentPanel.add(new JScrollPane(component));
         }
         contentPanel.updateUI();
     }
