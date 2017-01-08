@@ -1,16 +1,12 @@
 package view.admin;
 
-import com.sun.javafx.binding.StringFormatter;
 import controller.admin.AdminController;
-import jdk.nashorn.internal.runtime.regexp.RegExpFactory;
 import view.common.TripPlannerMain;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class AdminView extends TripPlannerMain {
@@ -18,12 +14,9 @@ public class AdminView extends TripPlannerMain {
     AdminController adminController;
 
     JButton chooseFileButton, startImportButton;
-    JLabel fileName, fileNameLabel, fileTypeLabel, fileDelimiterLabel, fileHasHaederLabel, startImportLabel;
-    JLabel statusTotalRowsLabel, statusRowsProcessedLabel, statusRowsErrorLabel, statusRowsCategoryErrorLabel, statusElapsedTimeLabel;
+    JLabel fileName;
     ButtonGroup fileTypeGroup;
-    JRadioButton fileTypeCategory, fileTypePoi;
     ButtonGroup fileDelimiterGroup;
-    JRadioButton fileDelimiterComma, fileDelimiterSemicolon, fileDelimiterPipe;
     JCheckBox fileHasHeader;
     JPanel inputPanel, progressPanel, inputPanelBorder, progressPanelBorder;
     JLabel statusTotalRows, statusRowsProcessed, statusRowsError, statusRowsCategoryError, statusElapsedTime;
@@ -178,18 +171,7 @@ public class AdminView extends TripPlannerMain {
     }
 
     public String getFileDelimiter() {
-//        String str = null;
         return fileDelimiterGroup.getSelection().getActionCommand();
-/*
-        if (fileDelimiterPipe.isSelected()) {
-            str = "\\|";
-        } else if (fileDelimiterComma.isSelected()) {
-            str = ",";
-        } else if (fileDelimiterSemicolon.isSelected()) {
-            str = ";";
-        }
-        return str;
-*/
     }
 
     public Boolean getFileHasHeader() {
