@@ -30,6 +30,9 @@ public class PoiConsumer extends Thread {
                      * increase error count
                      */
                     importController.increaseErrorCount();
+                } else if (!importController.poiCategoryExists(rowItem[0])) {
+                    System.out.println("Error -> category does not exist");
+                    importController.increaseErrorCount();
                 } else {
 
                     System.out.println(this.getName() + " -> " + row);

@@ -1,11 +1,9 @@
 package view.admin;
 
 import controller.admin.AdminController;
-import controller.admin.ImportController;
-import view.TripPlannerMain;
+import view.common.TripPlannerMain;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class AdminView extends TripPlannerMain {
@@ -19,7 +17,7 @@ public class AdminView extends TripPlannerMain {
     ButtonGroup fileDelimiterGroup;
     JRadioButton fileDelimiterComma, fileDelimiterSemicolon, fileDelimiterPipe;
     JCheckBox fileHasHeader;
-    JPanel inputPanel, progressPanel;
+    JPanel inputPanel, progressPanel, inputPanelBorder, progressPanelBorder;
     JLabel statusLabel;
     JButton buttonNewUpload;
 
@@ -35,15 +33,16 @@ public class AdminView extends TripPlannerMain {
 
         /**
          * Input View
+         *
          */
 
         /**
          * Layout Panels
          */
-        //this.setLayout(new BorderLayout());
-//        JPanel borderPanel = new JPanel();
+//        this.setLayout(new BorderLayout());
+        inputPanelBorder = new JPanel();
         inputPanel = new JPanel(new GridLayout(6,1));
-//        borderPanel.add(inputPanel, BorderLayout.WEST);
+        inputPanelBorder.add(inputPanel, BorderLayout.NORTH);
 
         /**
          * Anzeige des Filenamens und File Öffnen Button
@@ -61,7 +60,7 @@ public class AdminView extends TripPlannerMain {
         inputPanel.add(jpanelFileName);
 
         /**
-         * File Type: Category oder Point of interest
+         * File Type: PoiCategory oder Point of interest
          */
         fileTypeLabel = new JLabel("Type:");
         fileTypeLabel.setPreferredSize(labelDimension);
@@ -122,7 +121,9 @@ public class AdminView extends TripPlannerMain {
         /**
          * Progress View
          */
+        progressPanelBorder = new JPanel();
         progressPanel = new JPanel(new GridLayout(3,1));
+        progressPanelBorder.add(progressPanel, BorderLayout.NORTH);
 
         statusLabel = new JLabel();
         progressPanel.add(statusLabel);
@@ -138,7 +139,7 @@ public class AdminView extends TripPlannerMain {
          * zweite Row des Main GridLayout abfüllen und Parameter für das Fenster
          */
         this.setViewTitle("Administration - File Upload");
-        this.addView(inputPanel);
+        this.addView(inputPanelBorder);
         this.setSize(new Dimension(500,300));
     }
 
@@ -172,11 +173,11 @@ public class AdminView extends TripPlannerMain {
     }
 
     public void showProgressView() {
-        this.replaceView(progressPanel, 0);
+        this.replaceView(progressPanelBorder, 0);
     }
 
     public void showInputView() {
-        this.replaceView(inputPanel, 0);
+        this.replaceView(inputPanelBorder, 0);
     }
 
     public void setStatusText(String str) {

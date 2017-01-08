@@ -1,4 +1,4 @@
-package view;
+package view.common;
 
 public class LoginView {
 
