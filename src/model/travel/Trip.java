@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Trip {
 
@@ -13,6 +14,11 @@ public class Trip {
   private Long id;
   private Long user_id;
   private String name;
+
+  // Instanzvariablen zusaetzlich    todo besprechen!
+  private Date maxDate;
+  private Date minDate;
+  private int countActivities;
 
   // Instanzvariablen Hilfsobjekte
   DatabaseProxy databaseProxy;
@@ -57,11 +63,36 @@ public class Trip {
     this.name = name;
   }
 
+  public Date getMaxDate() {
+    return maxDate;
+  }
+
+  public void setMaxDate(Date maxDate) {
+    this.maxDate = maxDate;
+  }
+
+  public Date getMinDate() {
+    return minDate;
+  }
+
+  public void setMinDate(Date minDate) {
+    this.minDate = minDate;
+  }
+
+  public int getCountActivities() {
+    return countActivities;
+  }
+
+  public void setCountActivities(int countActivities) {
+    this.countActivities = countActivities;
+  }
+
   // Statische Klassen-Methoden
   public static ArrayList<Trip> searchByUser(User user){
+    DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;
     ResultSet resultset = null;
-    DatabaseProxy databaseProxy = new DatabaseProxy();
+    ArrayList<Trip> tripList = new ArrayList<Trip>();
     try {
       preparedStatement = databaseProxy.prepareStatement(
               "select trip_id, user_id, trip_name, max_date, min_date, count_acitvities " +
@@ -70,16 +101,21 @@ public class Trip {
       preparedStatement.setLong(1, user.getId());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
-        System.out.println("DB, TRIP_ID   : " +resultset.getInt("trip_id"));
+        System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
         System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
-        /*
-        tempUser.setId(resultset.getLong("id"));
-        tempUser.setEmail(resultset.getString("email"));
-        tempUser.setPassword(resultset.getString("password"));
-        tempUser.setUsername(resultset.getString("username"));
-      //tempUser.setTypeEnum(resultset.getLong("type"));
-        tempUser.setName(resultset.getString("name"));
-        */
+        System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
+        System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
+        System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
+        // neues TRIP Objekt
+        Trip trip = new Trip();
+        trip.setId(resultset.getLong("trip_id"));
+        trip.setName(resultset.getString("trip_name"));
+        trip.setUser_id(1L);
+        trip.setCountActivities(resultset.getInt("count_acitvities"));
+        trip.setMinDate(resultset.getDate("min_date"));
+        trip.setMinDate(resultset.getDate("max_date"));
+        // zur TRIP-LISTE hinzufuegen
+        tripList.add(trip);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -91,7 +127,8 @@ public class Trip {
         e.printStackTrace();
       }
     }
-    return null;
+    System.out.println("DB, size()    : " +tripList.size());
+    return tripList;
   }
 
 
