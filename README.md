@@ -8,7 +8,7 @@ Der Benutzer loggt sich ein und beginnt mit der Erstellung einer neuen Reise. Da
 
 <b>Komponenten</b>
 
-Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Java. Dies beinhaltet im Moment auch ein Swing GUI. Natürlich könnte dieses GUI später auch durch ein Web-basiertes Java GUI, wie zum Beispiel “Vaadin”, ersetzt werden.
+Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Java. Dies beinhaltet im Moment auch ein Swing GUI. Natürlich könnte dieses GUI später auch durch ein zusätzliches Web-basiertes Java GUI, wie zum Beispiel “Vaadin”, erweitert werden.
 
 <p align="left">
   <img src="https://github.com/ibwgr/TripPlanner/blob/master/README.Komponenten.jpg" width="800" height="600"/>

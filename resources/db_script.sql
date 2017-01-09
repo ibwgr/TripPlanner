@@ -39,17 +39,21 @@ CREATE TABLE tp_user
 ALTER SEQUENCE tp_user_id_seq OWNED BY tp_user.id;
 
 
+CREATE SEQUENCE tp_trip_id_seq;
 CREATE TABLE tp_trip
 (
-   id          int PRIMARY KEY,
+   id          int PRIMARY KEY NOT NULL DEFAULT nextval('tp_trip_id_seq'),
    user_id     int,
    name        varchar(250),
    FOREIGN KEY (user_id) REFERENCES tp_user (id)
 );
+ALTER SEQUENCE tp_trip_id_seq OWNED BY tp_trip.id;
 
+
+CREATE SEQUENCE tp_activity_id_seq;
 CREATE TABLE tp_activity
 (
-   id          int PRIMARY KEY,
+   id          int PRIMARY KEY NOT NULL DEFAULT nextval('tp_activity_id_seq'),
    trip_id     int,
    poi_id      varchar(50),
    date        varchar(250),
@@ -57,6 +61,7 @@ CREATE TABLE tp_activity
    FOREIGN KEY (trip_id) REFERENCES tp_trip (id),
    FOREIGN KEY (poi_id) REFERENCES poi (id)
 );
+ALTER SEQUENCE tp_activity_id_seq OWNED BY tp_activity.id;
 
 -----------------------------------------------------------
 -- Function for update when id already exists
@@ -142,7 +147,24 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 
 
 -----------------------------------------------------------
--- some dummy data
+-- some dummy USER data
+-----------------------------------------------------------
+insert into tp_trip ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
+;
+insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('admin','admin','admin@example.com','admin',2)
+;
+commit
+;
+/*
+select *
+from tp_user
+;
+*/
+
+-----------------------------------------------------------
+-- some dummy USER data
 -----------------------------------------------------------
 insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
 values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
@@ -152,6 +174,39 @@ values ('admin','admin','admin@example.com','admin',2)
 ;
 commit
 ;
---select *
---from tp_user
---;
+/*
+select *
+from tp_user;
+*/
+-----------------------------------------------------------
+-- some dummy TRIP data
+-----------------------------------------------------------
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Sommerferien Schweden 2016')
+;
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Frühlingsferien USA 2017 mit Kunzes aus Bünzen')
+;
+commit
+;
+/*
+select *
+from tp_trip;
+*/
+-----------------------------------------------------------
+-- some dummy TRIP_ACTIVITY data
+-----------------------------------------------------------
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by id limit 1) , to_date('01.07.2016','dd.mm.yyyy'), 'direkt nach dem Frühstück')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by longitude limit 1) , to_date('01.07.2016','dd.mm.yyyy'), 'direkt danach')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by latitude limit 1) , to_date('02.07.2016','dd.mm.yyyy'), 'je nach Wetter')
+;
+/*
+select *
+from tp_activity
+*/
+
