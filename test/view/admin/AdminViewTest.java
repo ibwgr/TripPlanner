@@ -3,6 +3,8 @@ package view.admin;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.swing.*;
+
 /**
  * Created by dieterbiedermann on 06.01.17.
  */
@@ -49,6 +51,12 @@ public class AdminViewTest {
     public void getFileTypeReturnsCategoryWhenCategoryRadioButtonIsSelected() {
         AdminView adminView = new AdminView();
 
+        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
+            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
+            if (radioButton.getActionCommand().equals("category")) {
+                radioButton.setSelected(true);
+            }
+        }
 
         String result = adminView.getFileType();
         Assert.assertEquals("category", result);
@@ -61,6 +69,12 @@ public class AdminViewTest {
     public void getFileTypeReturnsPoiWhenPoiRadioButtonIsSelected() {
         AdminView adminView = new AdminView();
 
+        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
+            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
+            if (radioButton.getActionCommand().equals("poi")) {
+                radioButton.setSelected(true);
+            }
+        }
 
         String result = adminView.getFileType();
         Assert.assertEquals("poi", result);
@@ -73,9 +87,15 @@ public class AdminViewTest {
     public void getFileDelimiterReturnsPipeWhenPipeRadioButtonIsSelected() {
         AdminView adminView = new AdminView();
 
+        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
+            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
+            if (radioButton.getActionCommand().equals("|")) {
+                radioButton.setSelected(true);
+            }
+        }
 
         String result = adminView.getFileDelimiter();
-        Assert.assertEquals("\\|", result);
+        Assert.assertEquals("|", result);
     }
 
     /**
@@ -85,6 +105,12 @@ public class AdminViewTest {
     public void getFileDelimiterReturnsCommaWhenCommaRadioButtonIsSelected() {
         AdminView adminView = new AdminView();
 
+        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
+            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
+            if (radioButton.getActionCommand().equals(",")) {
+                radioButton.setSelected(true);
+            }
+        }
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(",", result);
@@ -97,6 +123,12 @@ public class AdminViewTest {
     public void getFileDelimiterReturnsSemicolonWhenSemicolonRadioButtonIsSelected() {
         AdminView adminView = new AdminView();
 
+        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
+            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
+            if (radioButton.getActionCommand().equals(";")) {
+                radioButton.setSelected(true);
+            }
+        }
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(";", result);

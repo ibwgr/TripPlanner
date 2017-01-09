@@ -26,17 +26,17 @@ public class PoiConsumer extends Thread {
             if (row != null) {
                 String[] rowItem = row.split(Pattern.quote(delimiter));
                 if (rowItem.length != 5 || rowItem[0].isEmpty()) {
-                    System.out.println("Error -> wrong row");
+//                    System.out.println("Error -> wrong row");
                     /**
                      * increase error count
                      */
                     importController.increaseErrorCount();
                 } else if (!importController.poiCategoryExists(rowItem[0])) {
-                    System.out.println("Error -> category does not exist");
+//                    System.out.println("Error -> category does not exist");
+//                    System.out.println(this.getName() + " -> " + row);
                     importController.increaseErrorCategoryCount();
                 } else {
 
-                    System.out.println(this.getName() + " -> " + row);
                     poiList.add(rowItem);
                     importController.increaseProcessedCount();
 
@@ -45,7 +45,6 @@ public class PoiConsumer extends Thread {
                         poiList.clear();
                     }
                 }
-
             }
         }
 

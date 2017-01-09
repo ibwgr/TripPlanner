@@ -39,17 +39,21 @@ CREATE TABLE tp_user
 ALTER SEQUENCE tp_user_id_seq OWNED BY tp_user.id;
 
 
+CREATE SEQUENCE tp_trip_id_seq;
 CREATE TABLE tp_trip
 (
-   id          int PRIMARY KEY,
+   id          int PRIMARY KEY NOT NULL DEFAULT nextval('tp_trip_id_seq'),
    user_id     int,
    name        varchar(250),
    FOREIGN KEY (user_id) REFERENCES tp_user (id)
 );
+ALTER SEQUENCE tp_trip_id_seq OWNED BY tp_trip.id;
 
+
+CREATE SEQUENCE tp_activity_id_seq;
 CREATE TABLE tp_activity
 (
-   id          int PRIMARY KEY,
+   id          int PRIMARY KEY NOT NULL DEFAULT nextval('tp_activity_id_seq'),
    trip_id     int,
    poi_id      varchar(50),
    date        varchar(250),
@@ -57,6 +61,7 @@ CREATE TABLE tp_activity
    FOREIGN KEY (trip_id) REFERENCES tp_trip (id),
    FOREIGN KEY (poi_id) REFERENCES poi (id)
 );
+ALTER SEQUENCE tp_activity_id_seq OWNED BY tp_activity.id;
 
 -----------------------------------------------------------
 -- Function for update when id already exists
@@ -142,7 +147,55 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 
 
 -----------------------------------------------------------
--- some dummy data
+-- VIEW: Reise (Komplett inkl. Aktivitaeten und POI)
+-----------------------------------------------------------
+create or replace view tp_trip_full_v as
+  select
+      t.id as trip_id, t.user_id, t.name as trip_name
+    , a.id as activity_id, a.date, a.comment, a.poi_id
+    , p.longitude, p.latitude, p.name as poi_name, p.category_id
+    , pc.name as poi_category_name
+  from tp_trip t
+    LEFT JOIN tp_activity a ON t.id = a.trip_id
+    LEFT JOIN poi p ON a.poi_id = p.id
+    LEFT JOIN poi_category pc on p.category_id = pc.id
+;
+/*
+select *
+from tp_trip_full_v
+;
+*/
+-- VIEW: Reise (inkl. aggregierte Aktivitaets-Informationen)
+create or replace view tp_trip_aggr_v as
+  select trip_id, user_id, trip_name, max(date) as max_date, min(date) as min_date, count(activity_id) as count_acitvities
+  from tp_trip_full_v
+  group by trip_id, user_id, trip_name
+;
+/*
+select *
+from tp_trip_aggr_v
+;
+*/
+
+
+-----------------------------------------------------------
+-- some dummy USER data
+-----------------------------------------------------------
+insert into tp_trip ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
+;
+insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+values ('admin','admin','admin@example.com','admin',2)
+;
+commit
+;
+/*
+select *
+from tp_user
+;
+*/
+-----------------------------------------------------------
+-- some dummy USER data
 -----------------------------------------------------------
 insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
 values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
@@ -152,6 +205,45 @@ values ('admin','admin','admin@example.com','admin',2)
 ;
 commit
 ;
---select *
---from tp_user
---;
+/*
+select *
+from tp_user;
+*/
+-----------------------------------------------------------
+-- some dummy TRIP data
+-----------------------------------------------------------
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Sommerferien Schweden 2016')
+;
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Frühlingsferien USA 2017 mit Kunzes aus Bünzen')
+;
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Noch völlig unklarer Trip über Ostern')
+;
+commit
+;
+/*
+select *
+from tp_trip;
+*/
+-----------------------------------------------------------
+-- some dummy TRIP_ACTIVITY data
+-----------------------------------------------------------
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by id limit 1) , to_date('01.07.2016','dd.mm.yyyy'), 'direkt nach dem Frühstück')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by longitude limit 1) , to_date('01.07.2016','dd.mm.yyyy'), 'direkt danach')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (1, (select id from poi order by latitude limit 1) , to_date('02.07.2016','dd.mm.yyyy'), 'je nach Wetter')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (2, (select id from poi order by name limit 1) , to_date('08.08.2017','dd.mm.yyyy'), 'da gibts das beste Bier!')
+;
+/*
+select *
+from tp_activity
+*/
+
