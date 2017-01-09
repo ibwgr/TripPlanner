@@ -4,6 +4,7 @@ import controller.admin.ImportController;
 import model.common.DatabaseProxy;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class CategoryConsumer extends Thread {
 
@@ -23,7 +24,7 @@ public class CategoryConsumer extends Thread {
         while (!importController.allRowsProcessed()) {
             String row = importController.getRow();
             if (row != null) {
-                String[] rowItem = row.split(delimiter);
+                String[] rowItem = row.split(Pattern.quote(delimiter));
                 if (rowItem.length != 2 || rowItem[0].isEmpty()) {
                     System.out.println("Error -> wrong row");
                     importController.increaseErrorCount();
@@ -31,6 +32,7 @@ public class CategoryConsumer extends Thread {
 
                     System.out.println(this.getName() + " -> " + row);
                     categoryList.add(rowItem);
+                    importController.increaseProcessedCount();
 
                     if (categoryList.size() >= 1000) {
                         databaseImport.insertMultiValueCategories(categoryList);

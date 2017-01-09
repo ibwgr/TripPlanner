@@ -1,7 +1,6 @@
 package controller.admin;
 
 import model.admin.*;
-import model.common.DatabaseHandler;
 import model.common.DatabaseProxy;
 import model.common.PoiCategory;
 import view.admin.AdminView;
@@ -15,12 +14,12 @@ public class ImportController {
 
     private File file;
     private AdminView adminView;
-    private DatabaseHandler databaseHandler;
     private DatabaseProxy databaseProxy;
     LinkedList<String> rowQueue = new LinkedList<String>();
     long rowQueueCount = -1;
     long errorCount = 0;
-    long counter = 0;
+    long errorCategoryCount = 0;
+    long processedCount = 0;
     private final int threadNo = 4;
     private long startTime = System.nanoTime();
     private ArrayList<PoiCategory> poiCategories;
@@ -29,7 +28,6 @@ public class ImportController {
         this.file = file;
         this.adminView = adminView;
         databaseProxy = new DatabaseProxy();
-        databaseHandler = new DatabaseHandler(databaseProxy);
     }
 
     public void start() {
@@ -41,7 +39,7 @@ public class ImportController {
             /**
              * Wenn keine Kategorien vorhanden sind, eine Fehlermeldung anzeigen und zurück zu der Input Form
              */
-            poiCategories = databaseHandler.getAllPoiCategories();
+            poiCategories = PoiCategory.getAllPoiCategories();
             if (poiCategories.isEmpty()) {
                 adminView.showInputView();
                 adminView.showErrorMessage("POI Categories are empty. Cannot import POI file.");
@@ -81,7 +79,7 @@ public class ImportController {
         notify();
         String row = rowQueue.getFirst();
         rowQueue.removeFirst();
-        counter++;
+//        counter++;
         return row;
     }
 
@@ -101,12 +99,13 @@ public class ImportController {
     }
 
     public boolean allRowsProcessed() {
-        return counter == rowQueueCount;
+        return (processedCount + errorCount + errorCategoryCount) == rowQueueCount;
     }
 
     public void showStatus() {
         long estimatedTime = System.nanoTime() - startTime;
-        adminView.setStatusText(counter + " / " + rowQueueCount + " (elapsed time: " + String.valueOf(TimeUnit.NANOSECONDS.toSeconds(estimatedTime)) + ")");
+        adminView.setProgressStatus(rowQueueCount, processedCount, errorCount, errorCategoryCount, estimatedTime);
+//        adminView.setStatusText(counter + " / " + rowQueueCount + " (elapsed time: " + String.valueOf(TimeUnit.NANOSECONDS.toSeconds(estimatedTime)) + ")");
     }
 
     public void increaseErrorCount() {
@@ -126,5 +125,13 @@ public class ImportController {
             }
         }
         return false;
+    }
+
+    public void increaseErrorCategoryCount() {
+        errorCategoryCount++;
+    }
+
+    public void increaseProcessedCount() {
+        processedCount++;
     }
 }
