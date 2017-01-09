@@ -22,7 +22,7 @@ public class AdminView extends TripPlannerMain {
     JLabel statusTotalRows, statusRowsProcessed, statusRowsError, statusRowsCategoryError, statusElapsedTime;
     JButton buttonNewUpload;
 
-    ArrayList<Component> compoList;
+    ArrayList<Component> compoList = new ArrayList<>();
     Dimension labelDimension = new Dimension(140,20);
 
     DecimalFormat timeFormat = new DecimalFormat("00");
@@ -52,7 +52,7 @@ public class AdminView extends TripPlannerMain {
         /**
          * Anzeige des Filenamens und File Öffnen Button
          */
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(fileName = new JLabel("Please select file"));
         compoList.add(createButton("Open file", "open_file"));
         inputPanel.add(createPanelWithLabel("File:", compoList));
@@ -60,7 +60,7 @@ public class AdminView extends TripPlannerMain {
         /**
          * File Type: PoiCategory oder Point of interest
          */
-        compoList = new ArrayList<>();
+        compoList.clear();
         fileTypeGroup = new ButtonGroup();
         compoList.add(createRadioButton("Category", "category", true, fileTypeGroup));
         compoList.add(createRadioButton("Point of interest", "poi", false, fileTypeGroup));
@@ -69,7 +69,7 @@ public class AdminView extends TripPlannerMain {
         /**
          * File Delimiter Optionen
          */
-        compoList = new ArrayList<>();
+        compoList.clear();
         fileDelimiterGroup = new ButtonGroup();
         compoList.add(createRadioButton("|", "|", true, fileDelimiterGroup));
         compoList.add(createRadioButton(",", ",", false, fileDelimiterGroup));
@@ -79,14 +79,14 @@ public class AdminView extends TripPlannerMain {
         /**
          * Checkbox für erste Zeile als Header
          */
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(fileHasHeader = new JCheckBox());
         inputPanel.add(createPanelWithLabel("First row is header:", compoList));
 
         /**
          * Start des Imports Button
          */
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(createButton("Import file", "import_file"));
         inputPanel.add(createPanelWithLabel("", compoList));
 
@@ -97,23 +97,23 @@ public class AdminView extends TripPlannerMain {
         progressPanel = new JPanel(new GridLayout(6,1));
         progressPanelBorder.add(progressPanel, BorderLayout.NORTH);
 
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(statusTotalRows = new JLabel());
         progressPanel.add(createPanelWithLabel("Total rows:", compoList));
 
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(statusRowsProcessed = new JLabel());
         progressPanel.add(createPanelWithLabel("Processed rows:", compoList));
 
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(statusRowsError = new JLabel());
         progressPanel.add(createPanelWithLabel("Error rows:", compoList));
 
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(statusRowsCategoryError = new JLabel());
         progressPanel.add(createPanelWithLabel("Without category:", compoList));
 
-        compoList = new ArrayList<>();
+        compoList.clear();
         compoList.add(statusElapsedTime = new JLabel());
         progressPanel.add(createPanelWithLabel("Elapsed time:", compoList));
 

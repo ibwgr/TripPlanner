@@ -1,12 +1,8 @@
 package view.common;
 
 import controller.common.MainController;
-import sun.applet.Main;
-
-import view.travel.TripView;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +10,7 @@ import java.util.ArrayList;
 
 public class TripPlannerMain extends JFrame {
 
-    private JLabel titleLabel, viewTitleLabel, errorMessageLabel;
+    private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel;
     private JPanel errorPanel, headerPanel;
     private JButton closeErrorPanel;
     private GridBagLayout mainLayout;
@@ -28,6 +24,11 @@ public class TripPlannerMain extends JFrame {
     private JMenuItem loginMenuItem = null;
     private JMenuItem exitMenuItem = null;
     private JMenuItem aboutMenuItem = null;
+
+    public static void main(String[] args) {
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        tripPlannerMain.setVisible(true);
+    }
 
     public TripPlannerMain(int rows, int cols) {
 
@@ -50,16 +51,20 @@ public class TripPlannerMain extends JFrame {
         constraintsView.weightx = 0.1;
         constraintsView.weighty = 0.1;
 
-        headerPanel = new JPanel(new GridLayout(1,2));
+        headerPanel = new JPanel(new GridLayout(2,2));
         headerPanel.setBackground(Color.decode("#96BFE1"));
-        headerPanel.setSize(new Dimension(200, 60));
+        headerPanel.setSize(new Dimension(300, 60));
 
         titleLabel = new JLabel("TripPlanner");
-        titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 36));
+        titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
 
+        usernameLabel = new JLabel();
+        usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+        headerPanel.add(usernameLabel);
+
         viewTitleLabel = new JLabel();
-        viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
         headerPanel.add(viewTitleLabel);
 
         this.add(headerPanel, constraintsHeader);
@@ -86,6 +91,9 @@ public class TripPlannerMain extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.setJMenuBar(getJJMenuBar());
+        this.setSize(new Dimension(500,300));
+
+        mainController.openLogin();
 
     }
 
@@ -100,6 +108,11 @@ public class TripPlannerMain extends JFrame {
     public void addView(Component component) {
         componentList.add(component);
         refreshView();
+    }
+
+    public void addView(String title, Component component) {
+        setViewTitle(title);
+        addView(component);
     }
 
     public void replaceView(Component component, int index) {
@@ -222,7 +235,7 @@ public class TripPlannerMain extends JFrame {
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    LoginView lv = new LoginView();
+                    LoginViewOLD lv = new LoginViewOLD();
                     lv.setVisible(true);
 
                 }
@@ -233,5 +246,9 @@ public class TripPlannerMain extends JFrame {
 
     public void closeErrorPanel() {
         errorPanel.setVisible(false);
+    }
+
+    public void setUsername(String username) {
+        usernameLabel.setText("User: " + username);
     }
 }
