@@ -26,11 +26,11 @@ public class CategoryConsumer extends Thread {
             if (row != null) {
                 String[] rowItem = row.split(Pattern.quote(delimiter));
                 if (rowItem.length != 2 || rowItem[0].isEmpty()) {
-                    System.out.println("Error -> wrong row");
+//                    System.out.println("Error -> wrong row -> " + row);
                     importController.increaseErrorCount();
                 } else {
 
-                    System.out.println(this.getName() + " -> " + row);
+//                    System.out.println(this.getName() + " -> " + row);
                     categoryList.add(rowItem);
                     importController.increaseProcessedCount();
 
@@ -39,7 +39,6 @@ public class CategoryConsumer extends Thread {
                         categoryList.clear();
                     }
                 }
-
             }
         }
 

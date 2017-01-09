@@ -91,7 +91,7 @@ public class ImportController {
      * Der Total Row Count muss in einem eigenem Attribut gespeichert werden.
      * Weil die Einträge in der Queue immer wieder gelöscht werden, wenn etwas gelesen wurde.
      */
-    public void increaseRowQueueCount() {
+    public synchronized void increaseRowQueueCount() {
         if (rowQueueCount < 0) {
             rowQueueCount = 0;
         }
@@ -108,8 +108,12 @@ public class ImportController {
 //        adminView.setStatusText(counter + " / " + rowQueueCount + " (elapsed time: " + String.valueOf(TimeUnit.NANOSECONDS.toSeconds(estimatedTime)) + ")");
     }
 
-    public void increaseErrorCount() {
+    public synchronized void increaseErrorCount() {
         errorCount++;
+    }
+
+    public synchronized void increaseErrorCount(long number) {
+        errorCount = errorCount + number;
     }
 
     public void importIsFinished() {
@@ -127,11 +131,11 @@ public class ImportController {
         return false;
     }
 
-    public void increaseErrorCategoryCount() {
+    public synchronized void increaseErrorCategoryCount() {
         errorCategoryCount++;
     }
 
-    public void increaseProcessedCount() {
+    public synchronized void increaseProcessedCount() {
         processedCount++;
     }
 }

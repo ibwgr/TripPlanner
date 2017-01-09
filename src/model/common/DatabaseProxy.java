@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class DatabaseProxy {
 
     private Connection conn;
-    private PreparedStatement ps;
 
     public DatabaseProxy() {
         try {
