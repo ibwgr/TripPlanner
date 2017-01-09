@@ -166,12 +166,16 @@ from tp_trip_full_v
 ;
 */
 -- VIEW: Reise (inkl. aggregierte Aktivitaets-Informationen)
--- create or replace view tp_trip_full_v as
-select trip_id, user_id, max(date)
-from tp_trip_full_v
-group by trip_id, user_id
+create or replace view tp_trip_aggr_v as
+  select trip_id, user_id, trip_name, max(date) as max_date, min(date) as min_date, count(activity_id) as count_acitvities
+  from tp_trip_full_v
+  group by trip_id, user_id, trip_name
 ;
-
+/*
+select *
+from tp_trip_aggr_v
+;
+*/
 
 
 -----------------------------------------------------------
@@ -234,6 +238,9 @@ VALUES (1, (select id from poi order by longitude limit 1) , to_date('01.07.2016
 ;
 INSERT INTO tp_activity(trip_id, poi_id, date, comment)
 VALUES (1, (select id from poi order by latitude limit 1) , to_date('02.07.2016','dd.mm.yyyy'), 'je nach Wetter')
+;
+INSERT INTO tp_activity(trip_id, poi_id, date, comment)
+VALUES (2, (select id from poi order by name limit 1) , to_date('08.08.2017','dd.mm.yyyy'), 'da gibts das beste Bier!')
 ;
 /*
 select *
