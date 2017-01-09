@@ -57,6 +57,9 @@ public class AdminController implements ActionListener {
     public File getFile() {
         JFileChooser fileChooser = new JFileChooser();
 
+        File workingDirectory = new File(System.getProperty("user.dir") + "/resources");
+        fileChooser.setCurrentDirectory(workingDirectory);
+
         FileFilter filter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
