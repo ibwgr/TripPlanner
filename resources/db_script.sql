@@ -172,7 +172,7 @@ create or replace view tp_trip_aggr_v as
   group by trip_id, user_id, trip_name
 ;
 /*
-select *
+select trip_id, user_id, trip_name, max_date, min_date, count_acitvities
 from tp_trip_aggr_v
 ;
 */
