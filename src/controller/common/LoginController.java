@@ -23,10 +23,7 @@ public class LoginController implements ActionListener {
     }
 
     public void doLogin(String username, String password) {
-        User user =  new User(databaseProxy);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.login();
+        User user =  User.searchByCredentials(databaseProxy, username, password);
         mainController.setUser(user);
     }
 
