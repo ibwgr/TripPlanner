@@ -147,6 +147,34 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 
 
 -----------------------------------------------------------
+-- VIEW: Reise (Komplett inkl. Aktivitaeten und POI)
+-----------------------------------------------------------
+create or replace view tp_trip_full_v as
+  select
+      t.id as trip_id, t.user_id, t.name as trip_name
+    , a.id as activity_id, a.date, a.comment, a.poi_id
+    , p.longitude, p.latitude, p.name as poi_name, p.category_id
+    , pc.name as poi_category_name
+  from tp_trip t
+    LEFT JOIN tp_activity a ON t.id = a.trip_id
+    LEFT JOIN poi p ON a.poi_id = p.id
+    LEFT JOIN poi_category pc on p.category_id = pc.id
+;
+/*
+select *
+from tp_trip_full_v
+;
+*/
+-- VIEW: Reise (inkl. aggregierte Aktivitaets-Informationen)
+-- create or replace view tp_trip_full_v as
+select trip_id, user_id, max(date)
+from tp_trip_full_v
+group by trip_id, user_id
+;
+
+
+
+-----------------------------------------------------------
 -- some dummy USER data
 -----------------------------------------------------------
 insert into tp_trip ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
@@ -162,7 +190,6 @@ select *
 from tp_user
 ;
 */
-
 -----------------------------------------------------------
 -- some dummy USER data
 -----------------------------------------------------------
@@ -186,6 +213,9 @@ VALUES (1, 'Sommerferien Schweden 2016')
 ;
 INSERT INTO tp_trip(user_id, name)
 VALUES (1, 'Frühlingsferien USA 2017 mit Kunzes aus Bünzen')
+;
+INSERT INTO tp_trip(user_id, name)
+VALUES (1, 'Noch völlig unklarer Trip über Ostern')
 ;
 commit
 ;
