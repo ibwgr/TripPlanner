@@ -2,6 +2,7 @@ package controller.common;
 
 import model.common.DatabaseProxy;
 import model.travel.User;
+import model.travel.UserTypeEnum;
 import view.common.LoginView;
 
 import javax.swing.*;
@@ -25,6 +26,11 @@ public class LoginController implements ActionListener {
     public void doLogin(String username, String password) {
         User user =  User.searchByCredentials(databaseProxy, username, password);
         mainController.setUser(user);
+        if (user.getTypeEnum().equals(UserTypeEnum.ADMIN)) {
+            mainController.openAdmin();
+        } else if (user.getTypeEnum().equals(UserTypeEnum.USER)) {
+            mainController.openTripOverview();
+        }
     }
 
     @Override

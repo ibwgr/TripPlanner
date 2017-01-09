@@ -132,7 +132,11 @@ public class TripPlannerMain extends JFrame {
             componentList.remove(index);
             refreshView();
         }
-        
+    }
+
+    public void removeAllViews() {
+        componentList.clear();
+        refreshView();
     }
 
     public void setViewTitle(String viewTitle) {
@@ -251,4 +255,5 @@ public class TripPlannerMain extends JFrame {
     public void setUsername(String username) {
         usernameLabel.setText("User: " + username);
     }
+
 }

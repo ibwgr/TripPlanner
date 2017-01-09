@@ -17,25 +17,31 @@ public abstract class GridPanel extends JPanel {
         this.add(gridPanel);
     }
 
-    void addComponentToPanel(Component component) {
+    public void addComponentToPanel(Component component) {
         compoList.add(component);
     }
 
-    JRadioButton createRadioButton(String text, String cmd, boolean selected, ButtonGroup buttonGroup) {
+    public JRadioButton createRadioButton(String text, String cmd, boolean selected, ButtonGroup buttonGroup) {
         JRadioButton radioButton = new JRadioButton(text, selected);
         radioButton.setActionCommand(cmd);
         buttonGroup.add(radioButton);
         return radioButton;
     }
 
-    JButton createButton(String text, String cmd, ActionListener actionListener) {
+    public JButton createButton(String text, String cmd, ActionListener actionListener) {
         JButton button = new JButton(text);
         button.setActionCommand(cmd);
         button.addActionListener(actionListener);
         return button;
     }
 
-    void addPanelWithLabel(String text, Boolean clearComponent) {
+    public JButton createButton(String text, String cmd, ActionListener actionListener, Boolean enabled) {
+        JButton button = createButton(text,cmd,actionListener);
+        button.setEnabled(enabled);
+        return button;
+    }
+
+    public void addPanelWithLabel(String text, Boolean clearComponent) {
         JLabel label = new JLabel(text);
         label.setPreferredSize(labelDimension);
         JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
@@ -47,6 +53,10 @@ public abstract class GridPanel extends JPanel {
         if (clearComponent) {
             compoList.clear();
         }
+    }
+
+    public void addComponentDirect(Component component) {
+        gridPanel.add(component);
     }
 
 }
