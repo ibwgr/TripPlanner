@@ -22,13 +22,10 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        Assert.assertNotNull(adminView.chooseFileButton);
-        Assert.assertNotNull(adminView.startImportButton);
         Assert.assertNotNull(adminView.fileName);
         Assert.assertNotNull(adminView.fileTypeGroup);
         Assert.assertNotNull(adminView.fileDelimiterGroup);
         Assert.assertNotNull(adminView.fileHasHeader);
-        Assert.assertNotNull(adminView.inputPanel);
     }
 
     /**
@@ -60,12 +57,7 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("category")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileTypeCategory.setSelected(true);
 
         String result = adminView.getFileType();
         Assert.assertEquals("category", result);
@@ -80,12 +72,7 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("poi")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileTypePoi.setSelected(true);
 
         String result = adminView.getFileType();
         Assert.assertEquals("poi", result);
@@ -100,12 +87,7 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("|")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterPipe.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals("|", result);
@@ -120,12 +102,7 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals(",")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterComma.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(",", result);
@@ -140,12 +117,7 @@ public class AdminViewTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals(";")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterSemicolon.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(";", result);
