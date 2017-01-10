@@ -18,7 +18,7 @@ public class DatabaseProxy {
         }
     }
 
-    public PreparedStatement prepareStatement(String str) {
+    public synchronized PreparedStatement prepareStatement(String str) {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = conn.prepareStatement(str);
@@ -28,7 +28,7 @@ public class DatabaseProxy {
         return preparedStatement;
     }
 
-    public void setAutoCommit(Boolean autoCommit) {
+    public synchronized void setAutoCommit(Boolean autoCommit) {
         try {
             conn.setAutoCommit(autoCommit);
         } catch (SQLException e) {

@@ -1,11 +1,14 @@
 package model.admin;
 
 import controller.admin.ImportController;
+import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import view.admin.AdminView;
+import view.admin.ProgressView;
+import view.common.TripPlannerMain;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,7 +31,11 @@ public class FileReaderTest {
         writer.write("abc,cde,efg\n123,345,111");
         writer.close();
 
-        ImportController importController = new ImportController(tempFile, new AdminView());
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController);
 
         FileReader fileReader = new FileReader(tempFile, importController, false);
         fileReader.run();
@@ -45,7 +52,11 @@ public class FileReaderTest {
         writer.write("abc,cde,efg\n123,345,111");
         writer.close();
 
-        ImportController importController = new ImportController(tempFile, new AdminView());
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController);
 
         FileReader fileReader = new FileReader(tempFile, importController, true);
         fileReader.run();

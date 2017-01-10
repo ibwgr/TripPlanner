@@ -39,7 +39,7 @@ public class TripTest {
     // Helper / fake Object
     private static User getFakeUser() {
         DatabaseProxy databaseProxy = new DatabaseProxy();
-        User fakeUser = new User(databaseProxy);
+        User fakeUser = new User();
         fakeUser.setUsername("benutzer");
         fakeUser.setPassword("benutzer");
         fakeUser.setId(1L);
