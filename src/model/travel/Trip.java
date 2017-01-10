@@ -1,6 +1,7 @@
 package model.travel;
 
 import model.common.DatabaseProxy;
+import model.common.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
