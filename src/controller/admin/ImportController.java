@@ -1,9 +1,11 @@
 package controller.admin;
 
+import controller.common.MainController;
 import model.admin.*;
 import model.common.DatabaseProxy;
 import model.common.PoiCategory;
 import view.admin.AdminView;
+import view.admin.ProgressView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class ImportController {
 
     private File file;
     private AdminView adminView;
+    private ProgressView progressView;
+    private MainController mainController;
     private DatabaseProxy databaseProxy;
     LinkedList<String> rowQueue = new LinkedList<String>();
     long rowQueueCount = -1;
@@ -24,9 +28,11 @@ public class ImportController {
     private long startTime = System.nanoTime();
     private ArrayList<PoiCategory> poiCategories;
 
-    public ImportController(File file, AdminView adminView) {
+    public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController) {
         this.file = file;
         this.adminView = adminView;
+        this.progressView = progressView;
+        this.mainController = mainController;
         databaseProxy = new DatabaseProxy();
     }
 
@@ -41,8 +47,8 @@ public class ImportController {
              */
             poiCategories = PoiCategory.getAllPoiCategories();
             if (poiCategories.isEmpty()) {
-                adminView.showInputView();
-                adminView.showErrorMessage("POI Categories are empty. Cannot import POI file.");
+                mainController.openAdmin();
+                mainController.showErrorMessage("POI Categories are empty. Cannot import POI file.");
                 return;
             }
             PoiConsumer[] poiConsumer = new PoiConsumer[threadNo];
@@ -104,7 +110,7 @@ public class ImportController {
 
     public void showStatus() {
         long estimatedTime = System.nanoTime() - startTime;
-        adminView.setProgressStatus(rowQueueCount, processedCount, errorCount, errorCategoryCount, estimatedTime);
+        progressView.setProgressStatus(rowQueueCount, processedCount, errorCount, errorCategoryCount, estimatedTime);
 //        adminView.setStatusText(counter + " / " + rowQueueCount + " (elapsed time: " + String.valueOf(TimeUnit.NANOSECONDS.toSeconds(estimatedTime)) + ")");
     }
 
@@ -117,7 +123,7 @@ public class ImportController {
     }
 
     public void importIsFinished() {
-        adminView.importIsFinished();
+        progressView.importIsFinished();
     }
 
     public Boolean poiCategoryExists(String id) {

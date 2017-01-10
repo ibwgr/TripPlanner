@@ -1,6 +1,7 @@
 package model.travel;
 
 import model.common.DatabaseProxy;
+import model.common.PoiCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,15 +28,13 @@ public class User {
   ResultSet resultset;
 
   // Constructor
-  public User(DatabaseProxy databaseProxy) {
-    try {
-      // Databaseproxy wird via Constructor Injection verwendet
-      this.databaseProxy = databaseProxy;
-      this.databaseProxy.setAutoCommit(false);
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
+  public User(Long id, String username, String password, String email, String name, Long type) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.name = name;
+    setType(type);
   }
   public User(){
   };
@@ -85,11 +84,10 @@ public class User {
     return type;
   }
 
-//wird nie direkt gesetzt!
-//wird innerhalb Java mit UserTypeEnum verwendet, gegen DB jedoch gemapped: 1 = User, 2 = Administrator
-//  public void setType(Long type) {
-//    this.type = type;
-//  }
+  public void setType(Long type) {
+    this.type = type;
+    this.typeEnum = UserTypeEnum.getEnum(type);
+  }
 
   public UserTypeEnum getTypeEnum() {
     return typeEnum;
@@ -117,8 +115,8 @@ public class User {
     //  - password
     if (this.username != null  && this.password != null ) {
       // Check 2: Does User in DB exist?
-      User tempUser = new User(databaseProxy);
-      tempUser = searchByCredentials(this.username, this.password);
+      User tempUser = new User();
+      tempUser = searchByCredentials(databaseProxy, this.username, this.password);
       if (tempUser.getId() != null) {
         System.out.println("User.login(): Info: User has logged in. Username="+tempUser.getUsername() +", id="+tempUser.getId());
         this.isLoggedIn = true;
@@ -151,42 +149,45 @@ public class User {
   public User searchByCredentials() {
     System.out.println("searchByCredentials()");
     if (this.username != null && this.password != null) {
-      return searchByCredentials(this.username, this.password);
+      return searchByCredentials(databaseProxy, this.username, this.password);
     } else {
       return null;
     }
   }
 
   // Search by Credentials (Username AND Password)
-  public User searchByCredentials(String username, String password) {
+  public static User searchByCredentials(DatabaseProxy databaseProxy, String username, String password) {
     System.out.println("searchByCredentials(String username, String password)");
-    User tempUser = new User();
+    ResultSet resultSet = null;
+    User user = null;
     try {
-      preparedStatement = databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = ? ");
-      preparedStatement.setString(1, this.username);
-      preparedStatement.setString(2, this.password);
-      resultset = preparedStatement.executeQuery();
-      while (resultset.next()){
-        System.out.println("DB Zugriff, ID: " +resultset.getString("id"));
-        System.out.println("DB Zugriff, EMAIL: " +resultset.getString("email"));
-        tempUser.setId(resultset.getLong("id"));
-        tempUser.setEmail(resultset.getString("email"));
-        tempUser.setPassword(resultset.getString("password"));
-        tempUser.setUsername(resultset.getString("username"));
-      //tempUser.setTypeEnum(resultset.getLong("type"));
-        tempUser.setName(resultset.getString("name"));
+      PreparedStatement preparedStatement = databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = ? ");
+      preparedStatement.setString(1, username);
+      preparedStatement.setString(2, password);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()){
+        user = new User(
+                        resultSet.getLong(1)
+                        ,resultSet.getString(2)
+                        ,resultSet.getString(3)
+                        ,resultSet.getString(4)
+                        ,resultSet.getString(5)
+                        ,resultSet.getLong(6)
+                );
       }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
       // close anyway
       try {
-        resultset.close();
+        if (resultSet != null) {
+          resultSet.close();
+        }
       } catch (SQLException e) {
         e.printStackTrace();
       }
     }
-    return tempUser;
+    return user;
   }
 
   public void save() {

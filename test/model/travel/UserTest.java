@@ -16,7 +16,7 @@ public class UserTest {
 
     @Test
     public void newUserWithAdminEnumerationShouldReturnWithType2() throws Exception {
-        User a1 = new User(databaseProxy);
+        User a1 = new User();
         a1.setEmail("test@example.com");
         a1.setName("Hans");
         a1.setUsername("Hans");
@@ -28,7 +28,7 @@ public class UserTest {
 
     @Test
     public void newUserWithUserEnumerationShouldReturnWithType1() throws Exception {
-        User a1 = new User(databaseProxy);
+        User a1 = new User();
         a1.setEmail("test@example.com");
         a1.setName("Hans");
         a1.setUsername("Hans");

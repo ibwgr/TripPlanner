@@ -1,8 +1,12 @@
 package controller.admin;
 
+import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
+import sun.applet.Main;
 import view.admin.AdminView;
+import view.admin.ProgressView;
+import view.common.TripPlannerMain;
 
 import java.io.File;
 
@@ -17,8 +21,11 @@ public class ImportControllerTest {
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsEmpty() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueue.clear();
 
@@ -32,8 +39,11 @@ public class ImportControllerTest {
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsNotEmpty() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueue.add("test");
 
@@ -47,8 +57,11 @@ public class ImportControllerTest {
     @Test
     public void increaseRowQueueCountIncreasesRowQueueCount() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.increaseRowQueueCount();
         long result = importController.rowQueueCount;
@@ -65,8 +78,11 @@ public class ImportControllerTest {
     @Test
     public void allRowsProcessedReturnsTrueWhenAllRowsAreProcessed() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 5;
@@ -80,8 +96,11 @@ public class ImportControllerTest {
     @Test
     public void allRowsProcessedReturnsFalseWhenNotAllRowsAreProcessed() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 2;
@@ -95,8 +114,11 @@ public class ImportControllerTest {
     @Test
     public void increaseErrorCountIncreasesErrorCount() {
         File file = new File("");
-        AdminView adminView = new AdminView();
-        ImportController importController = new ImportController(file, adminView);
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
+        ProgressView progressView = new ProgressView(mainController);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.increaseErrorCount();
         long result = importController.errorCount;
