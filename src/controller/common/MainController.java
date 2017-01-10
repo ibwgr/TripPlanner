@@ -1,13 +1,14 @@
 package controller.common;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import model.travel.User;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import view.travel.TripView;
 
 public class MainController implements ActionListener {
 
@@ -60,8 +61,8 @@ public class MainController implements ActionListener {
     }
 
     public void openTripOverview() {
-//        tripPlannerMain.removeAllViews();
-//        tripPlannerMain.addView("Trip Overview", new TripView(this));
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView("Trip Overview", new TripView(this));
     }
 
     public ProgressView openProgressView() {
