@@ -16,14 +16,12 @@ public class AdminView extends GridPanel {
     AdminController adminController;
     MainController mainController;
 
-    JButton chooseFileButton, startImportButton;
     JLabel fileName;
     ButtonGroup fileTypeGroup;
     ButtonGroup fileDelimiterGroup;
+    JRadioButton fileTypeCategory, fileTypePoi;
+    JRadioButton fileDelimiterPipe, fileDelimiterComma, fileDelimiterSemicolon;
     JCheckBox fileHasHeader;
-    JPanel inputPanel, progressPanel, inputPanelBorder, progressPanelBorder;
-
-    DecimalFormat timeFormat = new DecimalFormat("00");
 
     public AdminView(MainController mainController) {
         /**
@@ -44,17 +42,17 @@ public class AdminView extends GridPanel {
          * File Type: PoiCategory oder Point of interest
          */
         fileTypeGroup = new ButtonGroup();
-        addComponentToPanel(createRadioButton("Category", "category", true, fileTypeGroup));
-        addComponentToPanel(createRadioButton("Point of interest", "poi", false, fileTypeGroup));
+        addComponentToPanel(fileTypeCategory = createRadioButton("Category", "category", true, fileTypeGroup));
+        addComponentToPanel(fileTypePoi = createRadioButton("Point of interest", "poi", false, fileTypeGroup));
         addPanelWithLabel("Type:", true);
 
         /**
          * File Delimiter Optionen
          */
         fileDelimiterGroup = new ButtonGroup();
-        addComponentToPanel(createRadioButton("|", "|", true, fileDelimiterGroup));
-        addComponentToPanel(createRadioButton(",", ",", false, fileDelimiterGroup));
-        addComponentToPanel(createRadioButton(";", ";", false, fileDelimiterGroup));
+        addComponentToPanel(fileDelimiterPipe = createRadioButton("|", "|", true, fileDelimiterGroup));
+        addComponentToPanel(fileDelimiterComma = createRadioButton(",", ",", false, fileDelimiterGroup));
+        addComponentToPanel(fileDelimiterSemicolon = createRadioButton(";", ";", false, fileDelimiterGroup));
         addPanelWithLabel("Delimiter:", true);
 
         /**

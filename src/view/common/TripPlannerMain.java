@@ -239,8 +239,7 @@ public class TripPlannerMain extends JFrame {
             {
                 public void actionPerformed(ActionEvent e)
                 {
-                    LoginViewOLD lv = new LoginViewOLD();
-                    lv.setVisible(true);
+                    mainController.openLogin();
 
                 }
             });

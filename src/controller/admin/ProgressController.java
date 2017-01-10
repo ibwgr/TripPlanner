@@ -1,19 +1,16 @@
 package controller.admin;
 
 import controller.common.MainController;
-import view.admin.AdminView;
 import view.admin.ProgressView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class ProgressController implements ActionListener {
 
 
     private ProgressView progressView;
     private MainController mainController;
-    private File file;
 
     public ProgressController(ProgressView progressView, MainController mainController) {
         this.progressView = progressView;
