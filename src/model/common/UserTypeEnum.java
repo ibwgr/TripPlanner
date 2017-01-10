@@ -1,4 +1,4 @@
-package model.travel;
+package model.common;
 
 /**
  * Enumeration for User Class

@@ -1,6 +1,6 @@
 package controller.common;
 
-import model.travel.User;
+import model.common.User;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
@@ -56,7 +56,7 @@ public class MainController implements ActionListener {
         if (adminView == null) {
             adminView = new AdminView(this);
         }
-        tripPlannerMain.addView("Administration", adminView);
+        tripPlannerMain.addView("Administration - Import", adminView);
     }
 
     public void openTripOverview() {
@@ -69,7 +69,7 @@ public class MainController implements ActionListener {
         if (progressView == null) {
             progressView = new ProgressView(this);
         }
-        tripPlannerMain.addView("Trip Overview", progressView);
+        tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
     }
 

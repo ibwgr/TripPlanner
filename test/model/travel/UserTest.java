@@ -1,6 +1,8 @@
 package model.travel;
 
 import model.common.DatabaseProxy;
+import model.common.User;
+import model.common.UserTypeEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

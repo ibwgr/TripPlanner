@@ -1,7 +1,4 @@
-package model.travel;
-
-import model.common.DatabaseProxy;
-import model.common.PoiCategory;
+package model.common;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
