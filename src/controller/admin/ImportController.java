@@ -10,9 +10,6 @@ import view.admin.ProgressView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class ImportController {
 
@@ -30,6 +27,8 @@ public class ImportController {
     private long startTime = System.nanoTime();
     private ArrayList<PoiCategory> poiCategories;
     public Thread[] consumers = new Thread[threadNo];
+    public FileReader fileReader;
+    public ImportProgress importProgress;
 //    private ExecutorService executorService = Executors.newFixedThreadPool(threadNo+2);
 
     public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController) {
@@ -42,7 +41,7 @@ public class ImportController {
 
     public void start() {
 
-        FileReader fileReader = new FileReader(file, this, adminView.getFileHasHeader());
+        fileReader = new FileReader(file, this, adminView.getFileHasHeader());
         fileReader.start();
 
         if ("poi".equals(adminView.getFileType())) {
@@ -73,7 +72,7 @@ public class ImportController {
             }
         }
 
-        ImportProgress importProgress = new ImportProgress(this);
+        importProgress = new ImportProgress(this);
         importProgress.start();
 
     }
@@ -157,4 +156,5 @@ public class ImportController {
     public synchronized void increaseProcessedCount() {
         processedCount++;
     }
+
 }
