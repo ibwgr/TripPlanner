@@ -113,7 +113,7 @@ public class Trip {
         trip.setUser_id(1L);
         trip.setCountActivities(resultset.getInt("count_acitvities"));
         trip.setMinDate(resultset.getDate("min_date"));
-        trip.setMinDate(resultset.getDate("max_date"));
+        trip.setMaxDate(resultset.getDate("max_date"));
         // zur TRIP-LISTE hinzufuegen
         tripList.add(trip);
       }

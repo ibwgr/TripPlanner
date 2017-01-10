@@ -9,6 +9,7 @@ public class LoginView extends GridPanel {
 
     JTextField userField;
     JPasswordField passwordField;
+    JButton loginButton;
     LoginController loginController;
     MainController mainController;
 
@@ -24,9 +25,15 @@ public class LoginView extends GridPanel {
         addComponentToPanel(passwordField = new JPasswordField(10));
         addPanelWithLabel("Password:", true);
 
-        addComponentToPanel(createButton("Login", "login", loginController));
+        addComponentToPanel(loginButton = createButton("Login", "login", loginController));
         addPanelWithLabel("", true);
 
+        userField.setActionCommand("login");
+        userField.addActionListener(loginController);
+        passwordField.setActionCommand("login");
+        passwordField.addActionListener(loginController);
+
+        //setDefaultButton(loginButton);
 /*
         this.setViewTitle("Administration - File Upload");
         this.addView(inputPanelBorder);
@@ -40,4 +47,5 @@ public class LoginView extends GridPanel {
     public String getPassword() {
         return passwordField.getText();
     }
+
 }

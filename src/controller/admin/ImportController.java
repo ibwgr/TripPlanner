@@ -10,6 +10,8 @@ import view.admin.ProgressView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class ImportController {
@@ -24,9 +26,11 @@ public class ImportController {
     long errorCount = 0;
     long errorCategoryCount = 0;
     long processedCount = 0;
-    private final int threadNo = 4;
+    private final int threadNo = 3;
     private long startTime = System.nanoTime();
     private ArrayList<PoiCategory> poiCategories;
+    public Thread[] consumers = new Thread[threadNo];
+//    private ExecutorService executorService = Executors.newFixedThreadPool(threadNo+2);
 
     public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController) {
         this.file = file;
@@ -51,16 +55,21 @@ public class ImportController {
                 mainController.showErrorMessage("POI Categories are empty. Cannot import POI file.");
                 return;
             }
-            PoiConsumer[] poiConsumer = new PoiConsumer[threadNo];
+
             for (int i = 0; i < threadNo; i++) {
-                poiConsumer[i] = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
-                poiConsumer[i].start();
+                consumers[i] = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
+                consumers[i].start();
+/*
+                executorService.execute(new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter()));
+*/
             }
         } else {
-            CategoryConsumer[] categoryConsumer = new CategoryConsumer[threadNo];
             for (int i = 0; i < threadNo; i++) {
-                categoryConsumer[i] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
-                categoryConsumer[i].start();
+                consumers[i] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
+                consumers[i].start();
+/*
+                executorService.execute(new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter()));
+*/
             }
         }
 
@@ -123,6 +132,10 @@ public class ImportController {
     }
 
     public void importIsFinished() {
+        processedCount = -1;
+        errorCount = 0;
+        errorCategoryCount = 0;
+        rowQueueCount = 0;
         progressView.importIsFinished();
     }
 
