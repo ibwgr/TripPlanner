@@ -12,7 +12,7 @@ public class TripPlannerMain extends JFrame {
 
     private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel;
     private JPanel errorPanel, headerPanel;
-    private JButton closeErrorPanel;
+    private JButton closeErrorPanel, backButton, forwardButton;
     private GridBagLayout mainLayout;
     private GridBagConstraints constraintsHeader, constraintsView;
     private MainController mainController;
@@ -51,7 +51,7 @@ public class TripPlannerMain extends JFrame {
         constraintsView.weightx = 0.1;
         constraintsView.weighty = 0.1;
 
-        headerPanel = new JPanel(new GridLayout(2,2));
+        headerPanel = new JPanel(new GridLayout(2,3));
         headerPanel.setBackground(Color.decode("#96BFE1"));
         headerPanel.setSize(new Dimension(300, 60));
 
@@ -59,13 +59,23 @@ public class TripPlannerMain extends JFrame {
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
 
+        headerPanel.add(new JLabel());
+
         usernameLabel = new JLabel();
         usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
         headerPanel.add(usernameLabel);
 
         viewTitleLabel = new JLabel();
         viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+        backButton = new JButton("back");
+        backButton.setActionCommand("back");
+        backButton.addActionListener(mainController);
+        forwardButton = new JButton("forward");
+        forwardButton.setActionCommand("forward");
+        forwardButton.addActionListener(mainController);
         headerPanel.add(viewTitleLabel);
+        headerPanel.add(backButton);
+        headerPanel.add(forwardButton);
 
         this.add(headerPanel, constraintsHeader);
 
