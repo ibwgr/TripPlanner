@@ -1,11 +1,10 @@
 package controller.common;
 
 import model.common.DatabaseProxy;
-import model.travel.User;
-import model.travel.UserTypeEnum;
+import model.common.User;
+import model.common.UserTypeEnum;
 import view.common.LoginView;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
