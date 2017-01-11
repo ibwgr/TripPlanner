@@ -1,11 +1,10 @@
 package controller.common;
 
-import model.travel.User;
+import model.common.User;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
-import view.travel.CitySearchView;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ public class MainController implements ActionListener {
     ProgressView progressView;
     LoginView loginView;
     ArrayList<Pair> viewList = new ArrayList<>();
+    int currentViewNo = 0;
 
     public MainController(TripPlannerMain tripPlannerMain) {
         this.tripPlannerMain = tripPlannerMain;
@@ -34,12 +34,35 @@ public class MainController implements ActionListener {
                  */
                 tripPlannerMain.closeErrorPanel();
                 break;
-
+            case "back":
+                /**
+                 * eine View zurück
+                 */
+                if (currentViewNo > 1) {
+                    openView(--currentViewNo);
+                }
+                break;
+            case "forward":
+                /**
+                 * eine View nach vorne
+                 */
+                if (viewList.size() > currentViewNo) {
+                    openView(++currentViewNo);
+                }
+                break;
         }
     }
 
     public User getUser() {
         return user;
+    }
+
+    private void openView(int i) {
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView(
+                viewList.get(i - 1).getStr()
+                ,viewList.get(i - 1).getCompo()
+        );
     }
 
     class Pair {
@@ -59,12 +82,22 @@ public class MainController implements ActionListener {
         }
     }
 
+    private void setNewView(String s, Component view) {
+        if (currentViewNo < viewList.size()) {
+            for (int i = viewList.size(); i > currentViewNo; i--) {
+                viewList.remove(i - 1);
+            }
+        }
+        viewList.add(new Pair(s, view));
+        currentViewNo = viewList.size();
+    }
+
     public void openLogin() {
         tripPlannerMain.removeAllViews();
         if (loginView == null) {
             loginView = new LoginView(this);
         }
-        viewList.add(new Pair("Login", loginView));
+        setNewView("Login", loginView);
         tripPlannerMain.addView("Login", loginView);
     }
 
@@ -78,8 +111,8 @@ public class MainController implements ActionListener {
         if (adminView == null) {
             adminView = new AdminView(this);
         }
-        viewList.add(new Pair("Administration", adminView));
-        tripPlannerMain.addView("Administration", adminView);
+        setNewView("Administration - Import", adminView);
+        tripPlannerMain.addView("Administration - Import", adminView);
     }
 
     public void openTripOverview() {
@@ -92,13 +125,9 @@ public class MainController implements ActionListener {
         if (progressView == null) {
             progressView = new ProgressView(this);
         }
-        viewList.add(new Pair("Administration", progressView));
-        tripPlannerMain.addView("Administration", progressView);
+        setNewView("Administration - Import Processing", progressView);
+        tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
-    }
-
-    public void openCitySearchView() {
-        tripPlannerMain.addView("City Search", new CitySearchView(this));
     }
 
     public void showErrorMessage(String message) {
