@@ -33,10 +33,10 @@ public class PoiCategory {
     }
 
     public static ArrayList<PoiCategory> getAllPoiCategories() {
-
-        DatabaseProxy databaseProxy = new DatabaseProxy();
+       DatabaseProxy databaseProxy = new DatabaseProxy();
 
         PreparedStatement preparedStatement = databaseProxy.prepareStatement("select id, name from poi_category");
+
         ArrayList<PoiCategory> poiCategoryList = new ArrayList<>();
 
         try {
@@ -59,4 +59,38 @@ public class PoiCategory {
 
         return poiCategoryList;
     }
+
+    public static PoiCategory searchById(String id) {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        String query = "select id, name from poi_category where id = ?";
+        PoiCategory poiCategory = null;
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        ArrayList<PoiCategory> poiCategoryList = new ArrayList<>();
+
+        try {
+            preparedStatement.setString(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                poiCategory = new PoiCategory(
+                        resultSet.getString(1)
+                        ,resultSet.getString(2)
+                );
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseProxy.close();
+        }
+
+        return poiCategory;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

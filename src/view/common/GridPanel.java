@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public abstract class GridPanel extends JPanel {
+public class GridPanel extends JPanel {
 
     private Dimension labelDimension;
     JPanel gridPanel;
@@ -46,6 +46,17 @@ public abstract class GridPanel extends JPanel {
         label.setPreferredSize(labelDimension);
         JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         jpanel.add(label);
+        for (Component compo:compoList) {
+            jpanel.add(compo);
+        }
+        gridPanel.add(jpanel);
+        if (clearComponent) {
+            compoList.clear();
+        }
+    }
+
+    public void addPanel(Boolean clearComponent) {
+        JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         for (Component compo:compoList) {
             jpanel.add(compo);
         }
