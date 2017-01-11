@@ -1,13 +1,15 @@
 package controller.common;
 
-import model.travel.User;
+import model.common.User;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainController implements ActionListener {
 
@@ -16,6 +18,8 @@ public class MainController implements ActionListener {
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
+    ArrayList<Pair> viewList = new ArrayList<>();
+    int currentViewNo = 0;
 
     public MainController(TripPlannerMain tripPlannerMain) {
         this.tripPlannerMain = tripPlannerMain;
@@ -30,8 +34,62 @@ public class MainController implements ActionListener {
                  */
                 tripPlannerMain.closeErrorPanel();
                 break;
-
+            case "back":
+                /**
+                 * eine View zurück
+                 */
+                if (currentViewNo > 1) {
+                    openView(--currentViewNo);
+                }
+                break;
+            case "forward":
+                /**
+                 * eine View nach vorne
+                 */
+                if (viewList.size() > currentViewNo) {
+                    openView(++currentViewNo);
+                }
+                break;
         }
+    }
+
+    private void openView(int i) {
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView(
+                viewList.get(i - 1).getStr()
+                ,viewList.get(i - 1).getCompo()
+        );
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    class Pair {
+        private String str;
+        private Component compo;
+        Pair(String str, Component compo) {
+            this.str = str;
+            this.compo = compo;
+        }
+
+        public String getStr() {
+            return str;
+        }
+
+        public Component getCompo() {
+            return compo;
+        }
+    }
+
+    private void setNewView(String s, Component view) {
+        if (currentViewNo < viewList.size()) {
+            for (int i = viewList.size(); i > currentViewNo; i--) {
+                viewList.remove(i - 1);
+            }
+        }
+        viewList.add(new Pair(s, view));
+        currentViewNo = viewList.size();
     }
 
     public User getUser() {
@@ -43,6 +101,7 @@ public class MainController implements ActionListener {
         if (loginView == null) {
             loginView = new LoginView(this);
         }
+        setNewView("Login", loginView);
         tripPlannerMain.addView("Login", loginView);
     }
 
@@ -56,7 +115,8 @@ public class MainController implements ActionListener {
         if (adminView == null) {
             adminView = new AdminView(this);
         }
-        tripPlannerMain.addView("Administration", adminView);
+        setNewView("Administration - Import", adminView);
+        tripPlannerMain.addView("Administration - Import", adminView);
     }
 
     public void openTripOverview() {
@@ -69,7 +129,8 @@ public class MainController implements ActionListener {
         if (progressView == null) {
             progressView = new ProgressView(this);
         }
-        tripPlannerMain.addView("Trip Overview", progressView);
+        setNewView("Administration - Import Processing", progressView);
+        tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
     }
 
