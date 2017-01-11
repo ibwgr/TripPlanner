@@ -5,6 +5,7 @@ import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
+import view.travel.CitySearchView;
 import view.travel.TripView;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class MainController implements ActionListener {
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
+    CitySearchView citySearchView;
     ArrayList<Pair> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
@@ -39,17 +41,19 @@ public class MainController implements ActionListener {
                 /**
                  * eine View zurück
                  */
-                if (currentViewNo > 1) {
-                    openView(--currentViewNo);
-                }
+                openLastView();
                 break;
             case "forward":
                 /**
                  * eine View nach vorne
                  */
-                if (viewList.size() > currentViewNo) {
-                    openView(++currentViewNo);
-                }
+                openNextView();
+                break;
+            case "close_view":
+                /**
+                 * eine View nach vorne
+                 */
+                closeCurrentView();
                 break;
         }
     }
@@ -58,11 +62,40 @@ public class MainController implements ActionListener {
         return user;
     }
 
+    public void openLastView() {
+        if (currentViewNo > 1) {
+            openView(--currentViewNo);
+        }
+    }
+
+    public void openNextView() {
+        if (viewList.size() > currentViewNo) {
+            openView(++currentViewNo);
+        }
+    }
+
     private void openView(int i) {
         tripPlannerMain.removeAllViews();
         tripPlannerMain.addView(
                 viewList.get(i - 1).getStr()
                 ,viewList.get(i - 1).getCompo()
+        );
+    }
+
+    private void closeCurrentView() {
+        int nextViewNo = --currentViewNo;
+        viewList.remove(nextViewNo);
+        nextViewNo--;
+        if (currentViewNo == 0 && viewList.size() == 0) {
+            openLogin();
+            return;
+        } else if (viewList.size() == currentViewNo) {
+            nextViewNo--;
+        }
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView(
+                viewList.get(nextViewNo).getStr()
+                ,viewList.get(nextViewNo).getCompo()
         );
     }
 
@@ -129,6 +162,15 @@ public class MainController implements ActionListener {
         setNewView("Administration - Import Processing", progressView);
         tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
+    }
+
+    public void openCitySearchView() {
+        tripPlannerMain.removeAllViews();
+        if (citySearchView == null) {
+            citySearchView = new CitySearchView(this);
+        }
+        setNewView("City Search", citySearchView);
+        tripPlannerMain.addView("City Search", citySearchView);
     }
 
     public void showErrorMessage(String message) {
