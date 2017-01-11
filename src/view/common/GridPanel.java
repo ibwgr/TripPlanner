@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public abstract class GridPanel extends JPanel {
+public class GridPanel extends JPanel {
 
     private Dimension labelDimension;
     JPanel gridPanel;
