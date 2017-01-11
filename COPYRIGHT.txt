@@ -1,0 +1,2 @@
+Copyright (C) 2017/01 by Dieter Biedermann & Reto Kaufmann
+Licenced under GNU LGPL, see COPYING.LESSER.GNU-LPGL.txt
