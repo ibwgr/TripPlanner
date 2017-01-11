@@ -19,10 +19,16 @@ public class LoginView extends GridPanel {
         this.mainController = mainController;
         loginController = new LoginController(this, mainController);
 
-        addComponentToPanel(userField = new JTextField(10));
+        userField = new JTextField(10);
+        userField.setText("benutzer"); // todo, temporaer damit zum testen einfacher
+        addComponentToPanel(userField);
+      //addComponentToPanel(userField = new JTextField(10));
         addPanelWithLabel("Username:", true);
 
-        addComponentToPanel(passwordField = new JPasswordField(10));
+        passwordField = new JPasswordField(10);
+        passwordField.setText("benutzer");
+        addComponentToPanel(passwordField); // todo, temporaer damit zum testen einfacher
+      //addComponentToPanel(passwordField = new JPasswordField(10));
         addPanelWithLabel("Password:", true);
 
         addComponentToPanel(loginButton = createButton("Login", "login", loginController));

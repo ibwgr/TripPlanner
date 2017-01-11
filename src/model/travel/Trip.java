@@ -16,10 +16,10 @@ public class Trip {
   private Long user_id;
   private String name;
 
-  // Instanzvariablen zusaetzlich    todo besprechen!
+  // Instanzvariablen zusaetzlich
   private Date maxDate;
   private Date minDate;
-  private int countActivities;
+  private int countActivities;  // todo diesen hier spaeter noch auslagern
 
   // Instanzvariablen Hilfsobjekte
   DatabaseProxy databaseProxy;
