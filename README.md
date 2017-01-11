@@ -13,3 +13,10 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 <p align="left">
   <img src="https://github.com/ibwgr/TripPlanner/blob/master/README.Komponenten.jpg" width="800" height="600"/>
 </p>
+
+<p>&nbsp;</p>
+
+<i>Disclaimer Notice:</br>
+Trip Planner uses JxMaps http://www.teamdev.com/jxmaps, which is a proprietary software. 
+The use of JxMaps is governed by JxMaps Product Licence Agreement http://www.teamdev.com/jxmaps-licence-agreement. If you would like to use JxMaps in your development, please contact TeamDev.
+</i>
