@@ -181,7 +181,7 @@ from tp_trip_aggr_v
 -----------------------------------------------------------
 -- some dummy USER data
 -----------------------------------------------------------
-insert into tp_trip ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
+insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
 values ('benutzer','benutzer','benutzer@example.com','benutzer',1)
 ;
 insert into tp_user ( username, password, email, name, type ) /* 1 = User, 2 = Administrator */
