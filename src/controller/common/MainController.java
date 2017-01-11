@@ -53,16 +53,16 @@ public class MainController implements ActionListener {
         }
     }
 
+    public User getUser() {
+        return user;
+    }
+
     private void openView(int i) {
         tripPlannerMain.removeAllViews();
         tripPlannerMain.addView(
                 viewList.get(i - 1).getStr()
                 ,viewList.get(i - 1).getCompo()
         );
-    }
-
-    public User getUser() {
-        return user;
     }
 
     class Pair {
@@ -90,10 +90,6 @@ public class MainController implements ActionListener {
         }
         viewList.add(new Pair(s, view));
         currentViewNo = viewList.size();
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public void openLogin() {
