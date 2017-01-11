@@ -8,17 +8,31 @@ package model.travel;
 public enum UserTypeEnum  {
     USER, ADMIN;
 
+    final static Long long0 = 0L;
+    final static Long long1 = 1L;
+    final static Long long2 = 2L;
+
     //1 = User, 2 = Administrator
     public Long getId(){
         if (this==USER) {
-            return new Long(1);
+            return long1;
         }
         else if (this==ADMIN) {
-            return new Long(2);
+            return long2;
         }
         else {
-            return new Long(0);
+            return long0;
         }
+    }
+
+    //1 = User, 2 = Administrator
+    public static UserTypeEnum getEnum(Long id){
+        if (id.equals(long1)) {
+            return USER;
+        } else if (id.equals(long2)) {
+            return ADMIN;
+        }
+        return null;
     }
 
 }

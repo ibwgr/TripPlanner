@@ -1,7 +1,10 @@
 package view.admin;
 
+import controller.admin.ImportController;
+import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
+import view.common.TripPlannerMain;
 
 import javax.swing.*;
 
@@ -15,15 +18,14 @@ public class AdminViewTest {
      */
     @Test
     public void adminViewCreatesAllComponentsInConstructor() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        Assert.assertNotNull(adminView.chooseFileButton);
-        Assert.assertNotNull(adminView.startImportButton);
         Assert.assertNotNull(adminView.fileName);
         Assert.assertNotNull(adminView.fileTypeGroup);
         Assert.assertNotNull(adminView.fileDelimiterGroup);
         Assert.assertNotNull(adminView.fileHasHeader);
-        Assert.assertNotNull(adminView.inputPanel);
     }
 
     /**
@@ -31,7 +33,9 @@ public class AdminViewTest {
      */
     @Test
     public void setFileNameSetsFileNameCorrect() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
         adminView.setFileName("");
 
@@ -49,14 +53,11 @@ public class AdminViewTest {
      */
     @Test
     public void getFileTypeReturnsCategoryWhenCategoryRadioButtonIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("category")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileTypeCategory.setSelected(true);
 
         String result = adminView.getFileType();
         Assert.assertEquals("category", result);
@@ -67,14 +68,11 @@ public class AdminViewTest {
      */
     @Test
     public void getFileTypeReturnsPoiWhenPoiRadioButtonIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileTypeGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileTypeGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("poi")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileTypePoi.setSelected(true);
 
         String result = adminView.getFileType();
         Assert.assertEquals("poi", result);
@@ -85,14 +83,11 @@ public class AdminViewTest {
      */
     @Test
     public void getFileDelimiterReturnsPipeWhenPipeRadioButtonIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals("|")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterPipe.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals("|", result);
@@ -103,14 +98,11 @@ public class AdminViewTest {
      */
     @Test
     public void getFileDelimiterReturnsCommaWhenCommaRadioButtonIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals(",")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterComma.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(",", result);
@@ -121,14 +113,11 @@ public class AdminViewTest {
      */
     @Test
     public void getFileDelimiterReturnsSemicolonWhenSemicolonRadioButtonIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
-        while (adminView.fileDelimiterGroup.getElements().hasMoreElements()) {
-            AbstractButton radioButton = adminView.fileDelimiterGroup.getElements().nextElement();
-            if (radioButton.getActionCommand().equals(";")) {
-                radioButton.setSelected(true);
-            }
-        }
+        adminView.fileDelimiterSemicolon.setSelected(true);
 
         String result = adminView.getFileDelimiter();
         Assert.assertEquals(";", result);
@@ -139,7 +128,9 @@ public class AdminViewTest {
      */
     @Test
     public void getFileHasHeaderReturnsTrueWhenFileHasHeaderCheckboxIsSelected() {
-        AdminView adminView = new AdminView();
+        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
+        MainController mainController = new MainController(tripPlannerMain);
+        AdminView adminView = new AdminView(mainController);
 
         adminView.fileHasHeader.setSelected(true);
 

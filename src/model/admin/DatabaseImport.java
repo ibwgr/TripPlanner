@@ -75,7 +75,6 @@ public class DatabaseImport {
             } catch (SQLException e) {
                 e.printStackTrace();
                 importController.increaseErrorCount(rowCount);
-                System.out.println("poiList error queue");
             }
         }
 
@@ -131,7 +130,6 @@ public class DatabaseImport {
             } catch (SQLException e) {
                 e.printStackTrace();
                 importController.increaseErrorCount(rowCount);
-                System.out.println("categoryList error queue");
             }
         }
     }

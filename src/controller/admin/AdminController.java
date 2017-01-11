@@ -1,6 +1,8 @@
 package controller.admin;
 
+import controller.common.MainController;
 import view.admin.AdminView;
+import view.admin.ProgressView;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -11,22 +13,18 @@ import java.io.File;
 public class AdminController implements ActionListener {
 
     private AdminView adminView;
+    private MainController mainController;
     private File file;
 
-    public AdminController(AdminView adminView) {
+    public AdminController(AdminView adminView, MainController mainController) {
         this.adminView = adminView;
+        this.mainController = mainController;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         switch (e.getActionCommand()) {
-            case "start_new":
-                /**
-                 * schliesst das Progress Panel und öffnet wieder das Input Panel
-                 */
-                adminView.showInputView();
-                break;
             case "open_file":
                 /**
                  * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
@@ -45,8 +43,8 @@ public class AdminController implements ActionListener {
                     /**
                      * Importiere das File
                      */
-                    adminView.showProgressView();
-                    ImportController importController = new ImportController(file, adminView);
+                    ProgressView progressView = mainController.openProgressView();
+                    ImportController importController = new ImportController(file, adminView, progressView, mainController);
                     importController.start();
                 }
                 break;
