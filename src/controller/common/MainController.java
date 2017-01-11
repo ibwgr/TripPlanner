@@ -92,6 +92,10 @@ public class MainController implements ActionListener {
         currentViewNo = viewList.size();
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void openLogin() {
         tripPlannerMain.removeAllViews();
         if (loginView == null) {

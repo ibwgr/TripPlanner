@@ -1,13 +1,10 @@
 package view.admin;
 
-import controller.admin.AdminController;
-import controller.admin.ImportController;
 import controller.admin.ProgressController;
 import controller.common.MainController;
 import view.common.GridPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
