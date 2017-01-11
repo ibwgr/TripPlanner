@@ -43,7 +43,8 @@ public class TripTest {
         return fakeUser;
     }
 
-    // wird mittels Ignore bei MVN TEST ignoriert!
+    // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
+    // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
     @Ignore
     @Test
     public void integrationsTestSearchByUserWithRealDbAccessReturnsTripList() throws Exception {
