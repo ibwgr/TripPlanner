@@ -5,9 +5,12 @@ import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
+import view.travel.CitySearchView;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainController implements ActionListener {
 
@@ -16,6 +19,7 @@ public class MainController implements ActionListener {
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
+    ArrayList<Pair> viewList = new ArrayList<>();
 
     public MainController(TripPlannerMain tripPlannerMain) {
         this.tripPlannerMain = tripPlannerMain;
@@ -38,11 +42,29 @@ public class MainController implements ActionListener {
         return user;
     }
 
+    class Pair {
+        private String str;
+        private Component compo;
+        Pair(String str, Component compo) {
+            this.str = str;
+            this.compo = compo;
+        }
+
+        public String getStr() {
+            return str;
+        }
+
+        public Component getCompo() {
+            return compo;
+        }
+    }
+
     public void openLogin() {
         tripPlannerMain.removeAllViews();
         if (loginView == null) {
             loginView = new LoginView(this);
         }
+        viewList.add(new Pair("Login", loginView));
         tripPlannerMain.addView("Login", loginView);
     }
 
@@ -56,6 +78,7 @@ public class MainController implements ActionListener {
         if (adminView == null) {
             adminView = new AdminView(this);
         }
+        viewList.add(new Pair("Administration", adminView));
         tripPlannerMain.addView("Administration", adminView);
     }
 
@@ -69,8 +92,13 @@ public class MainController implements ActionListener {
         if (progressView == null) {
             progressView = new ProgressView(this);
         }
-        tripPlannerMain.addView("Trip Overview", progressView);
+        viewList.add(new Pair("Administration", progressView));
+        tripPlannerMain.addView("Administration", progressView);
         return progressView;
+    }
+
+    public void openCitySearchView() {
+        tripPlannerMain.addView("City Search", new CitySearchView(this));
     }
 
     public void showErrorMessage(String message) {
