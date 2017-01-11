@@ -38,23 +38,31 @@ public class MainController implements ActionListener {
                 /**
                  * eine View zurück
                  */
-                if (currentViewNo > 1) {
-                    openView(--currentViewNo);
-                }
+                openLastView();
                 break;
             case "forward":
                 /**
                  * eine View nach vorne
                  */
-                if (viewList.size() > currentViewNo) {
-                    openView(++currentViewNo);
-                }
+                openNextView();
                 break;
         }
     }
 
     public User getUser() {
         return user;
+    }
+
+    public void openLastView() {
+        if (currentViewNo > 1) {
+            openView(--currentViewNo);
+        }
+    }
+
+    public void openNextView() {
+        if (viewList.size() > currentViewNo) {
+            openView(++currentViewNo);
+        }
     }
 
     private void openView(int i) {
