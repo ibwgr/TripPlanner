@@ -25,7 +25,7 @@ public class ProgressController implements ActionListener {
                 /**
                  * schliesst das Progress Panel und öffnet wieder das Input Panel
                  */
-                mainController.openAdmin();
+                mainController.openLastView();
                 break;
         }
 
