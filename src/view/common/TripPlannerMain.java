@@ -1,6 +1,8 @@
 package view.common;
 
 import controller.common.MainController;
+import model.common.User;
+import model.travel.Trip;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +12,8 @@ import java.util.ArrayList;
 
 public class TripPlannerMain extends JFrame {
 
-    private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel;
-    private JPanel errorPanel, headerPanel;
+    private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
+    private JPanel errorPanel, headerPanel, subHeaderPanel;
     private JButton closeErrorPanel, backButton, forwardButton, closeViewButton;
     private GridBagLayout mainLayout;
     private GridBagConstraints constraintsHeader, constraintsView;
@@ -92,6 +94,15 @@ public class TripPlannerMain extends JFrame {
         headerPanel.add(flowPanel2);
 
         this.add(headerPanel, constraintsHeader);
+
+        subHeaderPanel = new JPanel(new FlowLayout());
+        subTitleLabel = new JLabel();
+        subTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        subHeaderPanel.add(subTitleLabel);
+        subHeaderPanel.setVisible(false);
+        subHeaderPanel.setBackground(Color.decode("#fdf3f3"));
+        subHeaderPanel.setSize(new Dimension(200, 60));
+        this.add(subHeaderPanel, constraintsHeader);
 
         errorPanel = new JPanel(new FlowLayout());
         errorMessageLabel = new JLabel();
@@ -302,4 +313,8 @@ public class TripPlannerMain extends JFrame {
         usernameLabel.setText("User: " + username);
     }
 
+    public void setSubTitle(String subTitle) {
+        subHeaderPanel.setVisible(true);
+        subTitleLabel.setText(subTitle);
+    }
 }
