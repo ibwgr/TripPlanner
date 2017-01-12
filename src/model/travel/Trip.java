@@ -133,6 +133,45 @@ public class Trip {
   }
 
 
+  public static Trip searchById(Long id){
+    DatabaseProxy databaseProxy = new DatabaseProxy();
+    PreparedStatement preparedStatement;
+    ResultSet resultset = null;
+    Trip trip = null;
+    try {
+      preparedStatement = databaseProxy.prepareStatement(
+              "select trip_id, user_id, trip_name, max_date, min_date, count_acitvities " +
+                      "from tp_trip_aggr_v " +
+                      "where trip_id = ? ");
+      preparedStatement.setLong(1, id);
+      resultset = preparedStatement.executeQuery();
+      while (resultset.next()){
+        System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
+        System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
+        System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
+        System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
+        System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
+        // neues TRIP Objekt
+        trip = new Trip();
+        trip.setId(resultset.getLong("trip_id"));
+        trip.setName(resultset.getString("trip_name"));
+        trip.setUser_id(1L);
+        trip.setCountActivities(resultset.getInt("count_acitvities"));
+        trip.setMinDate(resultset.getDate("min_date"));
+        trip.setMaxDate(resultset.getDate("max_date"));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      // close anyway
+      try {
+        resultset.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return trip;
+  }
 }
 
 
