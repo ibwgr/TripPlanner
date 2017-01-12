@@ -22,7 +22,7 @@ public class ProgressView extends GridPanel {
         /**
          * Anzahl Zeilen und Spalten für diese View
          */
-        super(7, 1, 145, 20);
+        super(145, 20);
 
         progressController = new ProgressController(this, mainController);
 

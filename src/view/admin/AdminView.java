@@ -27,7 +27,7 @@ public class AdminView extends GridPanel {
         /**
          * Anzahl Zeilen und Spalten für diese View
          */
-        super(6,1,140,20);
+        super(140,20);
 
         adminController = new AdminController(this, mainController);
 
