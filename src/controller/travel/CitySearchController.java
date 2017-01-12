@@ -2,6 +2,7 @@ package controller.travel;
 
 import controller.common.MainController;
 import model.common.Poi;
+import model.travel.Activity;
 import view.common.LoginView;
 import view.travel.CitySearchView;
 
@@ -18,6 +19,29 @@ public class CitySearchController implements ActionListener {
         this.mainController = mainController;
     }
 
+    private void addActivity() {
+
+        Activity activity = new Activity(
+                mainController.getTrip()
+                ,citySearchView.getPoi()
+                ,citySearchView.getDate()
+                ,citySearchView.getComment()
+        );
+        activity.save();
+
+        // oder
+
+/*
+        Activity.saveNewActivity(
+                mainController.getTrip()
+                ,citySearchView.getPoi()
+                ,citySearchView.getDate()
+                ,citySearchView.getComment()
+        );
+*/
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -28,7 +52,9 @@ public class CitySearchController implements ActionListener {
                 }
                 citySearchView.setSearchResult(Poi.searchCityByName(citySearchView.getSearchText()));
                 break;
-
+            case "add_activity":
+                addActivity();
+                break;
         }
     }
 

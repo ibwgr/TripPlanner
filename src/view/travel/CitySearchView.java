@@ -3,11 +3,13 @@ package view.travel;
 import controller.common.MainController;
 import controller.travel.CitySearchController;
 import model.common.Poi;
+import org.jdesktop.swingx.JXDatePicker;
 import view.common.GridPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 public class CitySearchView extends JPanel {
@@ -18,6 +20,7 @@ public class CitySearchView extends JPanel {
     JList searchResult;
     JTextField searchText;
     JTextArea commentText;
+    JTextField dateField;
 
     public CitySearchView(MainController mainController) {
         this.mainController = mainController;
@@ -35,15 +38,20 @@ public class CitySearchView extends JPanel {
         // CENTER: Result
         this.add(new JScrollPane(searchResult = new JList<>()), BorderLayout.CENTER);
 
+//        MapView mapView = new MapView();
+
         // SOUTH: add Activity, forward to Poi Search
         GridPanel gridPanel2 = new GridPanel(300,20);
 
         gridPanel2.addComponentToPanel(gridPanel2.createButton("Search POI", "searchPoi", citySearchController));
         gridPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
 
-        gridPanel2.addComponentToPanel(new JTextField(10));
+        gridPanel2.addComponentToPanel(dateField = new JTextField(10));
         gridPanel2.addPanelWithLabel("Date:", true);
-        commentText = new JTextArea(5,10);
+
+//        gridPanel2.addPanelWithLabel(new JXDatePicker());
+
+        commentText = new JTextArea(5,30);
         gridPanel2.addComponentToPanel(new JScrollPane(commentText));
         gridPanel2.addPanelWithLabel("Comment:", true);
 
@@ -64,5 +72,17 @@ public class CitySearchView extends JPanel {
 
     public void setSearchResult(ArrayList<Poi> searchResult) {
         this.searchResult.setListData(new Vector(searchResult));
+    }
+
+    public Poi getPoi() {
+        return (Poi) searchResult.getSelectedValue();
+    }
+
+    public Date getDate() {
+        return new Date(dateField.getText());
+    }
+
+    public String getComment() {
+        return commentText.getText();
     }
 }
