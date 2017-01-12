@@ -3,11 +3,11 @@ package controller.travel;
 import controller.common.MainController;
 import model.common.Poi;
 import model.travel.Activity;
-import view.common.LoginView;
 import view.travel.CitySearchView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class CitySearchController implements ActionListener {
 
@@ -27,7 +27,11 @@ public class CitySearchController implements ActionListener {
                 ,citySearchView.getDate()
                 ,citySearchView.getComment()
         );
-        activity.save();
+        try {
+            activity.save();
+        } catch (SQLException e) {
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+        }
 
         // oder
 

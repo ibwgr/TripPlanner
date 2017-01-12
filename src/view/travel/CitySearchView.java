@@ -9,6 +9,7 @@ import view.common.GridPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -21,6 +22,7 @@ public class CitySearchView extends JPanel {
     JTextField searchText;
     JTextArea commentText;
     JTextField dateField;
+    JXDatePicker datePicker;
 
     public CitySearchView(MainController mainController) {
         this.mainController = mainController;
@@ -46,10 +48,21 @@ public class CitySearchView extends JPanel {
         gridPanel2.addComponentToPanel(gridPanel2.createButton("Search POI", "searchPoi", citySearchController));
         gridPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
 
-        gridPanel2.addComponentToPanel(dateField = new JTextField(10));
-        gridPanel2.addPanelWithLabel("Date:", true);
 
 //        gridPanel2.addPanelWithLabel(new JXDatePicker());
+
+        // Create date picker with current date initially selected.
+//        JXDatePicker datePicker = new JXDatePicker ();
+        // Create date picker with specified date initially selected.
+/*
+        Calendar cal = Calendar.getInstance ();
+        cal.set (2006, 7, 1); // August 1, 2006
+        long millis = cal.getTimeInMillis ();
+*/
+
+//        gridPanel2.addComponentToPanel(dateField = new JTextField(10));
+        gridPanel2.addComponentToPanel(datePicker = new JXDatePicker());
+        gridPanel2.addPanelWithLabel("Date:", true);
 
         commentText = new JTextArea(5,30);
         gridPanel2.addComponentToPanel(new JScrollPane(commentText));
@@ -79,7 +92,7 @@ public class CitySearchView extends JPanel {
     }
 
     public Date getDate() {
-        return new Date(dateField.getText());
+        return datePicker.getDate();
     }
 
     public String getComment() {
