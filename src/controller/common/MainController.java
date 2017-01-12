@@ -83,20 +83,21 @@ public class MainController implements ActionListener {
     }
 
     private void closeCurrentView() {
-        int nextViewNo = --currentViewNo;
-        viewList.remove(nextViewNo);
-        nextViewNo--;
-        if (currentViewNo == 0 && viewList.size() == 0) {
-            openLogin();
+        if (currentViewNo == 0) {
             return;
-        } else if (viewList.size() == currentViewNo) {
-            nextViewNo--;
         }
-        tripPlannerMain.removeAllViews();
-        tripPlannerMain.addView(
-                viewList.get(nextViewNo).getStr()
-                ,viewList.get(nextViewNo).getCompo()
-        );
+        viewList.remove(currentViewNo - 1);
+        if (currentViewNo == 1 && viewList.size() == 0) {
+            // wenn nur eine View vorhanden ist, die Login View öffnen
+            currentViewNo = 0;
+            openLogin();
+        } else if (viewList.size() < currentViewNo) {
+            // wenn die letzte View geschlossen wird, die vorherige View öffnen
+            openView(--currentViewNo);
+        } else {
+            // wenn mehrere Views vorhanden sind und nicht die letzte geschlossen wird, öffne die nächste View
+            openView(currentViewNo);
+        }
     }
 
     class Pair {

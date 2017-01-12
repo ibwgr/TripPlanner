@@ -67,13 +67,11 @@ public class ImportController {
 */
             }
         } else {
-            for (int i = 0; i < threadNo; i++) {
-                consumers[i] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
-                consumers[i].start();
+            consumers[0] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
+            consumers[0].start();
 /*
                 executorService.execute(new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter()));
 */
-            }
         }
 
     }
@@ -98,7 +96,7 @@ public class ImportController {
         return row;
     }
 
-    public boolean queueIsEmpty() {
+    public synchronized boolean queueIsEmpty() {
         return rowQueue.isEmpty();
     }
 
