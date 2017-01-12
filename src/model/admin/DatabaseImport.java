@@ -1,11 +1,8 @@
 package model.admin;
 
 import controller.admin.ImportController;
-import model.common.DBConnection;
 import model.common.DatabaseProxy;
 
-import javax.xml.crypto.Data;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,13 +26,7 @@ public class DatabaseImport {
 
     public void insertMultiValuePois(ArrayList<String[]> poiList) {
 
-//        Connection conn = null;
         try {
-/*
-            conn = DBConnection.getConnection();
-
-            conn.setAutoCommit(false);
-*/
             databaseProxy.setAutoCommit(false);
 
             StringBuilder sb;
@@ -61,9 +52,7 @@ public class DatabaseImport {
 
             counter++;
             preparedStatement.addBatch();
-//            System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
             if (counter % 50 == 0) {
-//                System.out.println(Thread.currentThread().getName() + " - 1 - commit");
 //                System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                 preparedStatement.executeBatch();
                 databaseProxy.commit();
@@ -76,7 +65,6 @@ public class DatabaseImport {
                 if (preparedStatement != null && !preparedStatement.isClosed()) {
 
                     if (rowCount > 0) {
-//                        System.out.println(Thread.currentThread().getName() + " - 2 - commit");
 //                        System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                         preparedStatement.executeBatch();
                         databaseProxy.commit();
@@ -84,14 +72,6 @@ public class DatabaseImport {
                     }
                     preparedStatement.close();
                 }
-/*
-                if (conn != null) {
-                    conn.close();
-                }
-*/
-/*
-                }
-*/
             } catch (SQLException e) {
                 e.printStackTrace();
                 importController.increaseErrorCount(rowCount);
