@@ -78,6 +78,17 @@ public class GridPanel extends JPanel {
         }
     }
 
+    public void addPanel(Boolean clearComponent) {
+        JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        for (Component compo:compoList) {
+            jpanel.add(compo);
+        }
+        gridPanel.add(jpanel);
+        if (clearComponent) {
+            compoList.clear();
+        }
+    }
+
     public void addComponentDirect(Component component) {
         gridBagPanel.add(component, constraints);
     }
