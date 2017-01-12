@@ -1,16 +1,16 @@
 package view.travel;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.table.*;
+import java.awt.*;
+import java.util.ArrayList;
 
-import controller.common.LoginController;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
 import controller.common.MainController;
 import controller.travel.TripController;
 import model.travel.Trip;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
@@ -42,8 +42,8 @@ public class TripView extends JPanel {
         for (String column : columnNames){
             tableModel.addColumn(column);
         }
-        // TripListe (from Model)
-        ArrayList<Trip> tripList = Trip.searchByUser(mainController.getUser());
+        // TripListe (from Controller)
+        ArrayList<Trip> tripList = tripController.getTripList();
         for (Trip trip : tripList) {
             // Append a row
             tableModel.addRow(new Object[]{trip.getId(), trip.getName(),trip.getMinDate(),trip.getMaxDate(), trip.getCountActivities()});
