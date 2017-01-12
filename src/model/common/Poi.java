@@ -1,5 +1,10 @@
 package model.common;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Poi {
 
     // Instanzvariablen
@@ -15,6 +20,39 @@ public class Poi {
         this.poiCategory = poiCategory;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public static ArrayList<Poi> searchCityByName(String name) {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        ArrayList<Poi> poiList = new ArrayList<>();
+        String query = "select id, name, category_id, longitude, latitude from poi "
+                        + "where category_id in ('66','69','70') and lower(name) like lower(?)";
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        try {
+            preparedStatement.setString(1, "%"+name+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                poiList.add(
+                        new Poi(
+                                resultSet.getString(1)
+                                ,resultSet.getString(2)
+                                ,PoiCategory.searchById(resultSet.getString(3))
+                                ,resultSet.getString(4)
+                                ,resultSet.getString(5)
+                        )
+                );
+
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseProxy.close();
+        }
+
+        return poiList;
     }
 
     public String getId() {
@@ -57,6 +95,8 @@ public class Poi {
         this.latitude = latitude;
     }
 
-
-
+    @Override
+    public String toString() {
+        return name + " (" + poiCategory + ")";
+    }
 }

@@ -12,18 +12,17 @@ public class TripPlannerMain extends JFrame {
 
     private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel;
     private JPanel errorPanel, headerPanel;
-    private JButton closeErrorPanel;
+    private JButton closeErrorPanel, backButton, forwardButton, closeViewButton;
     private GridBagLayout mainLayout;
     private GridBagConstraints constraintsHeader, constraintsView;
     private MainController mainController;
     private ArrayList<Component> componentList = new ArrayList<>();
     private JPanel contentPanel;
     private JMenuBar jJMenuBar = null;
-    private JMenu loginMenu = null;
-    private JMenu helpMenu = null;
-    private JMenuItem loginMenuItem = null;
-    private JMenuItem exitMenuItem = null;
-    private JMenuItem aboutMenuItem = null;
+    private JMenu loginMenu = null, helpMenu = null, testMenu = null;
+    private JMenuItem loginMenuItem = null, exitMenuItem = null, aboutMenuItem = null, citySearchMenuItem = null;
+
+    private Color headerColor = Color.decode("#96BFE1");
 
     public static void main(String[] args) {
         TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
@@ -51,13 +50,15 @@ public class TripPlannerMain extends JFrame {
         constraintsView.weightx = 0.1;
         constraintsView.weighty = 0.1;
 
-        headerPanel = new JPanel(new GridLayout(2,2));
-        headerPanel.setBackground(Color.decode("#96BFE1"));
+        headerPanel = new JPanel(new GridLayout(2,3));
+        headerPanel.setBackground(headerColor);
         headerPanel.setSize(new Dimension(300, 60));
 
         titleLabel = new JLabel("TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
+
+        headerPanel.add(new JLabel());
 
         usernameLabel = new JLabel();
         usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
@@ -66,6 +67,29 @@ public class TripPlannerMain extends JFrame {
         viewTitleLabel = new JLabel();
         viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
         headerPanel.add(viewTitleLabel);
+
+        Dimension buttonDimension = new Dimension(10,15);
+        backButton = new JButton("<");
+        backButton.setActionCommand("back");
+        backButton.addActionListener(mainController);
+        backButton.setSize(buttonDimension);
+        forwardButton = new JButton(">");
+        forwardButton.setActionCommand("forward");
+        forwardButton.addActionListener(mainController);
+        forwardButton.setSize(buttonDimension);
+        closeViewButton = new JButton("X");
+        closeViewButton.setActionCommand("close_view");
+        closeViewButton.addActionListener(mainController);
+        closeViewButton.setSize(buttonDimension);
+        JPanel flowPanel1 = new JPanel(new FlowLayout());
+        flowPanel1.setBackground(headerColor);
+        flowPanel1.add(backButton);
+        flowPanel1.add(forwardButton);
+        headerPanel.add(flowPanel1);
+        JPanel flowPanel2 = new JPanel(new FlowLayout());
+        flowPanel2.setBackground(headerColor);
+        flowPanel2.add(closeViewButton);
+        headerPanel.add(flowPanel2);
 
         this.add(headerPanel, constraintsHeader);
 
@@ -91,7 +115,7 @@ public class TripPlannerMain extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.setJMenuBar(getJJMenuBar());
-        this.setSize(new Dimension(500,300));
+        this.setSize(new Dimension(600,420));
 
         mainController.openLogin();
 
@@ -151,6 +175,7 @@ public class TripPlannerMain extends JFrame {
             jJMenuBar = new JMenuBar();
             jJMenuBar.add(getLoginMenu());
             jJMenuBar.add(getHelpMenu());
+            jJMenuBar.add(getTestMenu());
             //jJMenuBar.add(getLoggedInInformationText());
 //            JMenuItem menuItem = new JMenuItem();
 //            JPanel panelLabel = new JPanel();
@@ -184,6 +209,17 @@ public class TripPlannerMain extends JFrame {
             helpMenu.add(getAboutMenuItem());
         }
         return helpMenu;
+    }
+
+    private JMenu getTestMenu()
+    {
+        if (testMenu == null)
+        {
+            testMenu = new JMenu();
+            testMenu.setText("Test");
+            testMenu.add(getCitySearchMenuItem());
+        }
+        return testMenu;
     }
 
     private JMenuItem getAboutMenuItem()
@@ -245,6 +281,17 @@ public class TripPlannerMain extends JFrame {
             });
         }
         return loginMenuItem;
+    }
+
+    private JMenuItem getCitySearchMenuItem()
+    {
+        if (citySearchMenuItem == null)
+        {
+            citySearchMenuItem = new JMenuItem();
+            citySearchMenuItem.setText("CitySearch");
+            citySearchMenuItem.addActionListener(e -> mainController.openCitySearchView());
+        }
+        return citySearchMenuItem;
     }
 
     public void closeErrorPanel() {

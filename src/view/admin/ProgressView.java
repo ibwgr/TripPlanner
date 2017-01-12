@@ -1,13 +1,10 @@
 package view.admin;
 
-import controller.admin.AdminController;
-import controller.admin.ImportController;
 import controller.admin.ProgressController;
 import controller.common.MainController;
 import view.common.GridPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +13,8 @@ public class ProgressView extends GridPanel {
     ProgressController progressController;
 
     JLabel statusTotalRows, statusRowsProcessed, statusRowsError, statusRowsCategoryError, statusElapsedTime;
-    JButton buttonNewUpload, buttonCancel;
+    JButton buttonNewUpload;
+    JProgressBar progressBar;
 
     DecimalFormat timeFormat = new DecimalFormat("00");
 
@@ -24,12 +22,12 @@ public class ProgressView extends GridPanel {
         /**
          * Anzahl Zeilen und Spalten für diese View
          */
-        super(6, 1, 140, 20);
+        super(145, 20);
 
         progressController = new ProgressController(this, mainController);
 
         addComponentToPanel(statusTotalRows = new JLabel());
-        addPanelWithLabel("Total rows:", true);
+        addPanelWithLabel("Total rows from file:", true);
 
         addComponentToPanel(statusRowsProcessed = new JLabel());
         addPanelWithLabel("Processed rows:", true);
@@ -38,16 +36,18 @@ public class ProgressView extends GridPanel {
         addPanelWithLabel("Error rows:", true);
 
         addComponentToPanel(statusRowsCategoryError = new JLabel());
-        addPanelWithLabel("Without rows:", true);
+        addPanelWithLabel("No Category found:", true);
 
         addComponentToPanel(statusElapsedTime = new JLabel());
         addPanelWithLabel("Elapsed time:", true);
 
+        addComponentToPanel(progressBar = new JProgressBar());
+        progressBar.setMinimum(0);
+        addComponentDirect(progressBar);
+
         addComponentToPanel(buttonNewUpload = createButton("import new file", "start_new", progressController, false));
         addComponentDirect(buttonNewUpload);
 
-        addComponentToPanel(buttonCancel = createButton("cancel", "cancel", progressController));
-        addComponentDirect(buttonCancel);
     }
 
     public void importIsFinished() {
@@ -59,15 +59,12 @@ public class ProgressView extends GridPanel {
         statusRowsProcessed.setText(String.valueOf(processedCount));
         statusRowsError.setText(String.valueOf(errorCount));
         statusRowsCategoryError.setText(String.valueOf(errorCategoryCount));
-        if (errorCategoryCount == 0) {
-            statusRowsCategoryError.setVisible(false);
-        } else {
-            statusRowsCategoryError.setVisible(true);
-        }
         long seconds = TimeUnit.NANOSECONDS.toSeconds(estimatedTime);
         long minutes = seconds / 60;
         seconds = seconds % 60;
         statusElapsedTime.setText(timeFormat.format(minutes) + ":" + timeFormat.format(seconds));
+        progressBar.setMaximum((int) rowQueueCount);
+        progressBar.setValue((int) (processedCount + errorCount + errorCategoryCount));
     }
 
 

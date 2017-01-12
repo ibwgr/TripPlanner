@@ -10,6 +10,7 @@ import view.admin.ProgressView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class ImportController {
 
@@ -41,6 +42,9 @@ public class ImportController {
 
     public void start() {
 
+        importProgress = new ImportProgress(this);
+        importProgress.start();
+
         fileReader = new FileReader(file, this, adminView.getFileHasHeader());
         fileReader.start();
 
@@ -63,17 +67,12 @@ public class ImportController {
 */
             }
         } else {
-            for (int i = 0; i < threadNo; i++) {
-                consumers[i] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
-                consumers[i].start();
+            consumers[0] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
+            consumers[0].start();
 /*
                 executorService.execute(new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter()));
 */
-            }
         }
-
-        importProgress = new ImportProgress(this);
-        importProgress.start();
 
     }
 
@@ -97,7 +96,7 @@ public class ImportController {
         return row;
     }
 
-    public boolean queueIsEmpty() {
+    public synchronized boolean queueIsEmpty() {
         return rowQueue.isEmpty();
     }
 
@@ -105,14 +104,14 @@ public class ImportController {
      * Der Total Row Count muss in einem eigenem Attribut gespeichert werden.
      * Weil die Einträge in der Queue immer wieder gelöscht werden, wenn etwas gelesen wurde.
      */
-    public synchronized void increaseRowQueueCount() {
+    public void increaseRowQueueCount() {
         if (rowQueueCount < 0) {
             rowQueueCount = 0;
         }
         rowQueueCount++;
     }
 
-    public boolean allRowsProcessed() {
+    public synchronized boolean allRowsProcessed() {
         return (processedCount + errorCount + errorCategoryCount) == rowQueueCount;
     }
 
@@ -131,10 +130,10 @@ public class ImportController {
     }
 
     public void importIsFinished() {
-        processedCount = -1;
+        processedCount = 0;
         errorCount = 0;
         errorCategoryCount = 0;
-        rowQueueCount = 0;
+        rowQueueCount = -1;
         progressView.importIsFinished();
     }
 

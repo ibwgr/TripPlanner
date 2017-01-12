@@ -5,16 +5,27 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public abstract class GridPanel extends JPanel {
+public class GridPanel extends JPanel {
 
     private Dimension labelDimension;
-    JPanel gridPanel;
+    JPanel gridBagPanel;
+    GridBagConstraints constraints;
     ArrayList<Component> compoList = new ArrayList<>();
 
-    public GridPanel(int rows, int cols, int labelWidth, int labelHeight) {
+    public GridPanel(int labelWidth, int labelHeight) {
         labelDimension = new Dimension(labelWidth, labelHeight);
-        gridPanel = new JPanel(new GridLayout(rows, cols));
-        this.add(gridPanel);
+        gridBagPanel = new JPanel(new GridBagLayout());
+
+        // Constraints: jedes neue Element unterhalb des vorherigen Elements anordnen
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = GridBagConstraints.RELATIVE;
+        constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+
+        this.add(gridBagPanel);
     }
 
     public void addComponentToPanel(Component component) {
@@ -44,19 +55,31 @@ public abstract class GridPanel extends JPanel {
     public void addPanelWithLabel(String text, Boolean clearComponent) {
         JLabel label = new JLabel(text);
         label.setPreferredSize(labelDimension);
+//        label.setHorizontalAlignment(JLabel.RIGHT);
         JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         jpanel.add(label);
         for (Component compo:compoList) {
             jpanel.add(compo);
         }
-        gridPanel.add(jpanel);
+        gridBagPanel.add(jpanel, constraints);
+        if (clearComponent) {
+            compoList.clear();
+        }
+    }
+
+    public void addPanel(Boolean clearComponent) {
+        JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        for (Component compo:compoList) {
+            jpanel.add(compo);
+        }
+        gridBagPanel.add(jpanel, constraints);
         if (clearComponent) {
             compoList.clear();
         }
     }
 
     public void addComponentDirect(Component component) {
-        gridPanel.add(component);
+        gridBagPanel.add(component, constraints);
     }
 
 }

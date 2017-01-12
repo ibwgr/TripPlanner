@@ -1,15 +1,12 @@
 package model.travel;
 
 import model.common.DatabaseProxy;
+import model.common.User;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by user on 09.01.2017.
@@ -46,7 +43,8 @@ public class TripTest {
         return fakeUser;
     }
 
-    // wird mittels Ignore bei MVN TEST ignoriert!
+    // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
+    // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
     @Ignore
     @Test
     public void integrationsTestSearchByUserWithRealDbAccessReturnsTripList() throws Exception {

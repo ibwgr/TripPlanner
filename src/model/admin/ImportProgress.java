@@ -15,7 +15,7 @@ public class ImportProgress extends Thread {
         while (!importController.allRowsProcessed()) {
             importController.showStatus();
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -32,10 +32,10 @@ public class ImportProgress extends Thread {
             }
         }
 */
+        importController.showStatus();
 
         importController.importIsFinished();
 
-        importController.showStatus();
     }
 
 }
