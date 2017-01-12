@@ -126,7 +126,7 @@ public class TripPlannerMain extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.setJMenuBar(getJJMenuBar());
-        this.setSize(new Dimension(600,420));
+        this.setSize(new Dimension(800,600));
 
         mainController.openLogin();
 

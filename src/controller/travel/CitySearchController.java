@@ -2,11 +2,12 @@ package controller.travel;
 
 import controller.common.MainController;
 import model.common.Poi;
-import view.common.LoginView;
+import model.travel.Activity;
 import view.travel.CitySearchView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class CitySearchController implements ActionListener {
 
@@ -16,6 +17,33 @@ public class CitySearchController implements ActionListener {
     public CitySearchController(CitySearchView citySearchView, MainController mainController) {
         this.citySearchView = citySearchView;
         this.mainController = mainController;
+    }
+
+    private void addActivity() {
+
+        Activity activity = new Activity(
+                mainController.getTrip()
+                ,citySearchView.getPoi()
+                ,citySearchView.getDate()
+                ,citySearchView.getComment()
+        );
+        try {
+            activity.save();
+        } catch (SQLException e) {
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+        }
+
+        // oder
+
+/*
+        Activity.saveNewActivity(
+                mainController.getTrip()
+                ,citySearchView.getPoi()
+                ,citySearchView.getDate()
+                ,citySearchView.getComment()
+        );
+*/
+
     }
 
     @Override
@@ -28,7 +56,9 @@ public class CitySearchController implements ActionListener {
                 }
                 citySearchView.setSearchResult(Poi.searchCityByName(citySearchView.getSearchText()));
                 break;
-
+            case "add_activity":
+                addActivity();
+                break;
         }
     }
 
