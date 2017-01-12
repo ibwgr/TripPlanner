@@ -1,6 +1,7 @@
 package controller.common;
 
 import model.common.User;
+import model.travel.Trip;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
@@ -17,6 +18,7 @@ public class MainController implements ActionListener {
 
     TripPlannerMain tripPlannerMain;
     User user;
+    Trip trip;
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
@@ -60,6 +62,20 @@ public class MainController implements ActionListener {
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        tripPlannerMain.setUsername(user.getUsername());
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+        tripPlannerMain.setSubTitle(trip.getName());
     }
 
     public void openLastView() {
@@ -136,11 +152,6 @@ public class MainController implements ActionListener {
         tripPlannerMain.addView("Login", loginView);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-        tripPlannerMain.setUsername(user.getUsername());
-    }
-
     public void openAdmin() {
         tripPlannerMain.removeAllViews();
         if (adminView == null) {
@@ -166,6 +177,7 @@ public class MainController implements ActionListener {
     }
 
     public void openCitySearchView() {
+        setTrip(Trip.searchById(1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
         if (citySearchView == null) {
             citySearchView = new CitySearchView(this);

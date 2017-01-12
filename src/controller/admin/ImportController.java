@@ -137,7 +137,7 @@ public class ImportController {
         progressView.importIsFinished();
     }
 
-    public Boolean poiCategoryExists(String id) {
+    public synchronized Boolean poiCategoryExists(String id) {
         if (poiCategories != null) {
             for (PoiCategory poiCategory : poiCategories) {
                 if (id.equals(poiCategory.getId())) {

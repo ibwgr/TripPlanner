@@ -15,23 +15,12 @@ public class ImportProgress extends Thread {
         while (!importController.allRowsProcessed()) {
             importController.showStatus();
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-
-
-/*
-        for (Thread thread : importController.consumers) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-*/
         importController.showStatus();
 
         importController.importIsFinished();

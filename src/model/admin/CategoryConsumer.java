@@ -34,7 +34,7 @@ public class CategoryConsumer extends Thread {
                     categoryList.add(rowItem);
                     importController.increaseProcessedCount();
 
-                    if (categoryList.size() >= 1000) {
+                    if (categoryList.size() >= 10) {
                         databaseImport.insertMultiValueCategories(categoryList);
                         categoryList.clear();
                     }

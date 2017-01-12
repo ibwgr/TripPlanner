@@ -51,10 +51,10 @@ public class DatabaseImport {
             }
 
             counter++;
-            preparedStatement.execute();
+            preparedStatement.addBatch();
             if (counter % 50 == 0) {
 //                System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
-//                preparedStatement.executeBatch();
+                preparedStatement.executeBatch();
                 databaseProxy.commit();
                 rowCount = 0;
             }
@@ -66,7 +66,7 @@ public class DatabaseImport {
 
                     if (rowCount > 0) {
 //                        System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
-//                        preparedStatement.executeBatch();
+                        preparedStatement.executeBatch();
                         databaseProxy.commit();
                         rowCount = 0;
                     }
