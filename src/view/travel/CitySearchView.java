@@ -48,7 +48,7 @@ public class CitySearchView extends JPanel {
         gridPanel2.addPanelWithLabel("Comment:", true);
 
         gridPanel2.addComponentToPanel(gridPanel2.createButton("Add Activity", "add_activity", citySearchController));
-        gridPanel2.addPanel( true);
+        gridPanel2.addPanelWithLabel("", true);
 
         this.add(gridPanel2, BorderLayout.SOUTH);
 
