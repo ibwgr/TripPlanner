@@ -43,7 +43,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         gridPanel1.addComponentToPanel(new JLabel(city.getName()));
         gridPanel1.addPanelWithLabel("City:", true);
 
-        Double[] radiusList = {1d,5d,10d,20d};
+        Double[] radiusList = {1d,5d,10d,15d};
         gridPanel1.addComponentToPanel(radiusCombo = new JComboBox<Double>());
         radiusCombo.setModel(new DefaultComboBoxModel<>(radiusList));
         gridPanel1.addPanelWithLabel("Radius:", true);
