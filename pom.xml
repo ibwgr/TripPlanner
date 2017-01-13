@@ -12,7 +12,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -32,6 +32,48 @@
             <groupId>org.swinglabs</groupId>
             <artifactId>swingx</artifactId>
             <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>jxmaps</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>jxmaps-linux32</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux32-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>jxmaps-linux64</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux64-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>jxmaps-mac</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-mac-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>jxmaps-win</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-win-1.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev.jxmaps</groupId>
+            <artifactId>license</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/license.jar</systemPath>
         </dependency>
 
     </dependencies>
@@ -70,7 +112,7 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.19.1</version>
             </plugin>
-            <!-- fuer die Ausfuehrung von MVN TEST durch Travis, ansonsten: "No tests to run" -->     
+            <!-- fuer die Ausfuehrung von MVN TEST durch Travis, ansonsten: "No tests to run" -->
             <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -82,8 +124,8 @@
                         <artifactId>surefire-junit47</artifactId>
                         <version>2.8</version>
                       </dependency>
-                    </dependencies>     
-              </plugin>                 
+                    </dependencies>
+              </plugin>
         </plugins>
     </build>
 </project>
