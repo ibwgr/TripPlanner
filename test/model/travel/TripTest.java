@@ -63,4 +63,15 @@ public class TripTest {
     }
     */
 
+    // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
+    // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
+    @Ignore
+    @Test
+    public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
+        User user = getFakeUser();
+        Trip trip = Trip.searchByUserAndId(user,3L);
+        // aus DB gelesener Wert!
+        Assert.assertEquals(new Long(3), trip.getId());
+    }
+
 }

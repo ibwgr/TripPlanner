@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -37,6 +39,18 @@ public class TripView extends JPanel {
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
+        // todo in controller, aber wie?
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+                Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
+                tripController.setCurrentTripId(tripId);
+            }
+        });
+
+
         // Create columns
         String[] columnNames = {"Nr", "Trip Name", "From-Date", "To-Date", "Act."};
         for (String column : columnNames){
@@ -66,6 +80,9 @@ public class TripView extends JPanel {
         // alles aufs Hauptpanel platzieren
         this.add(centerPanel);
         this.add(southPanel);
+
+
+
     }
 
 
