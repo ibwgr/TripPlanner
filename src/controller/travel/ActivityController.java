@@ -1,34 +1,33 @@
 package controller.travel;
 
+import controller.common.MainController;
+import model.common.DatabaseProxy;
+import model.travel.Activity;
+import model.travel.Trip;
+import view.travel.ActivityView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import controller.common.MainController;
-import model.common.DatabaseProxy;
-import model.travel.Trip;
-import view.travel.TripView;
-
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
-
 /**
  * Created by user on 08.01.2017.
  */
-public class TripController implements ActionListener {
+public class ActivityController implements ActionListener {
 
     DatabaseProxy databaseProxy = new DatabaseProxy();
-    TripView tripView;
+    ActivityView activityView;
     MainController mainController;
     Long currentTripId; // nur zuer Uebergaben von View zu Controller
 
-    public TripController(TripView tripView, MainController mainController) {
-        this.tripView = tripView;
+    public ActivityController(ActivityView ActivityView, MainController mainController) {
+        this.activityView = ActivityView;
         this.mainController = mainController;
     }
 
-    public ArrayList<Trip> getTripList() {
-        // TripListe (from Model)
-        return Trip.searchByUser(mainController.getUser());
+    public ArrayList<Activity> getActivityList() {
+        // ActivityListe (from Model)
+        return Activity.searchByUserAndTrip(mainController.getUser(), mainController.getTrip());
     }
 
     // Getters/Setters
@@ -49,8 +48,6 @@ public class TripController implements ActionListener {
                     // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
                     Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
                     mainController.setTrip(t);
-                    // Activity view
-                    mainController.openActivityOverview();
                 } else {
                     mainController.showErrorMessage("Please select a trip");
                 }
