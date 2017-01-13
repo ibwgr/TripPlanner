@@ -160,18 +160,18 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 
 CREATE OR REPLACE VIEW tp_trip_full_v
 AS
-  SELECT t.id    AS trip_id,
+  SELECT t.id AS trip_id,
     t.user_id,
-         t.name  AS trip_name,
-         a.id    AS activity_id,
+    t.name  AS trip_name,
+    a.id    AS activity_id,
     a.date,
     a.comment,
     a.poi_id,
     p.longitude,
     p.latitude,
-         p.name  AS poi_name,
+    p.name  AS poi_name,
     p.category_id,
-         pc.name AS poi_category_name
+    pc.name AS poi_category_name
   FROM tp_trip t
     LEFT JOIN tp_activity a ON t.id = a.trip_id
     LEFT JOIN poi p ON a.poi_id = p.id

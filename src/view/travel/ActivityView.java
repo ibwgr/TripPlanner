@@ -1,20 +1,18 @@
 package view.travel;
 
-import java.awt.*;
-import java.util.ArrayList;
+import controller.common.MainController;
+import controller.travel.ActivityController;
+import model.travel.Activity;
+import model.travel.Trip;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.util.ArrayList;
 
-import controller.common.MainController;
-import controller.travel.TripController;
-import model.travel.Trip;
-
-public class TripView extends JPanel {
+public class ActivityView extends JPanel {
 
     /*
     TODO
@@ -22,13 +20,13 @@ public class TripView extends JPanel {
     Auf FlowLayout umstellen!
      */
 
-    TripController tripController;
+    ActivityController activityController;
     MainController mainController;
 
-    public TripView(MainController mainController) {
+    public ActivityView(MainController mainController) {
 
         this.mainController = mainController;
-        tripController = new TripController(this, mainController);
+        activityController = new ActivityController(this, mainController);
 
         DefaultTableModel tableModel = new DefaultTableModel();
         JTable table = new JTable(tableModel);
@@ -37,28 +35,28 @@ public class TripView extends JPanel {
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        // todo in controller, aber wie?
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                // do some actions here, for example
-                // print first column value from selected row
-                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-                Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
-                tripController.setCurrentTripId(tripId);
-            }
-        });
+//        // todo in controller, aber wie?
+//        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+//            public void valueChanged(ListSelectionEvent event) {
+//                // do some actions here, for example
+//                // print first column value from selected row
+//                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+//                Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
+//                activityController.setCurrentTripId(tripId);
+//            }
+//        });
 
 
         // Create columns
-        String[] columnNames = {"Nr", "Trip Name", "From-Date", "To-Date", "Act."};
+        String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
         for (String column : columnNames){
             tableModel.addColumn(column);
         }
         // TripListe (from Controller)
-        ArrayList<Trip> tripList = tripController.getTripList();
-        for (Trip trip : tripList) {
+        ArrayList<Activity> activityList = activityController.getActivityList();
+        for (Activity activity : activityList) {
             // Append a row
-            tableModel.addRow(new Object[]{trip.getId(), trip.getName(),trip.getMinDate(),trip.getMaxDate(), trip.getCountActivities()});
+            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
         }
 
         resizeColumnWidth(table);
@@ -67,17 +65,17 @@ public class TripView extends JPanel {
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
 
-        // Detailbutton platzieren
-        JPanel southPanel = new JPanel(new BorderLayout());
-        JButton detailButton = new JButton("Detail");
-        detailButton.setActionCommand("detail");
-        detailButton.addActionListener(tripController);
-        southPanel.add(detailButton, BorderLayout.SOUTH);
+//        // Detailbutton platzieren
+//        JPanel southPanel = new JPanel(new BorderLayout());
+//        JButton detailButton = new JButton("Detail");
+//        detailButton.setActionCommand("detail");
+//        detailButton.addActionListener(activityController);
+//        southPanel.add(detailButton, BorderLayout.SOUTH);
 
 
         // alles aufs Hauptpanel platzieren
         this.add(centerPanel);
-        this.add(southPanel);
+//        this.add(southPanel);
 
 
 

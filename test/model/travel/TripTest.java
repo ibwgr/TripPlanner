@@ -20,7 +20,7 @@ public class TripTest {
         Trip fakeTrip = new Trip();
         fakeTrip.setId(1L);
         fakeTrip.setName("Fake Ferien");
-        fakeTrip.setUser_id(1L);
+        fakeTrip.setUser(getFakeUser());
         return fakeTrip;
     }
 
@@ -62,5 +62,16 @@ public class TripTest {
         when(searchUser.searchByCredentials()).thenReturn(fakeUser);
     }
     */
+
+    // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
+    // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
+    @Ignore
+    @Test
+    public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
+        User user = getFakeUser();
+        Trip trip = Trip.searchByUserAndId(user,1L);
+        // aus DB gelesener Wert!
+        Assert.assertEquals(new Long(1), trip.getId());
+    }
 
 }
