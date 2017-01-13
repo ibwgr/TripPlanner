@@ -36,6 +36,8 @@
 
     </dependencies>
     <build>
+        <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+        <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>     
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
