@@ -4,14 +4,14 @@
 <table>
  <tr>
   <td>
-   Travis Build/Test Status: 
+  <a href="https://travis-ci.org/ibwgr/TripPlanner">Travis</a> Build/Test Status:
   </td>
   <td>
    <img src="https://travis-ci.org/ibwgr/TripPlanner.svg?branch=master"/>
   </td>
  </tr>
 </table>
-
+</br>
 
 <b>Applikation fuer die Planung einer Reise</b>
 
