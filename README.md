@@ -1,5 +1,18 @@
 # Semesterarbeit "Trip Planner"
 ## Dieter Biedermann, Reto Kaufmann / IBW Chur 2017/01
+
+<table>
+ <tr>
+  <td>
+   Travis Build/Test Status: 
+  </td>
+  <td>
+   <img src="https://travis-ci.org/ibwgr/TripPlanner.svg?branch=master"/>
+  </td>
+ </tr>
+</table>
+
+
 <b>Applikation fuer die Planung einer Reise</b>
 
 Mit der Trip Planner Applikation kann ein Benutzer seine individuelle Reise planen und grafisch darstellen. 
