@@ -6,6 +6,7 @@ import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
+import view.travel.ActivityView;
 import view.travel.CitySearchView;
 import view.travel.TripView;
 
@@ -166,6 +167,11 @@ public class MainController implements ActionListener {
         tripPlannerMain.addView("Trip Overview", new TripView(this));
     }
 
+    public void openActivityOverview() {
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView("Activity Overview", new ActivityView(this));
+    }
+
     public ProgressView openProgressView() {
         tripPlannerMain.removeAllViews();
         if (progressView == null) {
@@ -177,7 +183,7 @@ public class MainController implements ActionListener {
     }
 
     public void openCitySearchView() {
-        setTrip(Trip.searchById(1L)); // todo: nur für tests
+        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
         if (citySearchView == null) {
             citySearchView = new CitySearchView(this);

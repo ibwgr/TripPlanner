@@ -13,7 +13,7 @@ public class Trip {
 
   // Instanzvariablen Transfer-Object
   private Long id;
-  private Long user_id;
+  private User user;
   private String name;
 
   // Instanzvariablen zusaetzlich
@@ -26,7 +26,7 @@ public class Trip {
   PreparedStatement preparedStatement;
   ResultSet resultset;
 
-  // Constructor
+  // Constructor   todo braucht es den databaseproxy hier ueberhaupt?
   public Trip(DatabaseProxy databaseProxy) {
     try {
       // Databaseproxy wird via Constructor Injection verwendet
@@ -37,6 +37,11 @@ public class Trip {
     }
   }
   public Trip(){
+  }
+  public Trip(Long id, User user, String name){
+    this.id = id;
+    this.user = user;
+    this.name = name;
   };
 
   // Getter/Setter Instanz-Methoden
@@ -48,12 +53,12 @@ public class Trip {
     this.id = id;
   }
 
-  public Long getUser_id() {
-    return user_id;
+  public User getUser() {
+    return user;
   }
 
-  public void setUser_id(Long user_id) {
-    this.user_id = user_id;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public String getName() {
@@ -108,10 +113,10 @@ public class Trip {
         System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
         System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
-        Trip trip = new Trip();
-        trip.setId(resultset.getLong("trip_id"));
-        trip.setName(resultset.getString("trip_name"));
-        trip.setUser_id(1L);
+        Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
+        //trip.setId(resultset.getLong("trip_id"));
+        //trip.setName(resultset.getString("trip_name"));
+        //trip.setUser_id(1L);
         trip.setCountActivities(resultset.getInt("count_acitvities"));
         trip.setMinDate(resultset.getDate("min_date"));
         trip.setMaxDate(resultset.getDate("max_date"));
@@ -132,49 +137,8 @@ public class Trip {
     return tripList;
   }
 
-  // Statische Klassen-Methoden
+  // todo woher sonst den user nehmen?  dann natuerlich nur noch nach id suchen
   public static Trip searchByUserAndId(User user, Long id){
-    DatabaseProxy databaseProxy = new DatabaseProxy();
-    PreparedStatement preparedStatement;
-    ResultSet resultset = null;
-    Trip trip = new Trip();
-    try {
-      preparedStatement = databaseProxy.prepareStatement(
-              "select trip_id, user_id, trip_name, max_date, min_date, count_acitvities " +
-                      "from tp_trip_aggr_v " +
-                      "where user_id = ? and trip_id = ? ");
-      preparedStatement.setLong(1, user.getId());
-      preparedStatement.setLong(2, id);
-      resultset = preparedStatement.executeQuery();
-      while (resultset.next()){
-        System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
-        System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
-        System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
-        System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
-        System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
-        // neues TRIP Objekt befuellen
-        trip.setId(resultset.getLong("trip_id"));
-        trip.setName(resultset.getString("trip_name"));
-        trip.setUser_id(1L);
-        trip.setCountActivities(resultset.getInt("count_acitvities"));
-        trip.setMinDate(resultset.getDate("min_date"));
-        trip.setMaxDate(resultset.getDate("max_date"));
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } finally {
-      // close anyway
-      try {
-        resultset.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-    System.out.println("DB [trip], name    : " +trip.getName());
-    return trip;
-  }
-
-  public static Trip searchById(Long id){
     DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;
     ResultSet resultset = null;
@@ -193,10 +157,10 @@ public class Trip {
         System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
         System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
-        trip = new Trip();
-        trip.setId(resultset.getLong("trip_id"));
-        trip.setName(resultset.getString("trip_name"));
-        trip.setUser_id(1L);
+        trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
+        //trip.setId(resultset.getLong("trip_id"));
+        //trip.setName(resultset.getString("trip_name"));
+        //trip.setUser_id(1L);
         trip.setCountActivities(resultset.getInt("count_acitvities"));
         trip.setMinDate(resultset.getDate("min_date"));
         trip.setMaxDate(resultset.getDate("max_date"));
