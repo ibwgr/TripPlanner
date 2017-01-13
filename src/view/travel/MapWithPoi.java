@@ -1,13 +1,10 @@
 package view.travel;
 
-import com.sun.tools.classfile.InnerClasses_attribute;
 import com.teamdev.jxmaps.*;
 import com.teamdev.jxmaps.swing.MapView;
 import model.common.Poi;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MapWithPoi extends MapView {
 

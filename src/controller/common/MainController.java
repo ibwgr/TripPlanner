@@ -119,6 +119,9 @@ public class MainController implements ActionListener {
         }
     }
 
+    /**
+     * Hilfsklasse zum Speichern von String (View Title) und Component (View)
+     */
     class Pair {
         private String str;
         private Component compo;

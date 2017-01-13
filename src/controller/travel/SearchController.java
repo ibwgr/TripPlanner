@@ -1,6 +1,7 @@
 package controller.travel;
 
 import controller.common.MainController;
+import model.common.Geo;
 import model.common.Poi;
 import model.travel.Activity;
 import view.travel.SearchView;
@@ -28,16 +29,32 @@ public class SearchController implements ActionListener {
     }
 
     public void searchPoi() {
-        if (searchView.getSearchText().length() < 3) {
-            mainController.showErrorMessage("Search text is too short. Minimum length is 4 characters.");
+        if (searchView.getSearchText().length() < 3 && searchView.getPoiCategory() == null) {
+            mainController.showErrorMessage("Search text minimum length is 3 characters.");
             return;
         }
 
+        // Geo Umkreissuche
+        double[] boundingBox = Geo.getBoundingBox(searchView.getCity().getLatitudeDouble()
+                ,searchView.getCity().getLongitudeDouble()
+                ,searchView.getRadius()
+        );
+
+        //
+
         // ToDO: Wie soll die Suche gemacht werden? Alle Varianten in einer Methode?
-        searchView.setSearchResult(Poi.searchPoiByName(searchView.getSearchText()));
+        searchView.setSearchResult(Poi.searchPoiByName(searchView.getSearchText(), boundingBox));
     }
 
     private void addActivity() {
+
+        if (searchView.getPoi() == null
+                || searchView.getDate() == null
+                || searchView.getComment() == null
+                ) {
+            mainController.showErrorMessage("City/Point of interest, Date or Comment is missing");
+            return;
+        }
 
         Activity activity = new Activity(
                 mainController.getTrip()
@@ -64,6 +81,14 @@ public class SearchController implements ActionListener {
 
     }
 
+    public void openPoiSearch() {
+        if (searchView.getPoi() == null) {
+            mainController.showErrorMessage("Please select a city first.");
+            return;
+        }
+        mainController.openPoiSearchView(searchView.getPoi());
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -74,7 +99,7 @@ public class SearchController implements ActionListener {
                 searchPoi();
                 break;
             case "open_poi_search":
-                mainController.openPoiSearchView(searchView.getPoi());
+                openPoiSearch();
                 break;
             case "add_activity":
                 addActivity();

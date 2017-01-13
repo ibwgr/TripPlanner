@@ -1,10 +1,10 @@
 package view.travel;
 
 import model.common.Poi;
+import model.common.PoiCategory;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 
 public interface SearchView {
 
@@ -19,5 +19,11 @@ public interface SearchView {
     String getComment();
 
     void setPoiInList(Poi poi);
+
+    PoiCategory getPoiCategory();
+
+    Poi getCity();
+
+    double getRadius();
 
 }

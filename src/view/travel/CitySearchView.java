@@ -4,6 +4,7 @@ import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
 import model.common.Poi;
+import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
 import view.common.GridPanel;
 
@@ -33,10 +34,15 @@ public class CitySearchView extends JPanel implements SearchView {
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(100,20);
+        GridPanel gridPanel1 = new GridPanel(100,16);
         gridPanel1.addComponentToPanel(searchText = new JTextField(10));
         gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_city", searchController));
         gridPanel1.addPanelWithLabel("City name:", true);
+
+        // Default Action für Enter innerhalb des Eingabefeldes
+        searchText.setActionCommand("search_city");
+        searchText.addActionListener(searchController);
+
         this.add(gridPanel1, BorderLayout.NORTH);
 
         // CENTER: Result
@@ -57,7 +63,7 @@ public class CitySearchView extends JPanel implements SearchView {
         this.add(centerPanel, BorderLayout.CENTER);
 
         // SOUTH: add Activity, forward to Poi Search
-        GridPanel gridPanel2 = new GridPanel(300,20);
+        GridPanel gridPanel2 = new GridPanel(300,16);
 
         gridPanel2.addComponentToPanel(gridPanel2.createButton("Search Poi near city", "open_poi_search", searchController));
         gridPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
@@ -74,35 +80,51 @@ public class CitySearchView extends JPanel implements SearchView {
 
         this.add(gridPanel2, BorderLayout.SOUTH);
 
-        // Default Action für Enter innerhalb des Eingabefeldes
-        searchText.setActionCommand("search_city");
-        searchText.addActionListener(searchController);
-
     }
 
+    @Override
     public String getSearchText() {
         return searchText.getText();
     }
 
+    @Override
     public void setSearchResult(ArrayList<Poi> searchResult) {
         this.searchResult.setListData(new Vector(searchResult));
         mapView.setMarkerList(searchResult);
     }
 
+    @Override
     public Poi getPoi() {
         return (Poi) searchResult.getSelectedValue();
     }
 
+    @Override
     public Date getDate() {
         return datePicker.getDate();
     }
 
+    @Override
     public String getComment() {
         return commentText.getText();
     }
 
-
+    @Override
     public void setPoiInList(Poi poi) {
         searchResult.setSelectedValue(poi, true);
+    }
+
+    @Override
+    public PoiCategory getPoiCategory() {
+        return null;
+    }
+
+    @Override
+    public Poi getCity() {
+        return null;
+    }
+
+    @Override
+    public double getRadius() {
+        return 0;
     }
 }

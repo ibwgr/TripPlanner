@@ -55,16 +55,28 @@ public class Poi {
         return poiList;
     }
 
-    public static ArrayList<Poi> searchPoiByName(String name) {
+    public static ArrayList<Poi> searchPoiByName(String name, double[] boundingBox) {
         DatabaseProxy databaseProxy = new DatabaseProxy();
         ArrayList<Poi> poiList = new ArrayList<>();
-        String query = "select id, name, category_id, longitude, latitude from poi "
-                + "where category_id not in ('66','69','70') and lower(name) like lower(?)";
+        String query = "select id, name, category_id, longitude, latitude from poi " +
+                "where category_id not in ('66','69','70') " +
+                "and latitude between ? and ? " +
+                "and longitude between ? and ? " +
+                "and lower(name) like lower(?)"
+                ;
 
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
 
         try {
-            preparedStatement.setString(1, "%"+name+"%");
+            // boundingBox Array: maxLat, minLat, maxLon, minLon
+            // Suche: latitude
+            preparedStatement.setString(1, String.valueOf(boundingBox[1]));
+            preparedStatement.setString(2, String.valueOf(boundingBox[0]));
+            // Suche: longitude
+            preparedStatement.setString(3, String.valueOf(boundingBox[3]));
+            preparedStatement.setString(4, String.valueOf(boundingBox[2]));
+            // Suche: name
+            preparedStatement.setString(5, "%"+name+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 poiList.add(
