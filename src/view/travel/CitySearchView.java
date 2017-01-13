@@ -1,5 +1,7 @@
 package view.travel;
 
+import com.teamdev.jxmaps.MapViewOptions;
+import com.teamdev.jxmaps.swing.MapView;
 import controller.common.MainController;
 import controller.travel.CitySearchController;
 import model.common.Poi;
@@ -38,9 +40,15 @@ public class CitySearchView extends JPanel {
         this.add(gridPanel1, BorderLayout.NORTH);
 
         // CENTER: Result
-        this.add(new JScrollPane(searchResult = new JList<>()), BorderLayout.CENTER);
+        JPanel centerPanel = new JPanel(new GridLayout(1,2));
+        centerPanel.add(new JScrollPane(searchResult = new JList<>()));
 
-//        MapView mapView = new MapView();
+        MapViewOptions options = new MapViewOptions();
+        options.importPlaces();
+        MapView mapView = new MapWithPoi(options);
+        centerPanel.add(mapView);
+
+        this.add(centerPanel, BorderLayout.CENTER);
 
         // SOUTH: add Activity, forward to Poi Search
         GridPanel gridPanel2 = new GridPanel(300,20);
