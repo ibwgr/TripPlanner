@@ -1,5 +1,6 @@
 package controller.common;
 
+import model.common.Poi;
 import model.common.User;
 import model.travel.Trip;
 import view.admin.AdminView;
@@ -8,6 +9,7 @@ import view.common.LoginView;
 import view.common.TripPlannerMain;
 import view.travel.ActivityView;
 import view.travel.CitySearchView;
+import view.travel.PoiSearchView;
 import view.travel.TripView;
 
 import java.awt.*;
@@ -24,6 +26,7 @@ public class MainController implements ActionListener {
     ProgressView progressView;
     LoginView loginView;
     CitySearchView citySearchView;
+    PoiSearchView poiSearchView;
     ArrayList<Pair> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
@@ -155,6 +158,7 @@ public class MainController implements ActionListener {
 
     public void openAdmin() {
         tripPlannerMain.removeAllViews();
+        // Immer die gleiche View Instanz öffnen
         if (adminView == null) {
             adminView = new AdminView(this);
         }
@@ -185,11 +189,22 @@ public class MainController implements ActionListener {
     public void openCitySearchView() {
         setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
-        if (citySearchView == null) {
+        // Immer eine neue View Instanz erstellen
+//        if (citySearchView == null) {
             citySearchView = new CitySearchView(this);
-        }
+//        }
         setNewView("City Search", citySearchView);
         tripPlannerMain.addView("City Search", citySearchView);
+    }
+
+    public void openPoiSearchView(Poi city) {
+        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
+//        if (poiSearchView == null) {
+            poiSearchView = new PoiSearchView(this, city);
+//        }
+        setNewView("Point of interest Search", poiSearchView);
+        tripPlannerMain.addView("Point of interest Search", poiSearchView);
     }
 
     public void showErrorMessage(String message) {

@@ -55,6 +55,39 @@ public class Poi {
         return poiList;
     }
 
+    public static ArrayList<Poi> searchPoiByName(String name) {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        ArrayList<Poi> poiList = new ArrayList<>();
+        String query = "select id, name, category_id, longitude, latitude from poi "
+                + "where category_id not in ('66','69','70') and lower(name) like lower(?)";
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        try {
+            preparedStatement.setString(1, "%"+name+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                poiList.add(
+                        new Poi(
+                                resultSet.getString(1)
+                                ,resultSet.getString(2)
+                                ,PoiCategory.searchById(resultSet.getString(3))
+                                ,resultSet.getString(4)
+                                ,resultSet.getString(5)
+                        )
+                );
+
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseProxy.close();
+        }
+
+        return poiList;
+    }
+
     public String getId() {
         return id;
     }
@@ -83,12 +116,20 @@ public class Poi {
         return longitude;
     }
 
+    public Double getLongitudeDouble() {
+        return Double.valueOf(longitude);
+    }
+
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
     public String getLatitude() {
         return latitude;
+    }
+
+    public Double getLatitudeDouble() {
+        return Double.valueOf(latitude);
     }
 
     public void setLatitude(String latitude) {

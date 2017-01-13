@@ -4,7 +4,9 @@ import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
 import model.common.Poi;
+import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import view.common.GridPanel;
 
 import javax.swing.*;
@@ -15,32 +17,43 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-public class CitySearchView extends JPanel implements SearchView {
+public class PoiSearchView extends JPanel implements SearchView {
 
     MainController mainController;
     SearchController searchController;
+    Poi city;
 
     JList searchResult;
     JTextField searchText;
     JTextArea commentText;
     JXDatePicker datePicker;
     MapWithPoi mapView;
+    JComboBox<PoiCategory> poiCategoryCombo;
 
-    public CitySearchView(MainController mainController) {
+    public PoiSearchView(MainController mainController, Poi city) {
         this.mainController = mainController;
+        this.city = city;
         searchController = new SearchController(this, mainController);
 
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(100,20);
+        GridPanel gridPanel1 = new GridPanel(100, 20);
+        gridPanel1.addComponentToPanel(new JLabel(city.getName()));
+        gridPanel1.addPanelWithLabel("City:", true);
+
+        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
+        poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategories()));
+        gridPanel1.addPanelWithLabel("Poi category:", true);
+
         gridPanel1.addComponentToPanel(searchText = new JTextField(10));
-        gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_city", searchController));
-        gridPanel1.addPanelWithLabel("City name:", true);
+        gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_poi", searchController));
+        gridPanel1.addPanelWithLabel("Poi name:", true);
+
         this.add(gridPanel1, BorderLayout.NORTH);
 
         // CENTER: Result
-        JPanel centerPanel = new JPanel(new GridLayout(1,2));
+        JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         centerPanel.add(new JScrollPane(searchResult = new JList<>()));
         searchResult.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -57,15 +70,14 @@ public class CitySearchView extends JPanel implements SearchView {
         this.add(centerPanel, BorderLayout.CENTER);
 
         // SOUTH: add Activity, forward to Poi Search
-        GridPanel gridPanel2 = new GridPanel(300,20);
+        GridPanel gridPanel2 = new GridPanel(300, 20);
 
-        gridPanel2.addComponentToPanel(gridPanel2.createButton("Search Poi near city", "open_poi_search", searchController));
         gridPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
 
         gridPanel2.addComponentToPanel(datePicker = new JXDatePicker());
         gridPanel2.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5,30);
+        commentText = new JTextArea(5, 30);
         gridPanel2.addComponentToPanel(new JScrollPane(commentText));
         gridPanel2.addPanelWithLabel("Comment:", true);
 
@@ -101,8 +113,11 @@ public class CitySearchView extends JPanel implements SearchView {
         return commentText.getText();
     }
 
-
     public void setPoiInList(Poi poi) {
         searchResult.setSelectedValue(poi, true);
+    }
+
+    public PoiCategory getPoiCategory() {
+        return (PoiCategory) poiCategoryCombo.getSelectedItem();
     }
 }
