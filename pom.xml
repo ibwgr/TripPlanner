@@ -112,6 +112,20 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.19.1</version>
             </plugin>
+            <!-- fuer die Ausfuehrung von MVN TEST durch Travis, ansonsten: "No tests to run" -->
+            <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.8</version>
+                    <dependencies>
+                      <!-- Force using the latest JUnit 47 provider -->
+                      <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>2.8</version>
+                      </dependency>
+                    </dependencies>
+              </plugin>
         </plugins>
     </build>
 </project>

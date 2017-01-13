@@ -1,0 +1,8 @@
+language: java
+sudo: false
+script:
+   - mvn test
+
+#script:
+#  - cd Semester1
+#  - mvn test
