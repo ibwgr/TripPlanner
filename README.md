@@ -4,10 +4,10 @@
 <table>
  <tr>
   <td>
-  <a href="https://travis-ci.org/ibwgr/TripPlanner">Travis</a> Build/Test Status:
+  Travis Build/Test Status:
   </td>
   <td>
-   <img src="https://travis-ci.org/ibwgr/TripPlanner.svg?branch=master"/>
+   <a href="https://travis-ci.org/ibwgr/TripPlanner" target="_blank"><img src="https://travis-ci.org/ibwgr/TripPlanner.svg?branch=master"/></a>
   </td>
  </tr>
 </table>

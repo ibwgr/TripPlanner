@@ -3,6 +3,7 @@ package model.travel;
 import model.common.DatabaseProxy;
 import model.common.Poi;
 import model.common.PoiCategory;
+import model.common.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,6 +71,55 @@ public class Activity {
             databaseProxy.close();
         }
     }
+
+
+    // todo woher sonst user nehmen? dann natuerlich nur noch nach trip suchen
+    public static ArrayList<Activity> searchByUserAndTrip(User user, Trip trip){
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        PreparedStatement preparedStatement;
+        ResultSet resultset = null;
+        ArrayList<Activity> activityList = new ArrayList<Activity>();
+        try {
+            preparedStatement = databaseProxy.prepareStatement(
+                    "select trip_id, activity_id, date, comment, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
+                            "from tp_trip_full_v " +
+                            "where user_id = ? and trip_id = ? ");
+            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(2, trip.getId());
+            resultset = preparedStatement.executeQuery();
+            while (resultset.next()){
+                System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
+                System.out.println("DB, ACT_ID    : " +resultset.getInt("activity_id"));
+                System.out.println("DB, DATE      : " +resultset.getDate("date"));
+                System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
+                System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
+                System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
+                System.out.println("DB, longitude : " +resultset.getString("longitude"));
+                System.out.println("DB, latitude  : " +resultset.getString("latitude"));
+                System.out.println("DB, category_id : " +resultset.getString("category_id"));
+                System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
+                // neues Activity Objekt
+                PoiCategory poiCategory = new PoiCategory(resultset.getString("category_id"),resultset.getString("poi_category_name"));
+                Poi poi = new Poi(resultset.getString("poi_id"),resultset.getString("poi_name"),poiCategory ,resultset.getString("longitude"),resultset.getString("latitude"));
+                Activity activity = new Activity(trip, poi, resultset.getDate("date"), resultset.getString("comment"));
+                // zur ACTIVITY-LISTE hinzufuegen
+                activityList.add(activity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // close anyway
+            try {
+                resultset.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("DB [activity], size()    : " +activityList.size());
+        return activityList;
+    }
+
+
 
     public Long getId() {
         return id;
