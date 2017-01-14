@@ -19,11 +19,11 @@ public class ImportController {
     private ProgressView progressView;
     private MainController mainController;
     private DatabaseProxy databaseProxy;
-    LinkedList<String> rowQueue = new LinkedList<String>();
-    long rowQueueCount = -1;
-    long errorCount = 0;
-    long errorCategoryCount = 0;
-    long processedCount = 0;
+    public LinkedList<String> rowQueue = new LinkedList<String>();
+    public long rowQueueCount = -1;
+    public long errorCount = 0;
+    public long errorCategoryCount = 0;
+    public long processedCount = 0;
     private final int threadNo = 3;
     private long startTime = System.nanoTime();
     private ArrayList<PoiCategory> poiCategories;
