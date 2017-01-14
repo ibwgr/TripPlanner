@@ -1,5 +1,5 @@
 # Semesterarbeit "Trip Planner"
-## Dieter Biedermann, Reto Kaufmann / IBW Chur 2017/01
+## Dieter Biedermann, Reto Kaufmann </br>NDS HF Applikationsentwicklung, IBW Chur 2017/01
 
 <table>
  <tr>

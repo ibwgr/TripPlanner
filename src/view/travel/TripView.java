@@ -13,6 +13,7 @@ import javax.swing.table.TableColumnModel;
 import controller.common.MainController;
 import controller.travel.TripController;
 import model.travel.Trip;
+import view.common.GridPanel;
 
 public class TripView extends JPanel {
 
@@ -32,8 +33,10 @@ public class TripView extends JPanel {
 
         DefaultTableModel tableModel = new DefaultTableModel();
         JTable table = new JTable(tableModel);
-        //table.setAutoCreateColumnsFromModel(true);
-        //table.setPreferredSize(new Dimension(400,200));
+        table.setAutoCreateColumnsFromModel(true);
+        table.setPreferredSize(new Dimension(400,200));
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -48,7 +51,6 @@ public class TripView extends JPanel {
             }
         });
 
-
         // Create columns
         String[] columnNames = {"Nr", "Trip Name", "From-Date", "To-Date", "Act."};
         for (String column : columnNames){
@@ -60,26 +62,30 @@ public class TripView extends JPanel {
             // Append a row
             tableModel.addRow(new Object[]{trip.getId(), trip.getName(),trip.getMinDate(),trip.getMaxDate(), trip.getCountActivities()});
         }
-
+        // spaltenbreite automatisch
         resizeColumnWidth(table);
 
-        // Tabelle platzieren
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
 
-        // Detailbutton platzieren
-        JPanel southPanel = new JPanel(new BorderLayout());
+        // Generelles Panel fuer Gesamtanzeige
+        JPanel anzeigePanel = new JPanel(new BorderLayout());
+
+        // Spezielles Panel fuer die Buttons (rechts)
+        GridPanel buttonPanel = new GridPanel(300,16);
+
+        //
+        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        anzeigePanel.add(buttonPanel, BorderLayout.EAST);
+
+        // Detailbutton
         JButton detailButton = new JButton("Detail");
         detailButton.setActionCommand("detail");
         detailButton.addActionListener(tripController);
-        southPanel.add(detailButton, BorderLayout.SOUTH);
+        buttonPanel.add(detailButton);
+
 
 
         // alles aufs Hauptpanel platzieren
-        this.add(centerPanel);
-        this.add(southPanel);
-
-
+        this.add(anzeigePanel);
 
     }
 
