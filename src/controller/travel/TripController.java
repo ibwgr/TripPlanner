@@ -22,7 +22,7 @@ public class TripController implements ActionListener {
     DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
     MainController mainController;
-    Long currentTripId; // nur zuer Uebergaben von View zu Controller
+    //Long currentTripId; // nur zuer Uebergaben von View zu Controller
 
     public TripController(TripView tripView, MainController mainController) {
         this.tripView = tripView;
@@ -35,15 +35,9 @@ public class TripController implements ActionListener {
         return Trip.searchByUser(mainController.getUser());
     }
 
-    // Getters/Setters
-    public Long getCurrentTripId() {
-        return currentTripId;
-    }
-    public void setCurrentTripId(Long currentTripId) {
-        System.out.println("TripController.setCurrentTripId: "+currentTripId);
-        this.currentTripId = currentTripId;
-        // auch dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
-        Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
+    public void setCurrentTrip(Long currentTripId) {
+        // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
+        Trip t = Trip.searchByUserAndId(mainController.getUser(), currentTripId);
         mainController.setTrip(t);
     }
 
@@ -51,14 +45,16 @@ public class TripController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
+            //-----------------------------------
             case "detail":
-                if (this.currentTripId != null) {
+                if (tripView.getCurrentTripId() != null) {
                     // Activity view
                     mainController.openActivityOverview();
                 } else {
                     mainController.showErrorMessage("Please select a trip");
                 }
                 break;
+            //-----------------------------------
             case "delete":
                 System.out.println("delete button");
                 if (mainController.getTrip() != null) {
@@ -71,7 +67,7 @@ public class TripController implements ActionListener {
                             mainController.getTrip().delete();
                             tripView.refreshTable();
                         } catch (SQLException e1) {
-                            mainController.showErrorMessage("Error on trip deletion");
+                            mainController.showErrorMessage("Error on deleting trip!");
                             e1.printStackTrace();
                         }
                     }
@@ -80,6 +76,24 @@ public class TripController implements ActionListener {
                 }
                 //tableModel.fireTableDataChanged()
                 break;
+            //-----------------------------------
+            case "newActivty":
+                mainController.openCitySearchView();
+                break;
+            //-----------------------------------
+            case "saveNewTrip":
+                Trip t = new Trip(null, mainController.getUser(), tripView.getNewTripNameField().getText());
+                System.out.println("New Trip :" +t.getName());
+                try {
+                    t.save();
+                    mainController.setTrip(t);
+                    tripView.refreshTable();
+                } catch (SQLException e1) {
+                    mainController.showErrorMessage("Error on saving trip!");
+                    e1.printStackTrace();
+                }
+                break;
+
         }
     }
 }

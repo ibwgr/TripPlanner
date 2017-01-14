@@ -52,6 +52,11 @@ public class GridPanel extends JPanel {
         return button;
     }
 
+    public JLabel createLabel(String text, String cmd, ActionListener actionListener) {
+        JLabel label = new JLabel(text);
+        return label;
+    }
+
     public void addPanelWithLabel(String text, Boolean clearComponent) {
         JLabel label = new JLabel(text);
         label.setPreferredSize(labelDimension);
