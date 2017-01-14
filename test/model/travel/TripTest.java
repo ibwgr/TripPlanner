@@ -54,6 +54,9 @@ public class TripTest {
         return testUser;
     }
 
+
+
+
     // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
     // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
     @Ignore
@@ -61,7 +64,7 @@ public class TripTest {
     public void integrationsTestSearchByUserWithRealDbAccessReturnsTripList() throws Exception {
         User user = getTestUser();
         ArrayList<Trip> tripList = Trip.searchByUser(user);
-        // aus DB gelesener Wert!
+        // aus DB gelesener Wert vergleichen
         Assert.assertEquals(3, tripList.size());
     }
 
@@ -81,7 +84,7 @@ public class TripTest {
     public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
         User user = getTestUser();
         Trip trip = Trip.searchByUserAndId(user,1L);
-        // aus DB gelesener Wert!
+        // aus DB gelesener Wert vergleichen
         Assert.assertEquals(new Long(1), trip.getId());
     }
 
@@ -90,14 +93,15 @@ public class TripTest {
     // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
     @Ignore
     @Test
-    public void integrationsTestSaveWithoutIdCreatesNewTrip() throws Exception {
+    public void integrationsTestSaveWithoutIdInsertsNewTrip() throws Exception {
         User user = getTestUser();
         Trip trip = getNewTestTripWithoutId();
-        // in DB speichern, INSERT
+        // in DB speichern, wird ein INSERT ergeben
+        // nun bekommt das trip Objekt seine ID gesetzt
         trip.save();
         // wieder aus DB lesen
-        Trip tripAusDb = Trip.searchByUserAndId(user,trip.getId()); // trip hat noch keine ID!
-        // aus DB gelesener Wert!
+        Trip tripAusDb = Trip.searchByUserAndId(user,trip.getId());
+        // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
 
@@ -109,11 +113,11 @@ public class TripTest {
     public void integrationsTestSaveIdUpdatesTrip() throws Exception {
         User user = getTestUser();
         Trip trip = getTestTrip();
-        // in DB speichern, UPDATE
+        // in DB speichern, wird ein UPDATE ergeben
         trip.save();
         // wieder aus DB lesen
         Trip tripAusDb = Trip.searchByUserAndId(user,trip.getId());
-        // aus DB gelesener Wert!
+        // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
 
