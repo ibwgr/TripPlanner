@@ -29,21 +29,23 @@ public class SearchController implements ActionListener {
     }
 
     public void searchPoi() {
-        if (searchView.getSearchText().length() < 3 && searchView.getPoiCategory() == null) {
-            mainController.showErrorMessage("Search text minimum length is 3 characters.");
-            return;
-        }
-
         // Geo Umkreissuche
         double[] boundingBox = Geo.getBoundingBox(searchView.getCity().getLatitudeDouble()
                 ,searchView.getCity().getLongitudeDouble()
                 ,searchView.getRadius()
         );
 
-        //
-
-        // ToDO: Wie soll die Suche gemacht werden? Alle Varianten in einer Methode?
-        searchView.setSearchResult(Poi.searchPoiByName(searchView.getSearchText(), boundingBox));
+        if (!searchView.getSearchText().isEmpty()) {
+            // Suche nach Namen
+            if (searchView.getSearchText().length() < 3) {
+                mainController.showErrorMessage("Search text minimum length is 3 characters.");
+                return;
+            }
+            searchView.setSearchResult(Poi.searchPoiByNameAndRadius(searchView.getSearchText(), boundingBox));
+        } else {
+            // Suche nach Kategorie
+            searchView.setSearchResult(Poi.searchPoiByCategoryAndRadius(searchView.getPoiCategory(), boundingBox));
+        }
     }
 
     private void addActivity() {
@@ -79,6 +81,7 @@ public class SearchController implements ActionListener {
         );
 */
 
+        mainController.openActivityOverview();
     }
 
     public void openPoiSearch() {

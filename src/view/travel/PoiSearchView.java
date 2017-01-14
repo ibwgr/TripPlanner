@@ -39,14 +39,16 @@ public class PoiSearchView extends JPanel implements SearchView {
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(100, 16);
+        GridPanel gridPanel1 = new GridPanel(200, 16);
+/*
         gridPanel1.addComponentToPanel(new JLabel(city.getName()));
         gridPanel1.addPanelWithLabel("City:", true);
+*/
 
         Double[] radiusList = {1d,5d,10d,15d};
         gridPanel1.addComponentToPanel(radiusCombo = new JComboBox<Double>());
         radiusCombo.setModel(new DefaultComboBoxModel<>(radiusList));
-        gridPanel1.addPanelWithLabel("Radius:", true);
+        gridPanel1.addPanelWithLabel("City: " + city.getName() + "  /  Radius in km:", true);
 
         gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
         poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategories()));
@@ -54,7 +56,7 @@ public class PoiSearchView extends JPanel implements SearchView {
 
         gridPanel1.addComponentToPanel(searchText = new JTextField(10));
         gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_poi", searchController));
-        gridPanel1.addPanelWithLabel("Poi name:", true);
+        gridPanel1.addPanelWithLabel("or Poi name:", true);
 
         // Default Action für Enter innerhalb des Eingabefeldes
         searchText.setActionCommand("search_poi");
@@ -65,6 +67,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         // CENTER: Result
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         centerPanel.add(new JScrollPane(searchResult = new JList<>()));
+        searchResult.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
         searchResult.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -105,7 +108,7 @@ public class PoiSearchView extends JPanel implements SearchView {
 
     @Override
     public void setSearchResult(ArrayList<Poi> searchResult) {
-        this.searchResult.setListData(new Vector(searchResult));
+        this.searchResult.setListData(new Vector<>(searchResult));
         mapView.setMarkerList(searchResult);
     }
 

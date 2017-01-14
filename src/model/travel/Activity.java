@@ -64,6 +64,15 @@ public class Activity {
             System.out.println("save Activity query: " + preparedStatement.toString());
 
             preparedStatement.executeUpdate();
+            // falls INSERT, sind wir am Resultat (Primary Key: ID) interessiert
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()) {
+                int incrementId = rs.getInt(1);
+                if (incrementId > 0) {
+                    System.out.println("inserted with primary key ID: " +incrementId);
+                    this.setId((long) incrementId);
+                }
+            }
 
         } catch (SQLException e) {
             throw e;

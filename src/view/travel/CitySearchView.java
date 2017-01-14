@@ -89,7 +89,7 @@ public class CitySearchView extends JPanel implements SearchView {
 
     @Override
     public void setSearchResult(ArrayList<Poi> searchResult) {
-        this.searchResult.setListData(new Vector(searchResult));
+        this.searchResult.setListData(new Vector<>(searchResult));
         mapView.setMarkerList(searchResult);
     }
 
