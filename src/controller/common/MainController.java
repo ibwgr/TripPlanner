@@ -3,6 +3,7 @@ package controller.common;
 import model.common.Poi;
 import model.common.User;
 import model.travel.Trip;
+import model.common.Pair;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
@@ -29,7 +30,7 @@ public class MainController implements ActionListener {
     PoiSearchView poiSearchView;
     ActivityView activityView;
     TripView tripView;
-    ArrayList<Pair> viewList = new ArrayList<>();
+    ArrayList<Pair<String, Component>> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
     public MainController(TripPlannerMain tripPlannerMain) {
@@ -99,8 +100,8 @@ public class MainController implements ActionListener {
     private void openView(int i) {
         tripPlannerMain.removeAllViews();
         tripPlannerMain.addView(
-                viewList.get(i - 1).getStr()
-                ,viewList.get(i - 1).getCompo()
+                viewList.get(i - 1).getKey()
+                ,viewList.get(i - 1).getValue()
         );
     }
 
@@ -122,33 +123,13 @@ public class MainController implements ActionListener {
         }
     }
 
-    /**
-     * Hilfsklasse zum Speichern von String (View Title) und Component (View)
-     */
-    class Pair {
-        private String str;
-        private Component compo;
-        Pair(String str, Component compo) {
-            this.str = str;
-            this.compo = compo;
-        }
-
-        public String getStr() {
-            return str;
-        }
-
-        public Component getCompo() {
-            return compo;
-        }
-    }
-
     private void setNewView(String s, Component view) {
         if (currentViewNo < viewList.size()) {
             for (int i = viewList.size(); i > currentViewNo; i--) {
                 viewList.remove(i - 1);
             }
         }
-        viewList.add(new Pair(s, view));
+        viewList.add(new Pair<>(s, view));
         currentViewNo = viewList.size();
     }
 

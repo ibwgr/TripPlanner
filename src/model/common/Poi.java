@@ -55,7 +55,7 @@ public class Poi {
         return poiList;
     }
 
-    public static ArrayList<Poi> searchPoiByName(String name, double[] boundingBox) {
+    public static ArrayList<Poi> searchPoiByNameAndRadius(String name, double[] boundingBox) {
         DatabaseProxy databaseProxy = new DatabaseProxy();
         ArrayList<Poi> poiList = new ArrayList<>();
         String query = "select id, name, category_id, longitude, latitude from poi " +
@@ -77,6 +77,51 @@ public class Poi {
             preparedStatement.setString(4, String.valueOf(boundingBox[2]));
             // Suche: name
             preparedStatement.setString(5, "%"+name+"%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                poiList.add(
+                        new Poi(
+                                resultSet.getString(1)
+                                ,resultSet.getString(2)
+                                ,PoiCategory.searchById(resultSet.getString(3))
+                                ,resultSet.getString(4)
+                                ,resultSet.getString(5)
+                        )
+                );
+
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseProxy.close();
+        }
+
+        return poiList;
+    }
+
+    public static ArrayList<Poi> searchPoiByCategoryAndRadius(PoiCategory poiCategory, double[] boundingBox) {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        ArrayList<Poi> poiList = new ArrayList<>();
+        String query = "select id, name, category_id, longitude, latitude from poi " +
+                "where category_id not in ('66','69','70') " +
+                "and latitude between ? and ? " +
+                "and longitude between ? and ? " +
+                "and category_id = ?"
+                ;
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        try {
+            // boundingBox Array: maxLat, minLat, maxLon, minLon
+            // Suche: latitude
+            preparedStatement.setString(1, String.valueOf(boundingBox[1]));
+            preparedStatement.setString(2, String.valueOf(boundingBox[0]));
+            // Suche: longitude
+            preparedStatement.setString(3, String.valueOf(boundingBox[3]));
+            preparedStatement.setString(4, String.valueOf(boundingBox[2]));
+            // Suche: name
+            preparedStatement.setString(5, poiCategory.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 poiList.add(

@@ -2,6 +2,7 @@ package view.travel;
 
 import com.teamdev.jxmaps.*;
 import com.teamdev.jxmaps.swing.MapView;
+import model.common.Pair;
 import model.common.Poi;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class MapWithPoi extends MapView {
     SearchView searchView;
 
     Map map;
-    ArrayList<Pair> markerList = new ArrayList<>();
+    ArrayList<Pair<Marker, Poi>> markerList = new ArrayList<>();
     ArrayList<InfoWindow> windowList = new ArrayList<>();
 
     public MapWithPoi(MapViewOptions options, SearchView searchView) {
@@ -33,26 +34,6 @@ public class MapWithPoi extends MapView {
         });
     }
 
-    /**
-     * Hilfsklasse zum Speichern von zusammengehörenden Marker und Poi
-     */
-    class Pair {
-        private Marker marker;
-        private Poi poi;
-
-        Pair(Marker marker, Poi poi) {
-            this.marker = marker;
-            this.poi = poi;
-        }
-
-        public Marker getMarker() {
-            return marker;
-        }
-        public Poi getPoi() {
-            return poi;
-        }
-    }
-
     public void closeAllWindows() {
         for (InfoWindow window : windowList) {
             window.close();
@@ -61,8 +42,8 @@ public class MapWithPoi extends MapView {
 
     public void setMarkerList(ArrayList<Poi> poiList) {
         closeAllWindows();
-        for (Pair pair : markerList) {
-            pair.getMarker().remove();
+        for (Pair<Marker, Poi> pair : markerList) {
+            pair.getKey().remove();
         }
         markerList.clear();
         windowList.clear();
@@ -70,7 +51,7 @@ public class MapWithPoi extends MapView {
             // Marker erstellen
             Marker marker = new Marker(map);
             marker.setPosition(new LatLng(poi.getLatitudeDouble(), poi.getLongitudeDouble()));
-            markerList.add(new Pair(marker, poi));
+            markerList.add(new Pair<>(marker, poi));
             map.setCenter(new LatLng(poi.getLatitudeDouble(), poi.getLongitudeDouble()));
 
             // Adding event listener that intercepts clicking on marker
@@ -93,9 +74,9 @@ public class MapWithPoi extends MapView {
         window.setContent(poi.getName());
 
         Marker marker = null;
-        for (Pair pair : markerList) {
-            if (pair.getPoi().equals(poi)) {
-                marker = pair.getMarker();
+        for (Pair<Marker, Poi> pair : markerList) {
+            if (pair.getValue().equals(poi)) {
+                marker = pair.getKey();
             }
         }
 
