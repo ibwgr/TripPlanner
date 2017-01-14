@@ -6,6 +6,7 @@ import model.common.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -177,6 +178,52 @@ public class Trip {
     }
     return trip;
   }
+
+  /**
+   * Speichert ein Trip Objekt auf die Datenbank. Tabelle: tp_trip
+   * - wenn ID leer ist, wird ein Insert gemacht
+   * - wenn ID vorhanden ist, wird ein Update gemacht
+   */
+  public void save() throws SQLException {
+    DatabaseProxy databaseProxy = new DatabaseProxy();
+    String query = null;
+    if (id == null) {
+      query = "insert into tp_trip (user_id, name) "
+              + "values (?, ?)";
+    } else {
+      query = "update tp_trip set user_id = ?, name = ? "
+              + "where id = ?";
+    }
+
+    PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+    try {
+      preparedStatement.setLong(1, user.getId());
+      preparedStatement.setString(2, this.name);
+      if (id != null) {
+        preparedStatement.setLong(3, id);
+      }
+
+      System.out.println("save Trip query: " + preparedStatement.toString());
+
+      preparedStatement.executeUpdate();
+      // falls INSERT, sind wir am Resultat (Primary Key: ID) interessiert
+      ResultSet rs = preparedStatement.getGeneratedKeys();
+      if(rs.next()) {
+        int incrementId = rs.getInt(1);
+        if (incrementId > 0) {
+          System.out.println("inserted with primary key ID: " +incrementId);
+          this.setId((long) incrementId);
+        }
+      }
+
+    } catch (SQLException e) {
+      throw e;
+    } finally {
+      databaseProxy.close();
+    }
+  }
+
 }
 
 

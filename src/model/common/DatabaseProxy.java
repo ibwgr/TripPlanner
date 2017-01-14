@@ -34,6 +34,18 @@ public class DatabaseProxy {
         return preparedStatement;
     }
 
+    // mit 2. Parameter, damit bei INSERT/UPDATE der PK zurueckgegeben werden kann
+    // (Parameter z.b. Statement.RETURN_GENERATED_KEYS)
+    public synchronized PreparedStatement prepareStatement(String str, int k) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement(str, k);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return preparedStatement;
+    }
+
     public synchronized void setAutoCommit(Boolean autoCommit) {
         try {
             conn.setAutoCommit(autoCommit);
