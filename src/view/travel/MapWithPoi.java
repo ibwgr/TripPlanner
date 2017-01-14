@@ -27,7 +27,7 @@ public class MapWithPoi extends MapView {
             public void onMapReady(MapStatus status) {
                 if (status == MapStatus.MAP_STATUS_OK) {
                     map = getMap();
-                    map.setZoom(8.0);
+                    map.setZoom(10.0);
                     map.setCenter(new LatLng(46.8555150,9.5254066));
                 }
             }

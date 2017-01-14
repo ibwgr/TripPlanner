@@ -81,6 +81,7 @@ public class SearchController implements ActionListener {
         );
 */
 
+        mainController.openActivityOverview();
     }
 
     public void openPoiSearch() {
