@@ -22,7 +22,7 @@ public class TripController implements ActionListener {
     DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
     MainController mainController;
-    Long currentTripId; // nur zuer Uebergaben von View zu Controller
+    //Long currentTripId; // nur zuer Uebergaben von View zu Controller
 
     public TripController(TripView tripView, MainController mainController) {
         this.tripView = tripView;
@@ -35,15 +35,9 @@ public class TripController implements ActionListener {
         return Trip.searchByUser(mainController.getUser());
     }
 
-    // Getters/Setters
-    public Long getCurrentTripId() {
-        return currentTripId;
-    }
-    public void setCurrentTripId(Long currentTripId) {
-        System.out.println("TripController.setCurrentTripId: "+currentTripId);
-        this.currentTripId = currentTripId;
-        // auch dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
-        Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
+    public void setCurrentTrip(Long currentTripId) {
+        // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
+        Trip t = Trip.searchByUserAndId(mainController.getUser(), currentTripId);
         mainController.setTrip(t);
     }
 
@@ -53,7 +47,7 @@ public class TripController implements ActionListener {
         switch (e.getActionCommand()) {
             //-----------------------------------
             case "detail":
-                if (this.currentTripId != null) {
+                if (tripView.getCurrentTripId() != null) {
                     // Activity view
                     mainController.openActivityOverview();
                 } else {

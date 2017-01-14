@@ -28,6 +28,9 @@ public class TripView extends JPanel {
 
     DefaultTableModel tableModel;
     JTable table;
+
+    private Long currentTripId; //
+
     JButton detailButton;
     JButton deleteButton;
     JButton newActivityButton;
@@ -35,12 +38,17 @@ public class TripView extends JPanel {
     JTextField newTripNameField;
     JButton newTripSaveButton;
 
-    // Getters/Setters
+    // Getter, damit der TripController den Wert lesen kann
     public JTextField getNewTripNameField() {
         return newTripNameField;
     }
-    public void setNewTripNameField(JTextField newTripNameField) {
-        this.newTripNameField = newTripNameField;
+    // Getter, damit der TripController den Wert lesen kann
+    public Long getCurrentTripId() {
+        return currentTripId;
+    }
+    private void setCurrentTripId(Long currentTripId) {
+        this.currentTripId = currentTripId;
+        tripController.setCurrentTrip(currentTripId);
     }
 
     // Constructor
@@ -64,7 +72,7 @@ public class TripView extends JPanel {
                 try {
                     System.out.println("JTABLE Row | " +table.getValueAt(table.getSelectedRow(), 0).toString());
                     Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
-                    tripController.setCurrentTripId(tripId);
+                    setCurrentTripId(tripId);
                 } catch (IndexOutOfBoundsException e) {
                     //index out of bound, only after delete, no problem!
                 }
