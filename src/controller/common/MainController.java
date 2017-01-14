@@ -27,6 +27,8 @@ public class MainController implements ActionListener {
     LoginView loginView;
     CitySearchView citySearchView;
     PoiSearchView poiSearchView;
+    ActivityView activityView;
+    TripView tripView;
     ArrayList<Pair> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
@@ -120,6 +122,9 @@ public class MainController implements ActionListener {
         }
     }
 
+    /**
+     * Hilfsklasse zum Speichern von String (View Title) und Component (View)
+     */
     class Pair {
         private String str;
         private Component compo;
@@ -168,12 +173,16 @@ public class MainController implements ActionListener {
 
     public void openTripOverview() {
         tripPlannerMain.removeAllViews();
-        tripPlannerMain.addView("Trip Overview", new TripView(this));
+        tripView = new TripView(this);
+        setNewView("Trip Overview", tripView);
+        tripPlannerMain.addView("Trip Overview", tripView);
     }
 
     public void openActivityOverview() {
         tripPlannerMain.removeAllViews();
-        tripPlannerMain.addView("Activity Overview", new ActivityView(this));
+        activityView = new ActivityView(this);
+        setNewView("Activity Overview", activityView);
+        tripPlannerMain.addView("Activity Overview", activityView);
     }
 
     public ProgressView openProgressView() {
