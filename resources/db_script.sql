@@ -61,7 +61,7 @@ CREATE TABLE tp_activity
   poi_id    varchar (50),
   date      date,
   comment   varchar (250),
-  FOREIGN KEY (trip_id) REFERENCES tp_trip (id),
+  FOREIGN KEY (trip_id) REFERENCES tp_trip (id) ON DELETE CASCADE,
   FOREIGN KEY (poi_id) REFERENCES poi (id)
 );
 
@@ -234,37 +234,7 @@ select *
 from tp_user
 ;
 */
------------------------------------------------------------
--- some dummy USER data
------------------------------------------------------------
 
-INSERT INTO tp_user (username,
-                     password,
-                     email,
-                     name,
-                     type)                   /* 1 = User, 2 = Administrator */
-VALUES ('benutzer',
-        'benutzer',
-        'benutzer@example.com',
-        'benutzer',
-        1);
-
-INSERT INTO tp_user (username,
-                     password,
-                     email,
-                     name,
-                     type)                   /* 1 = User, 2 = Administrator */
-VALUES ('admin',
-        'admin',
-        'admin@example.com',
-        'admin',
-        2);
-
-COMMIT;
-/*
-select *
-from tp_user;
-*/
 -----------------------------------------------------------
 -- some dummy TRIP data
 -----------------------------------------------------------
