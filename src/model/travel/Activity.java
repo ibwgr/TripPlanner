@@ -8,6 +8,7 @@ import model.common.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -50,7 +51,7 @@ public class Activity {
                     + "where id = ?";
         }
 
-        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         try {
             preparedStatement.setLong(1, trip.getId());
