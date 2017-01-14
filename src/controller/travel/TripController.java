@@ -51,6 +51,7 @@ public class TripController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
+            //-----------------------------------
             case "detail":
                 if (this.currentTripId != null) {
                     // Activity view
@@ -59,6 +60,7 @@ public class TripController implements ActionListener {
                     mainController.showErrorMessage("Please select a trip");
                 }
                 break;
+            //-----------------------------------
             case "delete":
                 System.out.println("delete button");
                 if (mainController.getTrip() != null) {
@@ -80,6 +82,11 @@ public class TripController implements ActionListener {
                 }
                 //tableModel.fireTableDataChanged()
                 break;
+            //-----------------------------------
+            case "newActivty":
+                mainController.openCitySearchView();
+                break;
+
         }
     }
 }

@@ -28,6 +28,10 @@ public class TripView extends JPanel {
 
     DefaultTableModel tableModel;
     JTable table;
+    JButton detailButton;
+    JButton deleteButton;
+    JButton newActivityButton;
+    JLabel dummyLabel;
 
     public TripView(MainController mainController) {
 
@@ -65,31 +69,38 @@ public class TripView extends JPanel {
 
         // Generelles Panel fuer Gesamtanzeige
         JPanel anzeigePanel = new JPanel(new BorderLayout());
-
-        // Spezielles Panel fuer die Buttons (rechts)
-        GridPanel buttonPanel = new GridPanel(2,1);   // todo, funktioniert so nicht recht...
-
-        //
-        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
-        anzeigePanel.add(buttonPanel, BorderLayout.EAST);
-
-        // Detailbutton
-        JButton detailButton = new JButton("Detail");
-        detailButton.setActionCommand("detail");
-        detailButton.addActionListener(tripController);
-        buttonPanel.add(detailButton);
-
-        // Deletebutton
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.setActionCommand("delete");
-        deleteButton.addActionListener(tripController);
-        deleteButton.setForeground(new Color(244, 100, 66));
-      //deleteButton.setFont(new Font("Tahoma", Font.ITALIC, 11));
-        buttonPanel.add(deleteButton);
-
-
-        // alles aufs Hauptpanel platzieren
         this.add(anzeigePanel);
+        // Spezielles Panel fuer die Buttons (rechts)
+        GridPanel sideButtonPanel = new GridPanel(20,150);
+        // Spezielles Panel fuer die Buttons (unten)
+        GridPanel bottomButtonPanel = new GridPanel(150,20);
+
+        // alles aufs AnzeigePanel
+        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        anzeigePanel.add(sideButtonPanel, BorderLayout.EAST);
+        anzeigePanel.add(bottomButtonPanel, BorderLayout.SOUTH);
+
+        // SIDE Buttons
+        sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
+        sideButtonPanel.addPanel(true);
+
+        sideButtonPanel.addComponentToPanel(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
+        sideButtonPanel.addPanel(true);
+        deleteButton.setForeground(new Color(244, 100, 66));
+
+        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addPanel(true);
+
+        sideButtonPanel.addComponentToPanel(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
+        sideButtonPanel.addPanel(true);
+
+        // SIDE Buttons
+        //sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
+        //sideButtonPanel.addPanel(true
+
+
 
     }
 
