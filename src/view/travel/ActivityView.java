@@ -31,10 +31,13 @@ public class ActivityView extends JPanel {
 
         DefaultTableModel tableModel = new DefaultTableModel();
         JTable table = new JTable(tableModel);
-        //table.setAutoCreateColumnsFromModel(true);
-        //table.setPreferredSize(new Dimension(400,200));
+        table.setAutoCreateColumnsFromModel(true);
+        table.setPreferredSize(new Dimension(400,200));
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
 
 //        // todo in controller, aber wie?
 //        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -59,7 +62,9 @@ public class ActivityView extends JPanel {
             // Append a row
             tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
         }
+        // spaltenbreite automatisch
         resizeColumnWidth(table);
+
 
         // Generelles Panel fuer Gesamtanzeige
         JPanel anzeigePanel = new JPanel(new BorderLayout());

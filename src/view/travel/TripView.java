@@ -35,6 +35,8 @@ public class TripView extends JPanel {
         JTable table = new JTable(tableModel);
         table.setAutoCreateColumnsFromModel(true);
         table.setPreferredSize(new Dimension(400,200));
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
+        table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
@@ -60,6 +62,7 @@ public class TripView extends JPanel {
             // Append a row
             tableModel.addRow(new Object[]{trip.getId(), trip.getName(),trip.getMinDate(),trip.getMaxDate(), trip.getCountActivities()});
         }
+        // spaltenbreite automatisch
         resizeColumnWidth(table);
 
 
@@ -83,6 +86,7 @@ public class TripView extends JPanel {
 
         // alles aufs Hauptpanel platzieren
         this.add(anzeigePanel);
+
     }
 
 
