@@ -2,12 +2,15 @@ package controller.travel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Trip;
 import view.travel.TripView;
+
+import javax.swing.*;
 
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 
@@ -28,6 +31,7 @@ public class TripController implements ActionListener {
 
     public ArrayList<Trip> getTripList() {
         // TripListe (from Model)
+        System.out.println("TripController.getTripList ...");
         return Trip.searchByUser(mainController.getUser());
     }
 
@@ -38,6 +42,9 @@ public class TripController implements ActionListener {
     public void setCurrentTripId(Long currentTripId) {
         System.out.println("TripController.setCurrentTripId: "+currentTripId);
         this.currentTripId = currentTripId;
+        // auch dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
+        Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
+        mainController.setTrip(t);
     }
 
 
@@ -46,16 +53,33 @@ public class TripController implements ActionListener {
         switch (e.getActionCommand()) {
             case "detail":
                 if (this.currentTripId != null) {
-                    // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
-                    Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
-                    mainController.setTrip(t);
                     // Activity view
                     mainController.openActivityOverview();
                 } else {
                     mainController.showErrorMessage("Please select a trip");
                 }
                 break;
-
+            case "delete":
+                System.out.println("delete button");
+                if (mainController.getTrip() != null) {
+                    int reply = JOptionPane.showConfirmDialog(null,
+                            "Are you sure you want to delete trip \"" +mainController.getTrip().getName() +"\""
+                           +"with all activities ?", "Delete?",  JOptionPane.YES_NO_OPTION);
+                    if (reply == JOptionPane.YES_OPTION) {
+                        // LOESCHEN
+                        try {
+                            mainController.getTrip().delete();
+                            tripView.refreshTable();
+                        } catch (SQLException e1) {
+                            mainController.showErrorMessage("Error on trip deletion");
+                            e1.printStackTrace();
+                        }
+                    }
+                } else {
+                    mainController.showErrorMessage("Please select a trip");
+                }
+                //tableModel.fireTableDataChanged()
+                break;
         }
     }
 }
