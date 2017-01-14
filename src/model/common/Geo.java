@@ -2,7 +2,7 @@ package model.common;
 
 public class Geo {
 
-    public double[] getBoundingBox(double lat, double lon, double radius) {
+    public static double[] getBoundingBox(double lat, double lon, double radius) {
 
         // BoundingBox (unser Quadrat um lat/long Position), siehe test-google-maps-1km.html
         double[] boundingBoxArray = new double[4];
