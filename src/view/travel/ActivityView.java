@@ -4,6 +4,7 @@ import controller.common.MainController;
 import controller.travel.ActivityController;
 import model.travel.Activity;
 import model.travel.Trip;
+import view.common.GridPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -58,27 +59,28 @@ public class ActivityView extends JPanel {
             // Append a row
             tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
         }
-
         resizeColumnWidth(table);
 
-        // Tabelle platzieren
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        // Generelles Panel fuer Gesamtanzeige
+        JPanel anzeigePanel = new JPanel(new BorderLayout());
 
-//        // Detailbutton platzieren
-//        JPanel southPanel = new JPanel(new BorderLayout());
+        // Spezielles Panel fuer die Buttons (rechts)
+        GridPanel buttonPanel = new GridPanel(300,16);
+
+        //
+        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        anzeigePanel.add(buttonPanel, BorderLayout.EAST);
+
+//        // Detailbutton
 //        JButton detailButton = new JButton("Detail");
 //        detailButton.setActionCommand("detail");
-//        detailButton.addActionListener(activityController);
-//        southPanel.add(detailButton, BorderLayout.SOUTH);
+//        detailButton.addActionListener(tripController);
+//        buttonPanel.add(detailButton);
+
 
 
         // alles aufs Hauptpanel platzieren
-        this.add(centerPanel);
-//        this.add(southPanel);
-
-
-
+        this.add(anzeigePanel);
     }
 
 
