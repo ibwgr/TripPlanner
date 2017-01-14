@@ -101,10 +101,16 @@ public class Trip {
     ResultSet resultset = null;
     ArrayList<Trip> tripList = new ArrayList<Trip>();
     try {
+      // Neuester Trip zuoberst, da dies der aktuellste und wichtigste ist
+      // (wird wahrscheinlich vom User bearbeitet)
+      // Bei New Trip ist es wichtig dass dieser zuoberst in der Liste erscheint,
+      // sonst verlieren wir den Focus, bzw. der Focus liegt auf einer
+      // nicht-relevanten Reise
       preparedStatement = databaseProxy.prepareStatement(
               "select trip_id, user_id, trip_name, max_date, min_date, count_acitvities " +
               "from tp_trip_aggr_v " +
-              "where user_id = ? ");
+              "where user_id = ? " +
+              "order by trip_id desc");
       preparedStatement.setLong(1, user.getId());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){

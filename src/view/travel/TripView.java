@@ -1,19 +1,19 @@
 package view.travel;
 
-import java.awt.*;
-import java.util.ArrayList;
+import controller.common.MainController;
+import controller.travel.TripController;
+import model.travel.Trip;
+import view.common.GridPanel;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-
-import controller.common.MainController;
-import controller.travel.TripController;
-import model.travel.Trip;
-import view.common.GridPanel;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
@@ -29,6 +29,29 @@ public class TripView extends JPanel {
     DefaultTableModel tableModel;
     JTable table;
 
+    private Long currentTripId; //
+
+    JButton detailButton;
+    JButton deleteButton;
+    JButton newActivityButton;
+    JLabel dummyLabel;
+    JTextField newTripNameField;
+    JButton newTripSaveButton;
+
+    // Getter, damit der TripController den Wert lesen kann
+    public JTextField getNewTripNameField() {
+        return newTripNameField;
+    }
+    // Getter, damit der TripController den Wert lesen kann
+    public Long getCurrentTripId() {
+        return currentTripId;
+    }
+    private void setCurrentTripId(Long currentTripId) {
+        this.currentTripId = currentTripId;
+        tripController.setCurrentTrip(currentTripId);
+    }
+
+    // Constructor
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
@@ -49,7 +72,7 @@ public class TripView extends JPanel {
                 try {
                     System.out.println("JTABLE Row | " +table.getValueAt(table.getSelectedRow(), 0).toString());
                     Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
-                    tripController.setCurrentTripId(tripId);
+                    setCurrentTripId(tripId);
                 } catch (IndexOutOfBoundsException e) {
                     //index out of bound, only after delete, no problem!
                 }
@@ -65,31 +88,45 @@ public class TripView extends JPanel {
 
         // Generelles Panel fuer Gesamtanzeige
         JPanel anzeigePanel = new JPanel(new BorderLayout());
-
-        // Spezielles Panel fuer die Buttons (rechts)
-        GridPanel buttonPanel = new GridPanel(2,1);   // todo, funktioniert so nicht recht...
-
-        //
-        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
-        anzeigePanel.add(buttonPanel, BorderLayout.EAST);
-
-        // Detailbutton
-        JButton detailButton = new JButton("Detail");
-        detailButton.setActionCommand("detail");
-        detailButton.addActionListener(tripController);
-        buttonPanel.add(detailButton);
-
-        // Deletebutton
-        JButton deleteButton = new JButton("Delete");
-        deleteButton.setActionCommand("delete");
-        deleteButton.addActionListener(tripController);
-        deleteButton.setForeground(new Color(244, 100, 66));
-      //deleteButton.setFont(new Font("Tahoma", Font.ITALIC, 11));
-        buttonPanel.add(deleteButton);
-
-
-        // alles aufs Hauptpanel platzieren
         this.add(anzeigePanel);
+        // Spezielles Panel fuer die Buttons (rechts)
+        GridPanel sideButtonPanel = new GridPanel(20,150);
+        // Spezielles Panel fuer die Buttons (unten)
+        GridPanel bottomButtonPanel = new GridPanel(150,20);
+        bottomButtonPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
+        bottomButtonPanel.setToolTipText("Add a completely new trip");
+
+        // alles aufs AnzeigePanel
+        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        anzeigePanel.add(sideButtonPanel, BorderLayout.EAST);
+        anzeigePanel.add(bottomButtonPanel, BorderLayout.SOUTH);
+
+        // SIDE Buttons
+        sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
+        sideButtonPanel.addPanel(true);
+
+        sideButtonPanel.addComponentToPanel(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
+        sideButtonPanel.addPanel(true);
+        deleteButton.setForeground(new Color(244, 100, 66));
+
+        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addPanel(true);
+
+        sideButtonPanel.addComponentToPanel(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
+        sideButtonPanel.addPanel(true);
+
+        // BOTTOM Buttons
+        bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP", null, null));
+        bottomButtonPanel.addPanel(true);
+
+        bottomButtonPanel.addComponentToPanel(newTripNameField = new JTextField(20));
+        bottomButtonPanel.addPanelWithLabel("Trip Name / Label:", true);
+
+        bottomButtonPanel.addComponentToPanel(newTripSaveButton = bottomButtonPanel.createButton("Save", "saveNewTrip", tripController));
+        bottomButtonPanel.addPanel(true);
+
 
     }
 
