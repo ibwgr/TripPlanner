@@ -73,7 +73,7 @@ public class TripController implements ActionListener {
                             mainController.getTrip().delete();
                             tripView.refreshTable();
                         } catch (SQLException e1) {
-                            mainController.showErrorMessage("Error on trip deletion");
+                            mainController.showErrorMessage("Error on deleting trip!");
                             e1.printStackTrace();
                         }
                     }
@@ -85,6 +85,19 @@ public class TripController implements ActionListener {
             //-----------------------------------
             case "newActivty":
                 mainController.openCitySearchView();
+                break;
+            //-----------------------------------
+            case "saveNewTrip":
+                Trip t = new Trip(null, mainController.getUser(), tripView.getNewTripNameField().getText());
+                System.out.println("New Trip :" +t.getName());
+                try {
+                    t.save();
+                    mainController.setTrip(t);
+                    tripView.refreshTable();
+                } catch (SQLException e1) {
+                    mainController.showErrorMessage("Error on saving trip!");
+                    e1.printStackTrace();
+                }
                 break;
 
         }

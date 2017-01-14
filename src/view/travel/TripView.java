@@ -1,19 +1,19 @@
 package view.travel;
 
-import java.awt.*;
-import java.util.ArrayList;
+import controller.common.MainController;
+import controller.travel.TripController;
+import model.travel.Trip;
+import view.common.GridPanel;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-
-import controller.common.MainController;
-import controller.travel.TripController;
-import model.travel.Trip;
-import view.common.GridPanel;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
@@ -32,7 +32,18 @@ public class TripView extends JPanel {
     JButton deleteButton;
     JButton newActivityButton;
     JLabel dummyLabel;
+    JTextField newTripNameField;
+    JButton newTripSaveButton;
 
+    // Getters/Setters
+    public JTextField getNewTripNameField() {
+        return newTripNameField;
+    }
+    public void setNewTripNameField(JTextField newTripNameField) {
+        this.newTripNameField = newTripNameField;
+    }
+
+    // Constructor
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
@@ -74,6 +85,8 @@ public class TripView extends JPanel {
         GridPanel sideButtonPanel = new GridPanel(20,150);
         // Spezielles Panel fuer die Buttons (unten)
         GridPanel bottomButtonPanel = new GridPanel(150,20);
+        bottomButtonPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
+        bottomButtonPanel.setToolTipText("Add a completely new trip");
 
         // alles aufs AnzeigePanel
         anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
@@ -96,10 +109,15 @@ public class TripView extends JPanel {
         sideButtonPanel.addComponentToPanel(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
         sideButtonPanel.addPanel(true);
 
-        // SIDE Buttons
-        //sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
-        //sideButtonPanel.addPanel(true
+        // BOTTOM Buttons
+        bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP", null, null));
+        bottomButtonPanel.addPanel(true);
 
+        bottomButtonPanel.addComponentToPanel(newTripNameField = new JTextField(20));
+        bottomButtonPanel.addPanelWithLabel("Trip Name / Label:", true);
+
+        bottomButtonPanel.addComponentToPanel(newTripSaveButton = bottomButtonPanel.createButton("Save", "saveNewTrip", tripController));
+        bottomButtonPanel.addPanel(true);
 
 
     }
