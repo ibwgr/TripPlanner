@@ -65,6 +65,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         // CENTER: Result
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
         centerPanel.add(new JScrollPane(searchResult = new JList<>()));
+        searchResult.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
         searchResult.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -105,7 +106,7 @@ public class PoiSearchView extends JPanel implements SearchView {
 
     @Override
     public void setSearchResult(ArrayList<Poi> searchResult) {
-        this.searchResult.setListData(new Vector(searchResult));
+        this.searchResult.setListData(new Vector<>(searchResult));
         mapView.setMarkerList(searchResult);
     }
 

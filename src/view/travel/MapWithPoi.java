@@ -70,18 +70,20 @@ public class MapWithPoi extends MapView {
 
     public void setWindow(Poi poi) {
         closeAllWindows();
-        InfoWindow window = new InfoWindow(map);
-        window.setContent(poi.getName());
+        if (poi != null) {
+            InfoWindow window = new InfoWindow(map);
+            window.setContent(poi.getName());
 
-        Marker marker = null;
-        for (Pair<Marker, Poi> pair : markerList) {
-            if (pair.getValue().equals(poi)) {
-                marker = pair.getKey();
+            Marker marker = null;
+            for (Pair<Marker, Poi> pair : markerList) {
+                if (pair.getValue().equals(poi)) {
+                    marker = pair.getKey();
+                }
             }
-        }
 
-        window.open(map, marker);
-        windowList.add(window);
+            window.open(map, marker);
+            windowList.add(window);
+        }
     }
 
 }
