@@ -45,7 +45,6 @@ public class GeoTest {
         double maxLon = boundingBoxArray[2];
         double minLon = boundingBoxArray[3];
 
-        //Ausgabe fuer test-google-maps-1km.html, soll so aussehen: ['Bondi Beach', -33.890542, 151.274856, 4],
         System.out.println("testBoundingBoxKletterzentrumMitRadiusEinKm");
         System.out.println(" ['center' , " + mittelpunktLat + ", " + mittelpunktLon + "],");
         System.out.println(" ['nw    ' , " + maxLat + ", " + minLon + "],");
@@ -79,7 +78,6 @@ public class GeoTest {
         double maxLon = boundingBoxArray[2];
         double minLon = boundingBoxArray[3];
 
-        //Ausgabe fuer test-google-maps-1km.html, soll so aussehen: ['Bondi Beach', -33.890542, 151.274856, 4],
         System.out.println("testBoundingBoxKletterzentrumMitRadiusZehnKm");
         System.out.println(" ['center' , " + mittelpunktLat + ", " + mittelpunktLon + "],");
         System.out.println(" ['nw    ' , " + maxLat + ", " + minLon + "],");
