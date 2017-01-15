@@ -1,9 +1,6 @@
 package model.common;
 
-import org.postgresql.jdbc2.optional.ConnectionPool;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -14,11 +11,6 @@ public class DatabaseProxy {
     public DatabaseProxy() {
         try {
             conn = DBConnection.getConnection();
-
-/*
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost/trip_planner_db", "postgres1", "postgres1");
-*/
         } catch (Exception e) {
             e.printStackTrace();
         }
