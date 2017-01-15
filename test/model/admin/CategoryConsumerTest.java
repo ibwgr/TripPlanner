@@ -2,7 +2,6 @@ package model.admin;
 
 import controller.admin.ImportController;
 import controller.common.MainController;
-import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -10,14 +9,8 @@ import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.util.LinkedList;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by dieterbiedermann on 06.01.17.
@@ -27,7 +20,7 @@ public class CategoryConsumerTest {
     @Test
     public void runFillsReadsQueueWithoutErrors() throws IOException {
 
-        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
         TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
         MainController mainController = new MainController(tripPlannerMain);
@@ -40,7 +33,7 @@ public class CategoryConsumerTest {
         importController.rowQueue.add("123,456");
         importController.rowQueueCount = 2;
 
-        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseProxy, ",");
+        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseImport, ",");
         categoryConsumer.run();
 
         long result = importController.rowQueue.size();
@@ -59,7 +52,7 @@ public class CategoryConsumerTest {
     @Test
     public void runFillsReadsQueueWithErrorsForTooManyFields() throws IOException {
 
-        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
         TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
         MainController mainController = new MainController(tripPlannerMain);
@@ -72,7 +65,7 @@ public class CategoryConsumerTest {
         importController.rowQueue.add("123,456,789");
         importController.rowQueueCount = 2;
 
-        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseProxy, ",");
+        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseImport, ",");
         categoryConsumer.run();
 
         long result = importController.rowQueue.size();
@@ -91,11 +84,10 @@ public class CategoryConsumerTest {
     @Test
     public void runFillsReadsQueueWithErrorsForEmptyRow() throws IOException {
 
-        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
-// database proxy kann nicht gemockt werden, es muss DatabaseImport gemockt werden !!!
-//        Mockito.when(databaseProxy.prepareStatement(Mockito.anyString())).thenReturn(new PreparedStatement());
-
+        // database proxy kann nicht gemockt werden, es muss DatabaseImport gemockt werden !!!
+        //Mockito.when(databaseImport.insertMultiValueCategories(Mockito.any()));
 
         TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
         MainController mainController = new MainController(tripPlannerMain);
@@ -108,7 +100,7 @@ public class CategoryConsumerTest {
         importController.rowQueue.add("");
         importController.rowQueueCount = 2;
 
-        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseProxy, ",");
+        CategoryConsumer categoryConsumer = new CategoryConsumer(importController, databaseImport, ",");
         categoryConsumer.run();
 
         long result = importController.rowQueue.size();

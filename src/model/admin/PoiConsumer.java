@@ -16,9 +16,9 @@ public class PoiConsumer extends Thread {
     private ArrayList<String[]> poiList = new ArrayList<>();
     private String delimiter;
 
-    public PoiConsumer(ImportController importController, DatabaseProxy databaseProxy, String delimiter) {
+    public PoiConsumer(ImportController importController, DatabaseImport databaseImport, String delimiter) {
         this.importController = importController;
-        this.databaseImport = new DatabaseImport(importController, databaseProxy);
+        this.databaseImport = databaseImport;
         this.poiList = new ArrayList<>();
         this.delimiter = delimiter;
     }
