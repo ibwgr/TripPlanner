@@ -1,20 +1,17 @@
 package model.travel;
 
-import model.common.DatabaseProxy;
 import model.common.User;
 import model.common.UserTypeEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 /**
  *
  */
 public class UserTest {
-
-    DatabaseProxy databaseProxy = new DatabaseProxy();
 
     @Test
     public void newUserWithAdminEnumerationShouldReturnWithType2() throws Exception {

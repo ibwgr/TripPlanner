@@ -164,13 +164,49 @@ public class User {
       resultSet = preparedStatement.executeQuery();
       while (resultSet.next()){
         user = new User(
-                        resultSet.getLong(1)
-                        ,resultSet.getString(2)
-                        ,resultSet.getString(3)
-                        ,resultSet.getString(4)
-                        ,resultSet.getString(5)
-                        ,resultSet.getLong(6)
-                );
+                resultSet.getLong(1)
+                ,resultSet.getString(2)
+                ,resultSet.getString(3)
+                ,resultSet.getString(4)
+                ,resultSet.getString(5)
+                ,resultSet.getLong(6)
+        );
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      // close anyway
+      try {
+        if (resultSet != null) {
+          resultSet.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return user;
+  }
+
+  // Search by Credentials (Username AND Password)
+  public static User searchById(DatabaseProxy databaseProxy, Long id) {
+    System.out.println("searchById()");
+    ResultSet resultSet = null;
+    User user = null;
+    try {
+      PreparedStatement preparedStatement = databaseProxy.prepareStatement(
+              "SELECT id, username, password, email, name, type " +
+              "FROM tp_user where id = ? ");
+      preparedStatement.setLong(1, id);
+      resultSet = preparedStatement.executeQuery();
+      while (resultSet.next()){
+        user = new User(
+                 resultSet.getLong(1)
+                ,resultSet.getString(2)
+                ,resultSet.getString(3)
+                ,resultSet.getString(4)
+                ,resultSet.getString(5)
+                ,resultSet.getLong(6)
+        );
       }
     } catch (SQLException e) {
       e.printStackTrace();
