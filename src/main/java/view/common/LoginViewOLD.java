@@ -1,7 +1,5 @@
 package view.common;
 
-import controller.common.LoginController;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -51,7 +49,7 @@ public class LoginViewOLD extends JDialog {
     private void initialize() {
         this.setSize(610, 300);
         this.setTitle("Login");
-        this.setLocation(new java.awt.Point(290, 270));
+        this.setLocation(new Point(290, 270));
         this.setContentPane(getJContentPane());
         this.setAlwaysOnTop(true);
     }
@@ -80,70 +78,70 @@ public class LoginViewOLD extends JDialog {
         if (centerPanel == null) {
             GridBagConstraints gridBagConstraints12 = new GridBagConstraints();
             gridBagConstraints12.gridx = 3;
-            gridBagConstraints12.insets = new java.awt.Insets(5, 0, 25, 0);
-            gridBagConstraints12.fill = java.awt.GridBagConstraints.NONE;
+            gridBagConstraints12.insets = new Insets(5, 0, 25, 0);
+            gridBagConstraints12.fill = GridBagConstraints.NONE;
             gridBagConstraints12.gridy = 9;
             GridBagConstraints gridBagConstraints41 = new GridBagConstraints();
-            gridBagConstraints41.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints41.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints41.gridy = 2;
             gridBagConstraints41.weightx = 1.0;
-            gridBagConstraints41.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints41.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints41.gridx = 3;
             GridBagConstraints gridBagConstraints31 = new GridBagConstraints();
             gridBagConstraints31.gridx = 2;
-            gridBagConstraints31.insets = new java.awt.Insets(5, 5, 5, 5);
-            gridBagConstraints31.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints31.insets = new Insets(5, 5, 5, 5);
+            gridBagConstraints31.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints31.gridy = 2;
             GridBagConstraints gridBagConstraints21 = new GridBagConstraints();
-            gridBagConstraints21.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints21.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints21.gridy = 8;
             gridBagConstraints21.weightx = 1.0;
-            gridBagConstraints21.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints21.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints21.gridwidth = 3;
             gridBagConstraints21.gridx = 1;
             GridBagConstraints gridBagConstraints11 = new GridBagConstraints();
             gridBagConstraints11.gridx = 0;
-            gridBagConstraints11.insets = new java.awt.Insets(5, 5, 5, 5);
-            gridBagConstraints11.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints11.insets = new Insets(5, 5, 5, 5);
+            gridBagConstraints11.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints11.gridy = 8;
             GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
-            gridBagConstraints5.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints5.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints5.gridy = 3;
             gridBagConstraints5.weightx = 1.0;
-            gridBagConstraints5.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints5.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints5.gridwidth = 3;
             gridBagConstraints5.gridheight = 2;
             gridBagConstraints5.gridx = 1;
             GridBagConstraints gridBagConstraints4 = new GridBagConstraints();
             gridBagConstraints4.gridx = 0;
-            gridBagConstraints4.insets = new java.awt.Insets(5, 5, 5, 5);
-            gridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints4.insets = new Insets(5, 5, 5, 5);
+            gridBagConstraints4.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints4.gridy = 3;
             GridBagConstraints gridBagConstraints3 = new GridBagConstraints();
-            gridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints3.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints3.gridy = 2;
             gridBagConstraints3.weightx = 1.0;
-            gridBagConstraints3.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints3.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints3.gridx = 1;
             GridBagConstraints gridBagConstraints2 = new GridBagConstraints();
             gridBagConstraints2.gridx = 0;
-            gridBagConstraints2.insets = new java.awt.Insets(5, 5, 5, 5);
-            gridBagConstraints2.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints2.insets = new Insets(5, 5, 5, 5);
+            gridBagConstraints2.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints2.gridy = 2;
             labelPassword = new JLabel();
             labelPassword.setText("Password");
             labelPassword.setToolTipText("Please enter your password");
             GridBagConstraints gridBagConstraints1 = new GridBagConstraints();
-            gridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints1.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints1.gridy = 1;
             gridBagConstraints1.weightx = 1.0;
-            gridBagConstraints1.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints1.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints1.gridheight = 1;
             gridBagConstraints1.gridx = 1;
             GridBagConstraints gridBagConstraints = new GridBagConstraints();
             gridBagConstraints.gridx = 0;
-            gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-            gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+            gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints.gridy = 1;
             labelUsername = new JLabel();
             labelUsername.setText("Username");
@@ -151,7 +149,7 @@ public class LoginViewOLD extends JDialog {
             centerPanel = new JPanel();
             centerPanel.setBounds(0, 0, 594, 225);
             centerPanel.setLayout(new GridBagLayout());
-            centerPanel.setBackground(new java.awt.Color(204, 204, 204));
+            centerPanel.setBackground(new Color(204, 204, 204));
             centerPanel.add(labelUsername, gridBagConstraints);
             centerPanel.add(getTextFieldUsername(), gridBagConstraints1);
             centerPanel.add(labelPassword, gridBagConstraints2);
@@ -169,16 +167,16 @@ public class LoginViewOLD extends JDialog {
         if (southPanel == null) {
             GridBagConstraints gridBagConstraints7 = new GridBagConstraints();
             gridBagConstraints7.gridx = 1;
-            gridBagConstraints7.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints7.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints7.gridy = 0;
             GridBagConstraints gridBagConstraints6 = new GridBagConstraints();
-            gridBagConstraints6.insets = new java.awt.Insets(5, 5, 5, 5);
+            gridBagConstraints6.insets = new Insets(5, 5, 5, 5);
             gridBagConstraints6.gridy = 0;
             gridBagConstraints6.gridx = 0;
             southPanel = new JPanel();
             southPanel.setBounds(0, 225, 594, 36);
             southPanel.setLayout(new GridBagLayout());
-            southPanel.setBackground(new java.awt.Color(204, 204, 204));
+            southPanel.setBackground(new Color(204, 204, 204));
             southPanel.add(getBtOk(), gridBagConstraints6);
             southPanel.add(getBtAbbruch(), gridBagConstraints7);
         }
@@ -193,7 +191,7 @@ public class LoginViewOLD extends JDialog {
     private JTextField getTextFieldUsername() {
         if (textFieldUsername == null) {
             textFieldUsername = new JTextField();
-            textFieldUsername.setPreferredSize(new java.awt.Dimension(8, 20));
+            textFieldUsername.setPreferredSize(new Dimension(8, 20));
             textFieldUsername.setText("benutzer"); // todo entfernen
         }
         return textFieldUsername;
@@ -207,7 +205,7 @@ public class LoginViewOLD extends JDialog {
     private JTextField getTextFieldPassword() {
         if (textFieldPassword == null) {
             textFieldPassword = new JPasswordField();
-            textFieldPassword.setPreferredSize(new java.awt.Dimension(44, 20));
+            textFieldPassword.setPreferredSize(new Dimension(44, 20));
             textFieldPassword.setText("benutzer"); // todo entfernen
         }
         return textFieldPassword;
@@ -223,7 +221,7 @@ public class LoginViewOLD extends JDialog {
         if (btOk == null) {
             btOk = new JButton();
             btOk.setText("Ok");
-            btOk.setPreferredSize(new java.awt.Dimension(90, 26));
+            btOk.setPreferredSize(new Dimension(90, 26));
             btOk.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     // todo: in controller nehmen!
@@ -267,7 +265,7 @@ public class LoginViewOLD extends JDialog {
         if (btAbbruch == null) {
             btAbbruch = new JButton();
             btAbbruch.setText("Abbruch");
-            btAbbruch.setPreferredSize(new java.awt.Dimension(90, 26));
+            btAbbruch.setPreferredSize(new Dimension(90, 26));
             btAbbruch.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     System.out.println("actionPerformed()");

@@ -1,11 +1,7 @@
 package model.admin;
 
 import controller.admin.ImportController;
-import model.common.DBConnection;
-import model.common.DatabaseProxy;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 

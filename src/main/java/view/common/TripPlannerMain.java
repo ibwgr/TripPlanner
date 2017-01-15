@@ -1,8 +1,6 @@
 package view.common;
 
 import controller.common.MainController;
-import model.common.User;
-import model.travel.Trip;
 
 import javax.swing.*;
 import java.awt.*;

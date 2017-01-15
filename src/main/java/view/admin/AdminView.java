@@ -3,13 +3,8 @@ package view.admin;
 import controller.admin.AdminController;
 import controller.common.MainController;
 import view.common.GridPanel;
-import view.common.TripPlannerMain;
 
 import javax.swing.*;
-import java.awt.*;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class AdminView extends GridPanel {
 

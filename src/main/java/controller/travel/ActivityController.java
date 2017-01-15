@@ -3,7 +3,6 @@ package controller.travel;
 import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Activity;
-import model.travel.Trip;
 import view.travel.ActivityView;
 
 import java.awt.event.ActionEvent;

@@ -1,9 +1,9 @@
 package controller.common;
 
+import model.common.Pair;
 import model.common.Poi;
 import model.common.User;
 import model.travel.Trip;
-import model.common.Pair;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
