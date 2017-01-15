@@ -5,6 +5,8 @@ import model.common.User;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import testFramework.UnitTest;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,8 +56,12 @@ public class TripTest {
         return testUser;
     }
 
-
-
+    // TODO ... ein Versuch ...
+    @Category({ UnitTest.class })
+    @Test
+    public void testTest(){
+        Assert.assertTrue(true);
+    }
 
     // INTEGRATIONSTEST, wird nicht automatisch ausgefuehrt.
     // Test kann jedoch manuell bei Bedarf von Hand gestaret werden
@@ -83,7 +89,7 @@ public class TripTest {
     @Test
     public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
         User user = getTestUser();
-        Trip trip = Trip.searchByUserAndId(user,1L);
+        Trip trip = Trip.searchById(1L);
         // aus DB gelesener Wert vergleichen
         Assert.assertEquals(new Long(1), trip.getId());
     }
@@ -100,7 +106,7 @@ public class TripTest {
         // nun bekommt das trip Objekt seine ID gesetzt
         trip.save();
         // wieder aus DB lesen
-        Trip tripAusDb = Trip.searchByUserAndId(user,trip.getId());
+        Trip tripAusDb = Trip.searchById(trip.getId());
         // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
@@ -116,7 +122,7 @@ public class TripTest {
         // in DB speichern, wird ein UPDATE ergeben
         trip.save();
         // wieder aus DB lesen
-        Trip tripAusDb = Trip.searchByUserAndId(user,trip.getId());
+        Trip tripAusDb = Trip.searchById(trip.getId());
         // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
