@@ -19,14 +19,14 @@ public class ImportController {
     private ProgressView progressView;
     private MainController mainController;
     private DatabaseProxy databaseProxy;
-    LinkedList<String> rowQueue = new LinkedList<String>();
-    long rowQueueCount = -1;
-    long errorCount = 0;
-    long errorCategoryCount = 0;
-    long processedCount = 0;
+    public LinkedList<String> rowQueue = new LinkedList<String>();
+    public long rowQueueCount = -1;
+    public long errorCount = 0;
+    public long errorCategoryCount = 0;
+    public long processedCount = 0;
     private final int threadNo = 3;
     private long startTime = System.nanoTime();
-    private ArrayList<PoiCategory> poiCategories;
+    public ArrayList<PoiCategory> poiCategories = new ArrayList<>();
     public Thread[] consumers = new Thread[threadNo];
     public FileReader fileReader;
     public ImportProgress importProgress;
@@ -60,14 +60,16 @@ public class ImportController {
             }
 
             for (int i = 0; i < threadNo; i++) {
-                consumers[i] = new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter());
+                DatabaseImport databaseImport = new DatabaseImport(this, databaseProxy);
+                consumers[i] = new PoiConsumer(this, databaseImport, adminView.getFileDelimiter());
                 consumers[i].start();
 /*
                 executorService.execute(new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter()));
 */
             }
         } else {
-            consumers[0] = new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter());
+            DatabaseImport databaseImport = new DatabaseImport(this, databaseProxy);
+            consumers[0] = new CategoryConsumer(this, databaseImport, adminView.getFileDelimiter());
             consumers[0].start();
 /*
                 executorService.execute(new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter()));
