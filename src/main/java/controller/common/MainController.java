@@ -86,7 +86,7 @@ public class MainController implements ActionListener {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
-        tripPlannerMain.setSubTitle(trip.getName());
+        tripPlannerMain.setSubTitle("Current Trip: " + trip.getName());
     }
 
     public void openLastView() {
@@ -107,9 +107,19 @@ public class MainController implements ActionListener {
                 viewList.get(i - 1).getKey()
                 ,viewList.get(i - 1).getValue()
         );
+        if (currentViewNo == 1) {
+            tripPlannerMain.setBackButtonEnabled(false);
+        } else {
+            tripPlannerMain.setBackButtonEnabled(true);
+        }
+        if (currentViewNo == viewList.size()) {
+            tripPlannerMain.setForwardButtonEnabled(false);
+        } else {
+            tripPlannerMain.setForwardButtonEnabled(true);
+        }
     }
 
-    private void closeCurrentView() {
+    public void closeCurrentView() {
         if (currentViewNo == 0) {
             return;
         }
