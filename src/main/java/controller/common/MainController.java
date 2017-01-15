@@ -1,0 +1,204 @@
+package controller.common;
+
+import model.common.Pair;
+import model.common.Poi;
+import model.common.User;
+import model.travel.Trip;
+import view.admin.AdminView;
+import view.admin.ProgressView;
+import view.common.LoginView;
+import view.common.TripPlannerMain;
+import view.travel.ActivityView;
+import view.travel.CitySearchView;
+import view.travel.PoiSearchView;
+import view.travel.TripView;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+public class MainController implements ActionListener {
+
+    TripPlannerMain tripPlannerMain;
+    User user;
+    Trip trip;
+    AdminView adminView;
+    ProgressView progressView;
+    LoginView loginView;
+    CitySearchView citySearchView;
+    PoiSearchView poiSearchView;
+    ActivityView activityView;
+    TripView tripView;
+    ArrayList<Pair<String, Component>> viewList = new ArrayList<>();
+    int currentViewNo = 0;
+
+    public MainController(TripPlannerMain tripPlannerMain) {
+        this.tripPlannerMain = tripPlannerMain;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "close_error":
+                /**
+                 * schliesst das Error Panel
+                 */
+                tripPlannerMain.closeErrorPanel();
+                break;
+            case "back":
+                /**
+                 * eine View zurück
+                 */
+                openLastView();
+                break;
+            case "forward":
+                /**
+                 * eine View nach vorne
+                 */
+                openNextView();
+                break;
+            case "close_view":
+                /**
+                 * eine View nach vorne
+                 */
+                closeCurrentView();
+                break;
+        }
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        tripPlannerMain.setUsername(user.getUsername());
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+        tripPlannerMain.setSubTitle(trip.getName());
+    }
+
+    public void openLastView() {
+        if (currentViewNo > 1) {
+            openView(--currentViewNo);
+        }
+    }
+
+    public void openNextView() {
+        if (viewList.size() > currentViewNo) {
+            openView(++currentViewNo);
+        }
+    }
+
+    private void openView(int i) {
+        tripPlannerMain.removeAllViews();
+        tripPlannerMain.addView(
+                viewList.get(i - 1).getKey()
+                ,viewList.get(i - 1).getValue()
+        );
+    }
+
+    private void closeCurrentView() {
+        if (currentViewNo == 0) {
+            return;
+        }
+        viewList.remove(currentViewNo - 1);
+        if (currentViewNo == 1 && viewList.size() == 0) {
+            // wenn nur eine View vorhanden ist, die Login View öffnen
+            currentViewNo = 0;
+            openLogin();
+        } else if (viewList.size() < currentViewNo) {
+            // wenn die letzte View geschlossen wird, die vorherige View öffnen
+            openView(--currentViewNo);
+        } else {
+            // wenn mehrere Views vorhanden sind und nicht die letzte geschlossen wird, öffne die nächste View
+            openView(currentViewNo);
+        }
+    }
+
+    private void setNewView(String s, Component view) {
+        if (currentViewNo < viewList.size()) {
+            for (int i = viewList.size(); i > currentViewNo; i--) {
+                viewList.remove(i - 1);
+            }
+        }
+        viewList.add(new Pair<>(s, view));
+        currentViewNo = viewList.size();
+    }
+
+    public void openLogin() {
+        tripPlannerMain.removeAllViews();
+        if (loginView == null) {
+            loginView = new LoginView(this);
+        }
+        setNewView("Login", loginView);
+        tripPlannerMain.addView("Login", loginView);
+    }
+
+    public void openAdmin() {
+        tripPlannerMain.removeAllViews();
+        // Immer die gleiche View Instanz öffnen
+        if (adminView == null) {
+            adminView = new AdminView(this);
+        }
+        setNewView("Administration - Import", adminView);
+        tripPlannerMain.addView("Administration - Import", adminView);
+    }
+
+    public void openTripOverview() {
+        tripPlannerMain.removeAllViews();
+        tripView = new TripView(this);
+        setNewView("Trip Overview", tripView);
+        tripPlannerMain.addView("Trip Overview", tripView);
+    }
+
+    public void openActivityOverview() {
+        tripPlannerMain.removeAllViews();
+        activityView = new ActivityView(this);
+        setNewView("Activity Overview", activityView);
+        tripPlannerMain.addView("Activity Overview", activityView);
+    }
+
+    public ProgressView openProgressView() {
+        tripPlannerMain.removeAllViews();
+        if (progressView == null) {
+            progressView = new ProgressView(this);
+        }
+        setNewView("Administration - Import Processing", progressView);
+        tripPlannerMain.addView("Administration - Import Processing", progressView);
+        return progressView;
+    }
+
+    public void openCitySearchView() {
+//        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
+        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
+//        if (citySearchView == null) {
+            citySearchView = new CitySearchView(this);
+//        }
+        setNewView("City Search", citySearchView);
+        tripPlannerMain.addView("City Search", citySearchView);
+    }
+
+    public void openPoiSearchView(Poi city) {
+        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
+//        if (poiSearchView == null) {
+            poiSearchView = new PoiSearchView(this, city);
+//        }
+        setNewView("Point of interest Search", poiSearchView);
+        tripPlannerMain.addView("Point of interest Search", poiSearchView);
+    }
+
+    public void showErrorMessage(String message) {
+        tripPlannerMain.showErrorMessage(message);
+    }
+
+}
