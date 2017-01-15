@@ -1,9 +1,6 @@
 package model.common;
 
-import org.postgresql.jdbc2.optional.ConnectionPool;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

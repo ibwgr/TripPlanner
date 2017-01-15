@@ -1,18 +1,15 @@
 package controller.travel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Trip;
 import view.travel.TripView;
 
 import javax.swing.*;
-
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by user on 08.01.2017.

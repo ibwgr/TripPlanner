@@ -3,7 +3,6 @@ package view.travel;
 import controller.common.MainController;
 import controller.travel.ActivityController;
 import model.travel.Activity;
-import model.travel.Trip;
 import view.common.GridPanel;
 
 import javax.swing.*;
