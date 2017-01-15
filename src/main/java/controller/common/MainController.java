@@ -18,6 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Controller Class für TripPlannerMain
+ *
+ */
 public class MainController implements ActionListener {
 
     TripPlannerMain tripPlannerMain;
@@ -41,25 +45,25 @@ public class MainController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "close_error":
-                /**
+                /*
                  * schliesst das Error Panel
                  */
                 tripPlannerMain.closeErrorPanel();
                 break;
             case "back":
-                /**
+                /*
                  * eine View zurück
                  */
                 openLastView();
                 break;
             case "forward":
-                /**
+                /*
                  * eine View nach vorne
                  */
                 openNextView();
                 break;
             case "close_view":
-                /**
+                /*
                  * eine View nach vorne
                  */
                 closeCurrentView();
@@ -139,7 +143,8 @@ public class MainController implements ActionListener {
             loginView = new LoginView(this);
         }
         setNewView("Login", loginView);
-        tripPlannerMain.addView("Login", loginView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Login", loginView);
     }
 
     public void openAdmin() {
@@ -149,21 +154,24 @@ public class MainController implements ActionListener {
             adminView = new AdminView(this);
         }
         setNewView("Administration - Import", adminView);
-        tripPlannerMain.addView("Administration - Import", adminView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Administration - Import", adminView);
     }
 
     public void openTripOverview() {
         tripPlannerMain.removeAllViews();
         tripView = new TripView(this);
         setNewView("Trip Overview", tripView);
-        tripPlannerMain.addView("Trip Overview", tripView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Trip Overview", tripView);
     }
 
     public void openActivityOverview() {
         tripPlannerMain.removeAllViews();
         activityView = new ActivityView(this);
         setNewView("Activity Overview", activityView);
-        tripPlannerMain.addView("Activity Overview", activityView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Activity Overview", activityView);
     }
 
     public ProgressView openProgressView() {
@@ -172,7 +180,8 @@ public class MainController implements ActionListener {
             progressView = new ProgressView(this);
         }
         setNewView("Administration - Import Processing", progressView);
-        tripPlannerMain.addView("Administration - Import Processing", progressView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
     }
 
@@ -184,7 +193,8 @@ public class MainController implements ActionListener {
             citySearchView = new CitySearchView(this);
 //        }
         setNewView("City Search", citySearchView);
-        tripPlannerMain.addView("City Search", citySearchView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("City Search", citySearchView);
     }
 
     public void openPoiSearchView(Poi city) {
@@ -194,7 +204,8 @@ public class MainController implements ActionListener {
             poiSearchView = new PoiSearchView(this, city);
 //        }
         setNewView("Point of interest Search", poiSearchView);
-        tripPlannerMain.addView("Point of interest Search", poiSearchView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("Point of interest Search", poiSearchView);
     }
 
     public void showErrorMessage(String message) {
