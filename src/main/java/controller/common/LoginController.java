@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by user on 08.01.2017.
+ * Controller Class für LoginView
  */
 public class LoginController implements ActionListener {
 
