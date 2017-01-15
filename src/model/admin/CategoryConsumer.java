@@ -13,9 +13,9 @@ public class CategoryConsumer extends Thread {
     private ArrayList<String[]> categoryList;
     private String delimiter;
 
-    public CategoryConsumer(ImportController importController, DatabaseProxy databaseProxy, String delimiter) {
+    public CategoryConsumer(ImportController importController, DatabaseImport databaseImport, String delimiter) {
         this.importController = importController;
-        this.databaseImport = new DatabaseImport(importController, databaseProxy);
+        this.databaseImport = databaseImport;
         this.categoryList = new ArrayList<>();
         this.delimiter = delimiter;
     }
