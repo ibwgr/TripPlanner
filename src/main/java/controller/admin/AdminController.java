@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Controller Class für AdminView
+ */
 public class AdminController implements ActionListener {
 
     private AdminView adminView;
@@ -26,7 +29,7 @@ public class AdminController implements ActionListener {
 
         switch (e.getActionCommand()) {
             case "open_file":
-                /**
+                /*
                  * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
                  */
                 file = getFile();
@@ -36,11 +39,11 @@ public class AdminController implements ActionListener {
                 break;
             case "import_file":
                 if (file == null) {
-                    /**
+                    /*
                      * Fehlermeldung zurückgeben
                      */
                 } else {
-                    /**
+                    /*
                      * Importiere das File
                      */
                     ProgressView progressView = mainController.openProgressView();

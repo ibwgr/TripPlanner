@@ -6,6 +6,9 @@ import view.admin.ProgressView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controller Class für ProgressView
+ */
 public class ProgressController implements ActionListener {
 
 

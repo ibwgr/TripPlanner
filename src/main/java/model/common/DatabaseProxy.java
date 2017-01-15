@@ -11,11 +11,6 @@ public class DatabaseProxy {
     public DatabaseProxy() {
         try {
             conn = DBConnection.getConnection();
-
-/*
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost/trip_planner_db", "postgres1", "postgres1");
-*/
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -50,6 +50,9 @@ public class TripPlannerMain extends JFrame {
         constraintsView.weightx = 0.1;
         constraintsView.weighty = 0.1;
 
+        // Header Panel
+        // Anzeige von Applikationsnamen, Name der geöffneten View,
+        // Name des Users und Navigationsbuttons
         headerPanel = new JPanel(new GridLayout(2,3));
         headerPanel.setBackground(headerColor);
         headerPanel.setSize(new Dimension(300, 60));
@@ -93,6 +96,8 @@ public class TripPlannerMain extends JFrame {
 
         this.add(headerPanel, constraintsHeader);
 
+        // Subheader Panel
+        // Zum Anzeigen des Namen der geöffneten Reise
         subHeaderPanel = new JPanel(new FlowLayout());
         subTitleLabel = new JLabel();
         subTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -102,6 +107,8 @@ public class TripPlannerMain extends JFrame {
         subHeaderPanel.setSize(new Dimension(200, 60));
         this.add(subHeaderPanel, constraintsHeader);
 
+        // Error Panel
+        // Zum Anzeigen von Fehlermeldungen
         errorPanel = new JPanel(new FlowLayout());
         errorMessageLabel = new JLabel();
         errorMessageLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -115,7 +122,6 @@ public class TripPlannerMain extends JFrame {
         errorPanel.setSize(new Dimension(200, 60));
         this.add(errorPanel, constraintsHeader);
 
-        //this.setMinimumSize(new Dimension(640,480));
         this.setTitle("TripPlanner");
 
         contentPanel = new JPanel(new GridLayout(rows,cols));
@@ -126,6 +132,8 @@ public class TripPlannerMain extends JFrame {
         this.setJMenuBar(getJJMenuBar());
         this.setSize(new Dimension(800,600));
 
+        // Die LoginView wird als erste View geöffnet,
+        // damit sich der User als Benutzer oder Administrator einloggen kann
         mainController.openLogin();
 
     }
