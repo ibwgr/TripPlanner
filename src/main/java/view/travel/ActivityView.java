@@ -42,7 +42,7 @@ public class ActivityView extends JPanel {
         this.setLayout(new BorderLayout());
 
         DefaultTableModel tableModel = new DefaultTableModel();
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
         table.setAutoCreateColumnsFromModel(true);
         table.setPreferredSize(new Dimension(400,200));
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
