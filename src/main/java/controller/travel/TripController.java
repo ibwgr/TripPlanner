@@ -6,6 +6,8 @@ import model.travel.Trip;
 import view.travel.TripView;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by user on 08.01.2017.
  */
-public class TripController implements ActionListener {
+public class TripController implements ActionListener, ListSelectionListener {
 
     DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
@@ -39,6 +41,9 @@ public class TripController implements ActionListener {
     }
 
 
+    //----------------------------------------------------
+    // aus dem ActionListener
+    //----------------------------------------------------
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -91,6 +96,20 @@ public class TripController implements ActionListener {
                 }
                 break;
 
+        }
+    }
+
+    //----------------------------------------------------
+    // aus dem ListSelectionListener
+    //----------------------------------------------------
+    @Override
+    public void valueChanged(ListSelectionEvent listSelectionEvent) {
+        try {
+            System.out.println("JTABLE Row | " +tripView.getTable().getValueAt(tripView.getTable().getSelectedRow(), 0).toString());
+            Long tripId = (Long) tripView.getTable().getValueAt(tripView.getTable().getSelectedRow(), 0);
+            setCurrentTrip(tripId);
+        } catch (IndexOutOfBoundsException e) {
+            //index out of bound, only after delete, no problem!
         }
     }
 }
