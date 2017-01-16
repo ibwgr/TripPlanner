@@ -26,7 +26,7 @@ public class ActivityController implements ActionListener {
 
     public ArrayList<Activity> getActivityList() {
         // ActivityListe (from Model)
-        return Activity.searchByUserAndTrip(mainController.getUser(), mainController.getTrip());
+        return Activity.searchByTrip(mainController.getTrip());
     }
 
 

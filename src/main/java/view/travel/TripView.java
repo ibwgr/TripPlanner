@@ -58,9 +58,12 @@ public class TripView extends JPanel {
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
+        table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
+        //
         // SelectionListener in Controller!
         table.getSelectionModel().addListSelectionListener(tripController);
+        // MouseListener in Controller!
+        table.addMouseListener(tripController);
 
         // TableModel Data and Columns
         setUpTableTableColumns();

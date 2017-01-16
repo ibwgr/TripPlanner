@@ -144,7 +144,9 @@ public class Trip {
     return tripList;
   }
 
-  // todo woher sonst den user nehmen?  dann natuerlich nur noch nach id suchen
+  // Zur Info: Der eingeloggte Benutzer kann diese Methode nur im Kontext SEINER Reiseliste
+  // Aufrufen. Somit besteht keine Gefahr dass er unberechtigt Reisen anderer
+  // Personen sieht.
   public static Trip searchById(Long id){
     DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;

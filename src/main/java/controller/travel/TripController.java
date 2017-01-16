@@ -8,15 +8,14 @@ import view.travel.TripView;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by user on 08.01.2017.
  */
-public class TripController implements ActionListener, ListSelectionListener {
+public class TripController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
     DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
@@ -107,6 +106,8 @@ public class TripController implements ActionListener, ListSelectionListener {
         }
     }
 
+
+
     //----------------------------------------------------
     // aus dem ListSelectionListener
     //----------------------------------------------------
@@ -124,4 +125,20 @@ public class TripController implements ActionListener, ListSelectionListener {
             //index out of bound, only after delete, no problem!
         }
     }
+
+    //----------------------------------------------------
+    // aus dem MouseListener
+    //----------------------------------------------------
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        System.out.println("Maus gecklickt!");
+        if(mouseEvent.getClickCount()==2){
+            System.out.println("Maus Doppelklick!");
+            // doppelklick ist dasselbe wie wenn man auf den Detail Button druecken wuerde!
+            executeActionDetail();
+        }
+    }
+
+
+
 }
