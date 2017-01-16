@@ -1,5 +1,6 @@
 package view.travel;
 
+import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.ActivityController;
 import model.travel.Activity;
@@ -23,32 +24,38 @@ public class ActivityView extends JPanel {
     ActivityController activityController;
     MainController mainController;
 
+    JTable table;
+    MapXXXXX mapView;
+
+    // Getters, damit der ActivityController die View Werte lesen ann
+    public JTable getTable() {
+        return table;
+    }
+
+    // Constructor
     public ActivityView(MainController mainController) {
 
         this.mainController = mainController;
         activityController = new ActivityController(this, mainController);
 
+        // generelles panel
+        this.setLayout(new BorderLayout());
+
         DefaultTableModel tableModel = new DefaultTableModel();
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
         table.setAutoCreateColumnsFromModel(true);
         table.setPreferredSize(new Dimension(400,200));
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
+      //table.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
-
-//        // todo in controller, aber wie?
-//        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//            public void valueChanged(ListSelectionEvent event) {
-//                // do some actions here, for example
-//                // print first column value from selected row
-//                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-//                Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
-//                activityController.setCurrentTripId(tripId);
-//            }
-//        });
-
+        // SelectionListener in Controller!
+        table.getSelectionModel().addListSelectionListener(activityController);
+        // MouseListener in Controller!
+        table.addMouseListener(activityController);
 
         // Create columns
         String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
@@ -64,29 +71,31 @@ public class ActivityView extends JPanel {
         // spaltenbreite automatisch
         resizeColumnWidth(table);
 
+        // CENTER: Hauptpanel
+        JPanel centerPanel = new JPanel(new GridLayout(1,2,10,10));
 
-        // Generelles Panel fuer Gesamtanzeige
-        JPanel anzeigePanel = new JPanel(new BorderLayout());
+        // marginPanel
+        JPanel marginPanel = new JPanel(new BorderLayout());
+        marginPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
+        centerPanel.add(marginPanel);
 
-        // Spezielles Panel fuer die Buttons (rechts)
+        MapViewOptions options = new MapViewOptions();
+        options.importPlaces();
+        mapView = new MapXXXXX(options);
+      //mapView.setMarker(mainController.getActivity());
+      //mapView.setMarker(Activity.searchById(1L));  // TODO
+      //mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
+        centerPanel.add(mapView);
+
+
+        // TODO, plaziert nach Mergekonflikt, Dieter's Button
         GridPanel buttonPanel = new GridPanel(300,16);
-
         buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+        centerPanel.add(buttonPanel, BorderLayout.EAST);
 
-        //
-        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
-        anzeigePanel.add(buttonPanel, BorderLayout.EAST);
-
-//        // Detailbutton
-//        JButton detailButton = new JButton("Detail");
-//        detailButton.setActionCommand("detail");
-//        detailButton.addActionListener(tripController);
-//        buttonPanel.add(detailButton);
-
-
-
-        // alles aufs Hauptpanel platzieren
-        this.add(anzeigePanel);
+        // alles aufs generelle panel
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(centerPanel, BorderLayout.CENTER);
     }
 
 
