@@ -48,6 +48,10 @@ public class TripView extends JPanel {
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
+        mainController.setSubTitle("My Trips");
+        mainController.setSubTitleVisible(true);
+
+
         tripController = new TripController(this, mainController);
 
         tableModel = new DefaultTableModel();

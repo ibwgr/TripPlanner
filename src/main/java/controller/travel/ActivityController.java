@@ -44,10 +44,17 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "yyyyyyyyyyyyyy":
+            case "detail":
                 executeActionDetail();
                 break;
+            case "show_map":
+                executeActionShowMap();
+                break;
         }
+    }
+
+    private void executeActionShowMap() {
+        mainController.openCompleteTripView();
     }
 
     private void executeActionDetail() {

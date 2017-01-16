@@ -79,24 +79,23 @@ public class ActivityView extends JPanel {
         marginPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
         centerPanel.add(marginPanel);
 
-        // Spezielles Panel fuer die Buttons (rechts)
-        GridPanel buttonPanel = new GridPanel(300,16);
-
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
         mapView = new MapXXXXX(options);
       //mapView.setMarker(mainController.getActivity());
       //mapView.setMarker(Activity.searchById(1L));  // TODO
       //mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
-
-        //this.add(mapView, BorderLayout.CENTER);
-
         centerPanel.add(mapView);
 
 
+        // TODO, plaziert nach Mergekonflikt, Dieter's Button
+        GridPanel buttonPanel = new GridPanel(300,16);
+        buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+        centerPanel.add(buttonPanel, BorderLayout.EAST);
 
         // alles aufs generelle panel
-        this.add(centerPanel);
+        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(centerPanel, BorderLayout.CENTER);
     }
 
 
