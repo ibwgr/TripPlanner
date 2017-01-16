@@ -52,7 +52,7 @@ public class MainControllerTest {
         Trip testTrip = new Trip();
         mainController.trip = testTrip;
 
-        User result = mainController.getUser();
+        Trip result = mainController.getTrip();
         Assert.assertEquals(testTrip, result);
     }
 

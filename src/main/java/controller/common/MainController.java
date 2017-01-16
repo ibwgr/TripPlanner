@@ -8,10 +8,7 @@ import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
-import view.travel.ActivityView;
-import view.travel.CitySearchView;
-import view.travel.PoiSearchView;
-import view.travel.TripView;
+import view.travel.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,6 +31,7 @@ public class MainController implements ActionListener {
     PoiSearchView poiSearchView;
     ActivityView activityView;
     TripView tripView;
+    CompleteTripView completeTripView;
     ArrayList<Pair<String, Component>> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
@@ -216,6 +214,18 @@ public class MainController implements ActionListener {
         setNewView("Point of interest Search", poiSearchView);
         openView(currentViewNo);
 //        tripPlannerMain.addView("Point of interest Search", poiSearchView);
+    }
+
+    public void openCompleteTripView() {
+        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
+        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
+//        if (citySearchView == null) {
+        completeTripView = new CompleteTripView(this);
+//        }
+        setNewView("Complete Trip", completeTripView);
+        openView(currentViewNo);
+//        tripPlannerMain.addView("City Search", citySearchView);
     }
 
     public void showErrorMessage(String message) {

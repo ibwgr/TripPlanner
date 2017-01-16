@@ -2,6 +2,7 @@ package view.common;
 
 import controller.common.LoginController;
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 
 import javax.swing.*;
 
@@ -17,7 +18,7 @@ public class LoginView extends GridPanel {
         super(100, 20);
 
         this.mainController = mainController;
-        loginController = new LoginController(this, mainController);
+        loginController = new LoginController(this, mainController, new DatabaseProxy());
 
         addComponentToPanel(userField = new JTextField(10));
         addPanelWithLabel("Username:", true);
