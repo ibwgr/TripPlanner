@@ -13,13 +13,14 @@ import java.awt.event.ActionListener;
  */
 public class LoginController implements ActionListener {
 
-    DatabaseProxy databaseProxy = new DatabaseProxy();
+    DatabaseProxy databaseProxy;
     LoginView loginView;
     MainController mainController;
 
-    public LoginController(LoginView loginView, MainController mainController) {
+    public LoginController(LoginView loginView, MainController mainController, DatabaseProxy databaseProxy) {
         this.loginView = loginView;
         this.mainController = mainController;
+        this.databaseProxy = databaseProxy;
     }
 
     public void doLogin(String username, String password) {
