@@ -254,7 +254,7 @@ select *
 from tp_trip;
 */
 -----------------------------------------------------------
--- some dummy TRIP_ACTIVITY data
+-- some dummy TR_ACTIVITY data
 -----------------------------------------------------------
 
 INSERT INTO tp_activity (trip_id,
