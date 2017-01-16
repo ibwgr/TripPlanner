@@ -49,7 +49,7 @@ public class TripController implements ActionListener, ListSelectionListener {
         switch (e.getActionCommand()) {
             //-----------------------------------
             case "detail":
-                if (tripView.getCurrentTripId() != null) {
+                if (mainController.getTrip() != null) {
                     // Activity view
                     mainController.openActivityOverview();
                 } else {

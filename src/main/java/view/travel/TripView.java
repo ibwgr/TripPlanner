@@ -29,8 +29,6 @@ public class TripView extends JPanel {
     DefaultTableModel tableModel;
     JTable table;
 
-    private Long currentTripId; //
-
     JButton detailButton;
     JButton deleteButton;
     JButton newActivityButton;
@@ -44,9 +42,6 @@ public class TripView extends JPanel {
     }
     public JTable getTable() {
         return table;
-    }
-    public Long getCurrentTripId() {
-        return currentTripId;
     }
 
     // Constructor
