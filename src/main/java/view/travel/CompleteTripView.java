@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CompleteTripView extends JPanel {
 
@@ -50,7 +51,7 @@ public class CompleteTripView extends JPanel {
         mapView = new MapPolygon(options);
 //        centerPanel.add(mapView);
 
-        mapView.setMarkerList(Activity.searchByUserAndTrip(mainController.getUser(),mainController.getTrip()));
+        mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
 
         this.add(mapView, BorderLayout.CENTER);
 

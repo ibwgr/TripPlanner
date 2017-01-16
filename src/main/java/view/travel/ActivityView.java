@@ -71,6 +71,8 @@ public class ActivityView extends JPanel {
         // Spezielles Panel fuer die Buttons (rechts)
         GridPanel buttonPanel = new GridPanel(300,16);
 
+        buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+
         //
         anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
         anzeigePanel.add(buttonPanel, BorderLayout.EAST);

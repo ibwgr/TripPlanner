@@ -84,7 +84,15 @@ public class MainController implements ActionListener {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
-        tripPlannerMain.setSubTitle("Current Trip: " + trip.getName());
+        setSubTitle("Current Trip: " + trip.getName());
+    }
+
+    public void setSubTitle(String subTitle) {
+        tripPlannerMain.setSubTitle(subTitle);
+    }
+
+    public void setSubTitleVisible(Boolean visible) {
+        tripPlannerMain.setSubTitleVisible(visible);
     }
 
     public void openLastView() {
@@ -217,7 +225,6 @@ public class MainController implements ActionListener {
     }
 
     public void openCompleteTripView() {
-        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
 //        if (citySearchView == null) {
