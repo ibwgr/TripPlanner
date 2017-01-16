@@ -44,7 +44,9 @@ public class ActivityController implements ActionListener {
                     mainController.showErrorMessage("Please select a trip");
                 }
                 break;
-
+            case "show_map":
+                mainController.openCompleteTripView();
+                break;
         }
     }
 }

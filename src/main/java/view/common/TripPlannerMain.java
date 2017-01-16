@@ -197,6 +197,10 @@ public class TripPlannerMain extends JFrame {
         subTitleLabel.setText(subTitle);
     }
 
+    public void setSubTitleVisible(Boolean visible) {
+        subHeaderPanel.setVisible(visible);
+    }
+
     public void setBackButtonEnabled(Boolean enabled) {
         backButton.setEnabled(enabled);
     }
