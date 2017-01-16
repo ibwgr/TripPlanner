@@ -145,7 +145,7 @@ public class Trip {
   }
 
   // todo woher sonst den user nehmen?  dann natuerlich nur noch nach id suchen
-  public static Trip searchByUserAndId(User user, Long id){
+  public static Trip searchById(Long id){
     DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;
     ResultSet resultset = null;
@@ -160,10 +160,12 @@ public class Trip {
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
         System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
+        System.out.println("DB, USER_ID   : " +resultset.getLong("user_id"));
         System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
         System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
         System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
+        User user = User.searchById(databaseProxy, resultset.getLong("user_id"));
         trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
         //trip.setId(resultset.getLong("trip_id"));
         //trip.setName(resultset.getString("trip_name"));

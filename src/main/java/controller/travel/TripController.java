@@ -34,7 +34,7 @@ public class TripController implements ActionListener {
 
     public void setCurrentTrip(Long currentTripId) {
         // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
-        Trip t = Trip.searchByUserAndId(mainController.getUser(), currentTripId);
+        Trip t = Trip.searchById(currentTripId);
         mainController.setTrip(t);
     }
 
