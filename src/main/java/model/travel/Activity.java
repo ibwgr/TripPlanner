@@ -83,8 +83,10 @@ public class Activity {
     }
 
 
-    // todo woher sonst user nehmen? dann natuerlich nur noch nach trip suchen
-    public static ArrayList<Activity> searchByUserAndTrip(User user, Trip trip){
+    // Zur Info: Der eingeloggte Benutzer kann diese Methode nur im Kontext
+    // einer SEINER Reisen Aufrufen.
+    // Somit besteht keine Gefahr dass er unberechtigt Reisen anderer Personen sieht.
+    public static ArrayList<Activity> searchByTrip(Trip trip){
         DatabaseProxy databaseProxy = new DatabaseProxy();
         PreparedStatement preparedStatement;
         ResultSet resultset = null;
@@ -93,13 +95,12 @@ public class Activity {
             preparedStatement = databaseProxy.prepareStatement(
                     "select trip_id, activity_id, date, comment, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
-                            "where user_id = ? and trip_id = ? ");
-            preparedStatement.setLong(1, user.getId());
-            preparedStatement.setLong(2, trip.getId());
+                            "where trip_id = ? ");
+            preparedStatement.setLong(1, trip.getId());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
-                System.out.println("DB, ACT_ID    : " +resultset.getInt("activity_id"));
+                System.out.println("DB, ACT_ID    : " +resultset.getLong("activity_id"));
                 System.out.println("DB, DATE      : " +resultset.getDate("date"));
                 System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
                 System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
@@ -111,7 +112,7 @@ public class Activity {
                 // neues Activity Objekt
                 PoiCategory poiCategory = new PoiCategory(resultset.getString("category_id"),resultset.getString("poi_category_name"));
                 Poi poi = new Poi(resultset.getString("poi_id"),resultset.getString("poi_name"),poiCategory ,resultset.getString("longitude"),resultset.getString("latitude"));
-                Activity activity = new Activity(trip, poi, resultset.getDate("date"), resultset.getString("comment"));
+                Activity activity = new Activity(resultset.getLong("activity_id"), trip, poi, resultset.getDate("date"), resultset.getString("comment"));
                 // zur ACTIVITY-LISTE hinzufuegen
                 activityList.add(activity);
             }
