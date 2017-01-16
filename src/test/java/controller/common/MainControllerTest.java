@@ -46,8 +46,7 @@ public class MainControllerTest {
         mainController.trip = testTrip;
 
         User result = mainController.getUser();
-        // TODO, das geht nicht (entf. Reto, 16.1.2017)
-        //Assert.assertEquals(testTrip, result);
+        Assert.assertEquals(testTrip, result);
     }
 
     @Test
