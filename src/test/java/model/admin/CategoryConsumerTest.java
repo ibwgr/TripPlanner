@@ -22,11 +22,11 @@ public class CategoryConsumerTest {
 
         DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(new File(""), adminView, progressView, mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         // Row muss zwei Werte haben
         importController.rowQueue.add("abc,def");
@@ -54,11 +54,11 @@ public class CategoryConsumerTest {
 
         DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(new File(""), adminView, progressView, mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         // rows mit 3 werten dürfen nicht verarbeitet werden
         importController.rowQueue.add("abc,def,ghi");
@@ -89,11 +89,11 @@ public class CategoryConsumerTest {
         // database proxy kann nicht gemockt werden, es muss DatabaseImport gemockt werden !!!
         //Mockito.when(databaseImport.insertMultiValueCategories(Mockito.any()));
 
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(new File(""), adminView, progressView, mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         // rows mit 3 werten dürfen nicht verarbeitet werden
         importController.rowQueue.add("abc,def");
