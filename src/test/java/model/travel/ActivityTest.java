@@ -3,6 +3,7 @@ package model.travel;
 import model.common.DatabaseProxy;
 import model.common.User;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -41,5 +42,14 @@ public class ActivityTest {
         Assert.assertEquals(3, activityList.size());
     }
 
+    // INTEGRATIONSTEST
+    @Ignore  // TODO weil es die ID 1 allenfalls gar nicht gibt!
+    @Test
+    public void integrationsTestSearchByIdWithRealDbAccessReturnsActivity() throws Exception {
+        User user = getFakeUser();
+        Activity activity = Activity.searchById(5L);
+        // aus DB gelesener Wert!
+        Assert.assertEquals(new Long(5), activity.getId());
+    }
 
 }

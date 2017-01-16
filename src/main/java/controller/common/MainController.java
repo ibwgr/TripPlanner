@@ -3,6 +3,7 @@ package controller.common;
 import model.common.Pair;
 import model.common.Poi;
 import model.common.User;
+import model.travel.Activity;
 import model.travel.Trip;
 import view.admin.AdminView;
 import view.admin.ProgressView;
@@ -24,6 +25,7 @@ public class MainController implements ActionListener {
     TripPlannerMain tripPlannerMain;
     User user;
     Trip trip;
+    Activity activity;
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
@@ -85,6 +87,14 @@ public class MainController implements ActionListener {
     public void setTrip(Trip trip) {
         this.trip = trip;
         tripPlannerMain.setSubTitle("Current Trip: " + trip.getName());
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     public void openLastView() {
