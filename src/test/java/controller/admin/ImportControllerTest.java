@@ -3,6 +3,7 @@ package controller.admin;
 import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import sun.applet.Main;
 import view.admin.AdminView;
 import view.admin.ProgressView;
@@ -20,11 +21,10 @@ public class ImportControllerTest {
      */
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsEmpty() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueue.clear();
@@ -38,11 +38,10 @@ public class ImportControllerTest {
      */
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsNotEmpty() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueue.add("test");
@@ -56,11 +55,10 @@ public class ImportControllerTest {
      */
     @Test
     public void increaseRowQueueCountIncreasesRowQueueCount() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.increaseRowQueueCount();
@@ -77,11 +75,10 @@ public class ImportControllerTest {
      */
     @Test
     public void allRowsProcessedReturnsTrueWhenAllRowsAreProcessed() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueueCount = 5;
@@ -95,11 +92,10 @@ public class ImportControllerTest {
      */
     @Test
     public void allRowsProcessedReturnsFalseWhenNotAllRowsAreProcessed() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.rowQueueCount = 5;
@@ -113,11 +109,10 @@ public class ImportControllerTest {
      */
     @Test
     public void increaseErrorCountIncreasesErrorCount() {
-        File file = new File("");
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        File file = Mockito.mock(File.class);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         ImportController importController = new ImportController(file, adminView, progressView, mainController);
 
         importController.increaseErrorCount();

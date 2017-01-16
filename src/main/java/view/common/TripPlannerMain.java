@@ -184,6 +184,26 @@ public class TripPlannerMain extends JFrame {
         viewTitleLabel.setText(viewTitle);
     }
 
+    public void closeErrorPanel() {
+        errorPanel.setVisible(false);
+    }
+
+    public void setUsername(String username) {
+        usernameLabel.setText("User: " + username);
+    }
+
+    public void setSubTitle(String subTitle) {
+        subHeaderPanel.setVisible(true);
+        subTitleLabel.setText(subTitle);
+    }
+
+    public void setBackButtonEnabled(Boolean enabled) {
+        backButton.setEnabled(enabled);
+    }
+
+    public void setForwardButtonEnabled(Boolean enabled) {
+        forwardButton.setEnabled(enabled);
+    }
 
     private JMenuBar getJJMenuBar()
     {
@@ -306,21 +326,9 @@ public class TripPlannerMain extends JFrame {
         {
             citySearchMenuItem = new JMenuItem();
             citySearchMenuItem.setText("CitySearch");
-            citySearchMenuItem.addActionListener(e -> mainController.openCitySearchView());
+            citySearchMenuItem.addActionListener(e -> mainController.openCompleteTripView());
         }
         return citySearchMenuItem;
     }
 
-    public void closeErrorPanel() {
-        errorPanel.setVisible(false);
-    }
-
-    public void setUsername(String username) {
-        usernameLabel.setText("User: " + username);
-    }
-
-    public void setSubTitle(String subTitle) {
-        subHeaderPanel.setVisible(true);
-        subTitleLabel.setText(subTitle);
-    }
 }
