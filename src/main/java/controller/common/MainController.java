@@ -194,7 +194,7 @@ public class MainController implements ActionListener {
     }
 
     public void openCitySearchView() {
-//        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
+//        setTrip(Trip.searchById(1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
 //        if (citySearchView == null) {
@@ -217,7 +217,7 @@ public class MainController implements ActionListener {
     }
 
     public void openCompleteTripView() {
-        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
+        setTrip(Trip.searchById(1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
 //        if (citySearchView == null) {
