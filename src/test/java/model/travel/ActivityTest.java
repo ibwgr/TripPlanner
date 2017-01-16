@@ -3,7 +3,6 @@ package model.travel;
 import model.common.DatabaseProxy;
 import model.common.User;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;

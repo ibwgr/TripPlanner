@@ -79,6 +79,8 @@ public class ActivityView extends JPanel {
         marginPanel.add(new JScrollPane( table ), BorderLayout.CENTER);
         centerPanel.add(marginPanel);
 
+        // Spezielles Panel fuer die Buttons (rechts)
+        GridPanel buttonPanel = new GridPanel(300,16);
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
