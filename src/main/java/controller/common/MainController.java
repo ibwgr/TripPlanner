@@ -3,6 +3,7 @@ package controller.common;
 import model.common.Pair;
 import model.common.Poi;
 import model.common.User;
+import model.travel.Activity;
 import model.travel.Trip;
 import view.admin.AdminView;
 import view.admin.ProgressView;
@@ -24,6 +25,7 @@ public class MainController implements ActionListener {
     TripPlannerMain tripPlannerMain;
     User user;
     Trip trip;
+    Activity activity;
     AdminView adminView;
     ProgressView progressView;
     LoginView loginView;
@@ -95,6 +97,14 @@ public class MainController implements ActionListener {
         tripPlannerMain.setSubTitleVisible(visible);
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
     public void openLastView() {
         if (currentViewNo > 1) {
             openView(--currentViewNo);
@@ -155,12 +165,12 @@ public class MainController implements ActionListener {
 
     public void openLogin() {
         tripPlannerMain.removeAllViews();
+        // Immer die gleiche View Instanz öffnen
         if (loginView == null) {
             loginView = new LoginView(this);
         }
         setNewView("Login", loginView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Login", loginView);
     }
 
     public void openAdmin() {
@@ -171,15 +181,16 @@ public class MainController implements ActionListener {
         }
         setNewView("Administration - Import", adminView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Administration - Import", adminView);
     }
 
     public void openTripOverview() {
         tripPlannerMain.removeAllViews();
-        tripView = new TripView(this);
+        // Immer die gleiche View Instanz öffnen
+        if (adminView == null) {
+            tripView = new TripView(this);
+        }
         setNewView("Trip Overview", tripView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Trip Overview", tripView);
     }
 
     public void openActivityOverview() {
@@ -187,52 +198,37 @@ public class MainController implements ActionListener {
         activityView = new ActivityView(this);
         setNewView("Activity Overview", activityView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Activity Overview", activityView);
     }
 
     public ProgressView openProgressView() {
         tripPlannerMain.removeAllViews();
-        if (progressView == null) {
-            progressView = new ProgressView(this);
-        }
+        progressView = new ProgressView(this);
         setNewView("Administration - Import Processing", progressView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Administration - Import Processing", progressView);
         return progressView;
     }
 
     public void openCitySearchView() {
-//        setTrip(Trip.searchByUserAndId(user, 1L)); // todo: nur für tests
         tripPlannerMain.removeAllViews();
-        // Immer eine neue View Instanz erstellen
-//        if (citySearchView == null) {
-            citySearchView = new CitySearchView(this);
-//        }
+        citySearchView = new CitySearchView(this);
         setNewView("City Search", citySearchView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("City Search", citySearchView);
     }
 
     public void openPoiSearchView(Poi city) {
         tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
-//        if (poiSearchView == null) {
-            poiSearchView = new PoiSearchView(this, city);
-//        }
+        poiSearchView = new PoiSearchView(this, city);
         setNewView("Point of interest Search", poiSearchView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("Point of interest Search", poiSearchView);
     }
 
     public void openCompleteTripView() {
         tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
-//        if (citySearchView == null) {
         completeTripView = new CompleteTripView(this);
-//        }
         setNewView("Complete Trip", completeTripView);
         openView(currentViewNo);
-//        tripPlannerMain.addView("City Search", citySearchView);
     }
 
     public void showErrorMessage(String message) {

@@ -1,5 +1,6 @@
 package view.admin;
 
+import controller.admin.ImportController;
 import controller.admin.ProgressController;
 import controller.common.MainController;
 import view.common.GridPanel;
@@ -13,7 +14,7 @@ public class ProgressView extends GridPanel {
     ProgressController progressController;
 
     JLabel statusTotalRows, statusRowsProcessed, statusRowsError, statusRowsCategoryError, statusElapsedTime;
-    JButton buttonNewUpload;
+    JButton buttonNewUpload, cancelButton;
     JProgressBar progressBar;
 
     DecimalFormat timeFormat = new DecimalFormat("00");
@@ -41,13 +42,22 @@ public class ProgressView extends GridPanel {
         addComponentToPanel(statusElapsedTime = new JLabel());
         addPanelWithLabel("Elapsed time:", true);
 
-        addComponentToPanel(progressBar = new JProgressBar());
+        addComponentDirect(progressBar = new JProgressBar());
         progressBar.setMinimum(0);
-        addComponentDirect(progressBar);
+//        addComponentDirect(progressBar);
 
-        addComponentToPanel(buttonNewUpload = createButton("import new file", "start_new", progressController, false));
-        addComponentDirect(buttonNewUpload);
+        addComponentDirect(cancelButton = createButton("cancel", "cancel", progressController, false));
+        addComponentDirect(buttonNewUpload = createButton("import new file", "start_new", progressController, false));
+//        addComponentDirect(buttonNewUpload);
 
+    }
+
+    public void setImportController(ImportController importController) {
+        progressController.setImportController(importController);
+    }
+
+    public void setCancelButtonEnabled(Boolean enabled) {
+        cancelButton.setEnabled(enabled);
     }
 
     public void importIsFinished() {

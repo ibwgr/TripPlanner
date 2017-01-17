@@ -32,7 +32,7 @@ public class PoiConsumer extends Thread {
         }
 */
 
-        while (!importController.allRowsProcessed()) {
+        while (!importController.allRowsProcessed() && !isInterrupted()) {
             String row = importController.getRow();
 //            System.out.println(Thread.currentThread().getName() + " - after getRow");
             if (row != null) {
