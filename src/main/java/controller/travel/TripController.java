@@ -83,7 +83,7 @@ public class TripController extends MouseAdapter implements ActionListener, List
                     "Are you sure you want to delete trip \"" +mainController.getTrip().getName() +"\""
                    +"with all activities ?", "Delete?",  JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                // LOESCHEN
+                // LOESCHEN und REFRESH
                 try {
                     mainController.getTrip().delete();
                     tripView.refreshTable();

@@ -17,12 +17,6 @@ import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
-    /*
-    TODO
-    Fehlend: Headers noch nicht schoen, Groesse passt noch nicht, Soll nicht editierbar sein
-    Auf FlowLayout umstellen!
-     */
-
     TripController tripController;
     MainController mainController;
 
@@ -48,7 +42,7 @@ public class TripView extends JPanel {
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
-        mainController.setSubTitle("My Trips");
+        mainController.setSubTitle(" ");
         mainController.setSubTitleVisible(true);
 
 
