@@ -20,7 +20,7 @@ public class CategoryConsumer extends Thread {
     }
 
     public void run() {
-        while (!importController.allRowsProcessed()) {
+        while (!importController.allRowsProcessed() && !isInterrupted()) {
             String row = importController.getRow();
             if (row != null) {
                 String[] rowItem = row.split(Pattern.quote(delimiter));

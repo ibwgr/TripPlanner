@@ -76,6 +76,14 @@ public class ImportController {
 
     }
 
+    public void stopImport() {
+        fileReader.interrupt();
+        for (Thread thread :consumers) {
+            thread.interrupt();
+        }
+        importProgress.interrupt();
+    }
+
     public synchronized void putRow(String s) {
         rowQueue.addLast(s);
         notify();

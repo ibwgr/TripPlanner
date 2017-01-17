@@ -48,10 +48,10 @@ public class CompleteTripView extends JPanel {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-        mapView = new MapPolygon(options);
+        mapView = new MapPolygon(options, mainController);
 //        centerPanel.add(mapView);
 
-        mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
+//        mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
 
         this.add(mapView, BorderLayout.CENTER);
 
