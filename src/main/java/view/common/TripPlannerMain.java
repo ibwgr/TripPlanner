@@ -216,7 +216,7 @@ public class TripPlannerMain extends JFrame {
             jJMenuBar = new JMenuBar();
             jJMenuBar.add(getLoginMenu());
             jJMenuBar.add(getHelpMenu());
-            jJMenuBar.add(getTestMenu());
+//            jJMenuBar.add(getTestMenu());
             //jJMenuBar.add(getLoggedInInformationText());
 //            JMenuItem menuItem = new JMenuItem();
 //            JPanel panelLabel = new JPanel();
@@ -258,7 +258,7 @@ public class TripPlannerMain extends JFrame {
         {
             testMenu = new JMenu();
             testMenu.setText("Test");
-            testMenu.add(getCitySearchMenuItem());
+//            testMenu.add(getCitySearchMenuItem());
         }
         return testMenu;
     }

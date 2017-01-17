@@ -71,8 +71,12 @@ public class TripView extends JPanel {
         resizeColumnWidth(table);
 
         // Generelles Panel fuer Gesamtanzeige
+/*
         JPanel anzeigePanel = new JPanel(new BorderLayout());
         this.add(anzeigePanel);
+*/
+
+        this.setLayout(new BorderLayout());
         // Spezielles Panel fuer die Buttons (rechts)
         GridPanel sideButtonPanel = new GridPanel(20,150);
         // Spezielles Panel fuer die Buttons (unten)
@@ -81,9 +85,9 @@ public class TripView extends JPanel {
         bottomButtonPanel.setToolTipText("Add a completely new trip");
 
         // alles aufs AnzeigePanel
-        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
-        anzeigePanel.add(sideButtonPanel, BorderLayout.EAST);
-        anzeigePanel.add(bottomButtonPanel, BorderLayout.SOUTH);
+        this.add(new JScrollPane( table ), BorderLayout.CENTER);
+        this.add(sideButtonPanel, BorderLayout.EAST);
+        this.add(bottomButtonPanel, BorderLayout.SOUTH);
 
         // SIDE Buttons
         sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
