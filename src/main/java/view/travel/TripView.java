@@ -90,20 +90,15 @@ public class TripView extends JPanel {
         this.add(bottomButtonPanel, BorderLayout.SOUTH);
 
         // SIDE Buttons
-        sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
 
-        sideButtonPanel.addComponentToPanel(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
         deleteButton.setForeground(new Color(244, 100, 66));
 
-        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
-        sideButtonPanel.addPanel(true);
-        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
 
-        sideButtonPanel.addComponentToPanel(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
 
         // BOTTOM Buttons
         bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP", null, null));
@@ -113,7 +108,7 @@ public class TripView extends JPanel {
         bottomButtonPanel.addPanelWithLabel("Trip Name / Label:", true);
 
         bottomButtonPanel.addComponentToPanel(newTripSaveButton = bottomButtonPanel.createButton("Save", "saveNewTrip", tripController));
-        bottomButtonPanel.addPanel(true);
+        bottomButtonPanel.addPanelWithLabel("",true);
 
 
     }
