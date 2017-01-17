@@ -14,7 +14,7 @@ public class ProgressController implements ActionListener {
 
     private ProgressView progressView;
     private MainController mainController;
-    private ImportController importController;
+    public ImportController importController;
 
     public ProgressController(ProgressView progressView, MainController mainController) {
         this.progressView = progressView;

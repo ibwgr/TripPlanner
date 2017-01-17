@@ -41,6 +41,14 @@ public class MapXXXXX extends MapView {
             // Marker erstellen
             Marker marker = new Marker(map);
             marker.setPosition(new LatLng(activity.getPoi().getLatitudeDouble(), activity.getPoi().getLongitudeDouble()));
+
+            // ToDo: Wie wird der Titel/text für das fenster gesetzt?
+            /*
+            MarkerLabel markerLabel = new MarkerLabel(map);
+            marker.setLabel(markerLabel);
+            markerLabel.setText(activity.getPoi() + "\n" + activity.getDate() + "\n" + activity.getComment());
+            marker.setTitle(activity.getPoi() + "\n" + activity.getDate() + "\n" + activity.getComment());
+*/
             markerList.add(new Pair<>(marker, activity));
             map.setCenter(new LatLng(activity.getPoi().getLatitudeDouble(), activity.getPoi().getLongitudeDouble()));
 
@@ -72,7 +80,6 @@ public class MapXXXXX extends MapView {
                     marker = pair.getKey();
                 }
             }
-
             window.open(map, marker);
             windowList.add(window);
         }
