@@ -1,6 +1,9 @@
 language: java
-sudo: false
+jdk:
+  - oraclejdk8
+#sudo: false
 script:
+   - export DISPLAY=:0.0
    - mvn test
 
 #script:

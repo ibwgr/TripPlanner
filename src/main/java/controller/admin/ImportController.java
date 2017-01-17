@@ -11,6 +11,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Controller Class für den Import eines CSV Files
+ * - erstellt einen ImportProgress Thread
+ * - erstellt einen FileReader Thread
+ * - erstellt drei PoiConsumer oder einen CategoryConsumer Thread
+ */
 public class ImportController {
 
     private File file;
@@ -29,7 +35,6 @@ public class ImportController {
     public Thread[] consumers = new Thread[threadNo];
     public FileReader fileReader;
     public ImportProgress importProgress;
-//    private ExecutorService executorService = Executors.newFixedThreadPool(threadNo+2);
 
     public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController) {
         this.file = file;
@@ -48,7 +53,7 @@ public class ImportController {
         fileReader.start();
 
         if ("poi".equals(adminView.getFileType())) {
-            /**
+            /*
              * Wenn keine Kategorien vorhanden sind, eine Fehlermeldung anzeigen und zurück zu der Input Form
              */
             poiCategories = PoiCategory.getAllPoiCategories();
@@ -62,19 +67,21 @@ public class ImportController {
                 DatabaseImport databaseImport = new DatabaseImport(this, databaseProxy);
                 consumers[i] = new PoiConsumer(this, databaseImport, adminView.getFileDelimiter());
                 consumers[i].start();
-/*
-                executorService.execute(new PoiConsumer(this, databaseProxy, adminView.getFileDelimiter()));
-*/
             }
         } else {
             DatabaseImport databaseImport = new DatabaseImport(this, databaseProxy);
             consumers[0] = new CategoryConsumer(this, databaseImport, adminView.getFileDelimiter());
             consumers[0].start();
-/*
-                executorService.execute(new CategoryConsumer(this, databaseProxy, adminView.getFileDelimiter()));
-*/
         }
 
+    }
+
+    public void stopImport() {
+        fileReader.interrupt();
+        for (Thread thread :consumers) {
+            thread.interrupt();
+        }
+        importProgress.interrupt();
     }
 
     public synchronized void putRow(String s) {
@@ -93,7 +100,6 @@ public class ImportController {
         notify();
         String row = rowQueue.getFirst();
         rowQueue.removeFirst();
-//        counter++;
         return row;
     }
 

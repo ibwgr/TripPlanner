@@ -17,19 +17,11 @@ import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
-    /*
-    TODO
-    Fehlend: Headers noch nicht schoen, Groesse passt noch nicht, Soll nicht editierbar sein
-    Auf FlowLayout umstellen!
-     */
-
     TripController tripController;
     MainController mainController;
 
     DefaultTableModel tableModel;
     JTable table;
-
-    private Long currentTripId; //
 
     JButton detailButton;
     JButton deleteButton;
@@ -38,23 +30,22 @@ public class TripView extends JPanel {
     JTextField newTripNameField;
     JButton newTripSaveButton;
 
-    // Getter, damit der TripController den Wert lesen kann
+    // Getters, damit der TripController die View Werte lesen ann
     public JTextField getNewTripNameField() {
         return newTripNameField;
     }
-    // Getter, damit der TripController den Wert lesen kann
-    public Long getCurrentTripId() {
-        return currentTripId;
-    }
-    private void setCurrentTripId(Long currentTripId) {
-        this.currentTripId = currentTripId;
-        tripController.setCurrentTrip(currentTripId);
+    public JTable getTable() {
+        return table;
     }
 
     // Constructor
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
+        mainController.setSubTitle(" ");
+        mainController.setSubTitleVisible(true);
+
+
         tripController = new TripController(this, mainController);
 
         tableModel = new DefaultTableModel();
@@ -65,19 +56,12 @@ public class TripView extends JPanel {
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-
-        // todo in controller, geht das ueberhaupt?
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                try {
-                    System.out.println("JTABLE Row | " +table.getValueAt(table.getSelectedRow(), 0).toString());
-                    Long tripId = (Long) table.getValueAt(table.getSelectedRow(), 0);
-                    setCurrentTripId(tripId);
-                } catch (IndexOutOfBoundsException e) {
-                    //index out of bound, only after delete, no problem!
-                }
-            }
-        });
+        table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
+        //
+        // SelectionListener in Controller!
+        table.getSelectionModel().addListSelectionListener(tripController);
+        // MouseListener in Controller!
+        table.addMouseListener(tripController);
 
         // TableModel Data and Columns
         setUpTableTableColumns();
