@@ -2,11 +2,14 @@ package model.travel;
 
 import model.common.DatabaseProxy;
 import model.common.User;
+import model.common.Util;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by user on 13.01.2017.
@@ -33,6 +36,8 @@ public class ActivityTest {
     }
 
 
+
+
     // INTEGRATIONSTEST
     @Test
     public void integrationsTestSearchByTripWithRealDbAccessReturnsActivityList() throws Exception {
@@ -50,6 +55,35 @@ public class ActivityTest {
         Activity activity = Activity.searchById(5L);
         // aus DB gelesener Wert!
         Assert.assertEquals(new Long(5), activity.getId());
+    }
+
+    // INTEGRATIONSTEST
+    @Test
+    public void integrationsTestUpdateDatePlusOneDayReturnsActivityWithDatePlus1() throws Exception {
+        User user = getFakeUser();
+        ArrayList<Activity> activityList = Activity.searchByTrip(getFakeTrip());
+        // aus DB gelesener Wert!
+        for (Activity activity: activityList) {
+            Date dateBefore = activity.getDate();
+            System.out.println("before: " +dateBefore);
+            activity.moveOneDayUp();
+            System.out.println("after: " +activity.getDate());
+            Assert.assertEquals(Util.addDays(dateBefore,1), activity.getDate());
+        }
+    }
+    // INTEGRATIONSTEST
+    @Test
+    public void integrationsTestUpdateDateMinusOneDayReturnsActivityWithDateMinus1() throws Exception {
+        User user = getFakeUser();
+        ArrayList<Activity> activityList = Activity.searchByTrip(getFakeTrip());
+        // aus DB gelesener Wert!
+        for (Activity activity: activityList) {
+            Date dateBefore = activity.getDate();
+            System.out.println("before: " +dateBefore);
+            activity.moveOneDayDown();
+            System.out.println("after: " +activity.getDate());
+            Assert.assertEquals(Util.addDays(dateBefore,-1), activity.getDate());
+        }
     }
 
 }
