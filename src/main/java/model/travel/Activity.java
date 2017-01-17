@@ -1,9 +1,6 @@
 package model.travel;
 
-import model.common.DatabaseProxy;
-import model.common.Poi;
-import model.common.PoiCategory;
-import model.common.User;
+import model.common.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -95,7 +92,7 @@ public class Activity {
             preparedStatement = databaseProxy.prepareStatement(
                     "select trip_id, activity_id, date, comment, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
-                            "where trip_id = ? ");
+                            "where trip_id = ? order by date asc");
             preparedStatement.setLong(1, trip.getId());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
@@ -219,4 +216,36 @@ public class Activity {
     }
 
 
+    // Entweder Plus oder Minus (z.B. +1, +5, -1, -5)
+    public void moveDays(int days) throws SQLException {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        String query = null;
+        if (days != 0) {
+            query = "update tp_activity set date = date + ? where id = ?";
+        } else {
+            query = "update tp_activity set date = date where id = ? AND 1=2"; // kein Update ausfuehren
+        }
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+        try {
+            preparedStatement.setInt(1, days);
+            preparedStatement.setLong(2, this.id);
+            System.out.println("Update Activity Query: " + preparedStatement.toString());
+            preparedStatement.executeUpdate();
+            //
+            this.setDate(Util.addDays(this.getDate(),days));
+            //
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            databaseProxy.close();
+        }
+    }
+
+    public void moveOneDayUp() throws SQLException {
+        moveDays(1);
+    }
+
+    public void moveOneDayDown() throws SQLException {
+        moveDays(-1);
+    }
 }
