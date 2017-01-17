@@ -48,6 +48,7 @@ public class AdminController implements ActionListener {
                      */
                     ProgressView progressView = mainController.openProgressView();
                     ImportController importController = new ImportController(file, adminView, progressView, mainController);
+                    progressView.setImportController(importController);
                     importController.start();
                 }
                 break;

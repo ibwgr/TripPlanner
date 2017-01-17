@@ -14,10 +14,16 @@ public class ProgressController implements ActionListener {
 
     private ProgressView progressView;
     private MainController mainController;
+    private ImportController importController;
 
     public ProgressController(ProgressView progressView, MainController mainController) {
         this.progressView = progressView;
         this.mainController = mainController;
+    }
+
+    public void setImportController(ImportController importController) {
+        this.importController = importController;
+        progressView.setCancelButtonEnabled(true);
     }
 
     @Override
@@ -25,10 +31,16 @@ public class ProgressController implements ActionListener {
 
         switch (e.getActionCommand()) {
             case "start_new":
-                /**
+                /*
                  * schliesst das Progress Panel und öffnet wieder das Input Panel
                  */
                 mainController.openLastView();
+                break;
+            case "cancel":
+                /*
+                 * beendet alle Import Threads
+                 */
+                importController.stopImport();
                 break;
         }
 
