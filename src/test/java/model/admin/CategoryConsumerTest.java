@@ -4,7 +4,9 @@ import controller.admin.ImportController;
 import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
+import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
@@ -17,6 +19,7 @@ import java.io.IOException;
  */
 public class CategoryConsumerTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithoutErrors() throws IOException {
 
@@ -49,6 +52,7 @@ public class CategoryConsumerTest {
         Assert.assertEquals(0, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithErrorsForTooManyFields() throws IOException {
 
@@ -81,6 +85,7 @@ public class CategoryConsumerTest {
         Assert.assertEquals(0, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithErrorsForEmptyRow() throws IOException {
 

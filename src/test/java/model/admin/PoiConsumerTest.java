@@ -5,7 +5,9 @@ import controller.common.MainController;
 import model.common.PoiCategory;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
+import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
@@ -20,6 +22,7 @@ import static org.junit.Assert.*;
  */
 public class PoiConsumerTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithoutErrors() throws IOException {
 
@@ -55,6 +58,7 @@ public class PoiConsumerTest {
         Assert.assertEquals(0, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithErrorsForTooManyFields() throws IOException {
 
@@ -90,6 +94,7 @@ public class PoiConsumerTest {
         Assert.assertEquals(0, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithErrorsForEmptyRow() throws IOException {
 
@@ -128,6 +133,7 @@ public class PoiConsumerTest {
         Assert.assertEquals(0, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsReadsQueueWithErrorsForMissingCategory() throws IOException {
 

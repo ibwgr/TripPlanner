@@ -5,7 +5,9 @@ import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.rules.TemporaryFolder;
+import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
@@ -23,6 +25,7 @@ public class FileReaderTest {
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsRowQueue() throws IOException {
         final File tempFile = tempFolder.newFile("tempFile.txt");
@@ -44,6 +47,7 @@ public class FileReaderTest {
         Assert.assertEquals("abc,cde,efg", result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void runFillsRowQueueWithoutHeader() throws IOException {
         final File tempFile = tempFolder.newFile("tempFile.txt");

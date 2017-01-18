@@ -3,8 +3,10 @@ package controller.admin;
 import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 import sun.applet.Main;
+import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
@@ -19,6 +21,7 @@ public class ImportControllerTest {
     /**
      * queueIsEmpty gibt true züruck wenn rowQueue leer ist
      */
+    @Category({ UnitTest.class })
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsEmpty() {
         File file = Mockito.mock(File.class);
@@ -36,6 +39,7 @@ public class ImportControllerTest {
     /**
      * queueIsEmpty gibt false züruck wenn rowQueue nicht leer ist
      */
+    @Category({ UnitTest.class })
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsNotEmpty() {
         File file = Mockito.mock(File.class);
@@ -53,6 +57,7 @@ public class ImportControllerTest {
     /**
      * increaseRowQueueCount erhöht den rowQueueCount
      */
+    @Category({ UnitTest.class })
     @Test
     public void increaseRowQueueCountIncreasesRowQueueCount() {
         File file = Mockito.mock(File.class);
@@ -73,6 +78,7 @@ public class ImportControllerTest {
     /**
      * allRowsProcessed gibt True zurück wenn alle Rows verarbeitet sind
      */
+    @Category({ UnitTest.class })
     @Test
     public void allRowsProcessedReturnsTrueWhenAllRowsAreProcessed() {
         File file = Mockito.mock(File.class);
@@ -90,6 +96,7 @@ public class ImportControllerTest {
     /**
      * allRowsProcessed gibt False zurück wenn nicht alle Rows verarbeitet sind
      */
+    @Category({ UnitTest.class })
     @Test
     public void allRowsProcessedReturnsFalseWhenNotAllRowsAreProcessed() {
         File file = Mockito.mock(File.class);
@@ -107,6 +114,7 @@ public class ImportControllerTest {
     /**
      * increaseErrorCount erhöht den errorCount
      */
+    @Category({ UnitTest.class })
     @Test
     public void increaseErrorCountIncreasesErrorCount() {
         File file = Mockito.mock(File.class);
