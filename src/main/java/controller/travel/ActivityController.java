@@ -1,5 +1,6 @@
 package controller.travel;
 
+import com.teamdev.jxmaps.LatLng;
 import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Activity;
@@ -28,6 +29,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         this.mainController = mainController;
     }
 
+    // TODO, diese liste koennten wir uns auf einer Instanzvariable zwischenspeichern
     public ArrayList<Activity> getActivityList() {
         // ActivityListe (from Model)
         return Activity.searchByTrip(mainController.getTrip());
@@ -54,7 +56,14 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "show_map":
                 executeActionShowMap();
                 break;
+            case "newActivty":
+                executeActionNewActivty();
+                break;
         }
+    }
+
+    private void executeActionNewActivty() {
+        mainController.openCitySearchView();
     }
 
     private void executeActionShowMap() {
@@ -125,4 +134,8 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         }
     }
 
+//    public Object getFullTripActivityPath() {
+//        ArrayList<Activity> getActivityList();
+//        return null;
+//    }
 }
