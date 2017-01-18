@@ -20,7 +20,8 @@ public class ActivityView extends JPanel {
 
     DefaultTableModel tableModel;
     JTable table;
-    MapXXXXX mapView;
+    //MapXXXXX mapView;
+    MapPolyline mapView;
 
     // Getters, damit der ActivityController die View Werte lesen ann
     public JTable getTable() {
@@ -69,10 +70,11 @@ public class ActivityView extends JPanel {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-        mapView = new MapXXXXX(options);
-      //mapView.setMarker(mainController.getActivity());
-      //mapView.setMarker(Activity.searchById(1L));  // TODO
-      //mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
+      //mapView = new MapXXXXX(options);
+        mapView = new MapPolyline(mainController);
+        if (mainController.getActivity() != null) {
+            //mapView.setMarker(mainController.getActivity());
+        }
         centerPanel.add(mapView);
 
 
@@ -87,6 +89,8 @@ public class ActivityView extends JPanel {
         // Variante mit Buttons nebeneinander:
         buttonPanel.addComponentToPanel(buttonPanel.createButton("up", "move_up", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
         buttonPanel.addPanel(true);
@@ -108,6 +112,7 @@ public class ActivityView extends JPanel {
         table.repaint();
     }
 
+    // TODO fehlt hier nicht noch CITY ?
     private void setUpTableTableData() {
         // TripListe (from Controller)
         ArrayList<Activity> activityList = activityController.getActivityList();
