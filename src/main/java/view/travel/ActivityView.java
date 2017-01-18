@@ -3,7 +3,9 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.ActivityController;
+import model.common.Poi;
 import model.travel.Activity;
+import model.travel.Trip;
 import view.common.GridPanel;
 
 import javax.swing.*;
@@ -12,6 +14,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ActivityView extends JPanel {
 
@@ -32,7 +35,10 @@ public class ActivityView extends JPanel {
     public ActivityView(MainController mainController) {
 
         this.mainController = mainController;
-        activityController = new ActivityController(this, mainController);
+
+        mapView = new MapPolyline(mainController, this);
+
+        activityController = new ActivityController(this, mainController, mapView);
 
         // generelles panel
         this.setLayout(new BorderLayout());
@@ -45,6 +51,7 @@ public class ActivityView extends JPanel {
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
       //table.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
@@ -71,10 +78,9 @@ public class ActivityView extends JPanel {
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
       //mapView = new MapXXXXX(options);
-        mapView = new MapPolyline(mainController);
-        if (mainController.getActivity() != null) {
+//        if (mainController.getActivity() != null) {
             //mapView.setMarker(mainController.getActivity());
-        }
+//        }
         centerPanel.add(mapView);
 
 
@@ -144,6 +150,14 @@ public class ActivityView extends JPanel {
             if(width > 150)
                 width=150;
             columnModel.getColumn(column).setPreferredWidth(width);
+        }
+    }
+
+    public void setActivityInList(Activity activity) {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            if (tableModel.getValueAt(i, 0).equals(activity.getId())) {
+                table.setRowSelectionInterval(0, i);
+            }
         }
     }
 
