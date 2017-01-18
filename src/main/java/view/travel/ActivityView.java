@@ -15,15 +15,10 @@ import java.util.ArrayList;
 
 public class ActivityView extends JPanel {
 
-    /*
-    TODO
-    Fehlend: Headers noch nicht schoen, Groesse passt noch nicht, Soll nicht editierbar sein
-    Auf FlowLayout umstellen!
-     */
-
     ActivityController activityController;
     MainController mainController;
 
+    DefaultTableModel tableModel;
     JTable table;
     MapXXXXX mapView;
 
@@ -41,7 +36,7 @@ public class ActivityView extends JPanel {
         // generelles panel
         this.setLayout(new BorderLayout());
 
-        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel();
         table = new JTable(tableModel);
         table.setAutoCreateColumnsFromModel(true);
         table.setPreferredSize(new Dimension(400,200));
@@ -57,17 +52,10 @@ public class ActivityView extends JPanel {
         // MouseListener in Controller!
         table.addMouseListener(activityController);
 
-        // Create columns
-        String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
-        for (String column : columnNames){
-            tableModel.addColumn(column);
-        }
-        // TripListe (from Controller)
-        ArrayList<Activity> activityList = activityController.getActivityList();
-        for (Activity activity : activityList) {
-            // Append a row
-            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
-        }
+        // TableModel Data and Columns
+        setUpTableTableColumns();
+        setUpTableTableData();
+
         // spaltenbreite automatisch
         resizeColumnWidth(table);
 
@@ -90,7 +78,19 @@ public class ActivityView extends JPanel {
 
         // TODO, plaziert nach Mergekonflikt, Dieter's Button
         GridPanel buttonPanel = new GridPanel(300,16);
+/*
+        buttonPanel.addComponentDirect(buttonPanel.createButton("up", "move_up", activityController));
+        buttonPanel.addComponentDirect(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentDirect(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+*/
+        // Variante mit Buttons nebeneinander:
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("up", "move_up", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
+        buttonPanel.addPanel(true);
+
         centerPanel.add(buttonPanel, BorderLayout.EAST);
 
         // alles aufs generelle panel
@@ -99,7 +99,34 @@ public class ActivityView extends JPanel {
     }
 
 
-    //https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
+    public void refreshTable() {
+        System.out.println("ActivityView.refreshTable ...");
+        tableModel.setRowCount(0);
+        //tableModel.fireTableDataChanged();
+        //tableModel.fireTableRowsDeleted();
+        setUpTableTableData();
+        table.repaint();
+    }
+
+    private void setUpTableTableData() {
+        // TripListe (from Controller)
+        ArrayList<Activity> activityList = activityController.getActivityList();
+        for (Activity activity : activityList) {
+            // Append a row
+            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
+        }
+    }
+
+    private void setUpTableTableColumns() {
+        // Create columns
+        String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
+        for (String column : columnNames){
+            tableModel.addColumn(column);
+        }
+    }
+
+
+    // auto resizing the jtable column widths
     public void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {

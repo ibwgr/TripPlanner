@@ -17,12 +17,6 @@ import java.util.ArrayList;
 
 public class TripView extends JPanel {
 
-    /*
-    TODO
-    Fehlend: Headers noch nicht schoen, Groesse passt noch nicht, Soll nicht editierbar sein
-    Auf FlowLayout umstellen!
-     */
-
     TripController tripController;
     MainController mainController;
 
@@ -48,7 +42,7 @@ public class TripView extends JPanel {
     public TripView(MainController mainController) {
 
         this.mainController = mainController;
-        mainController.setSubTitle("My Trips");
+        mainController.setSubTitle(" ");
         mainController.setSubTitleVisible(true);
 
 
@@ -77,8 +71,12 @@ public class TripView extends JPanel {
         resizeColumnWidth(table);
 
         // Generelles Panel fuer Gesamtanzeige
+/*
         JPanel anzeigePanel = new JPanel(new BorderLayout());
         this.add(anzeigePanel);
+*/
+
+        this.setLayout(new BorderLayout());
         // Spezielles Panel fuer die Buttons (rechts)
         GridPanel sideButtonPanel = new GridPanel(20,150);
         // Spezielles Panel fuer die Buttons (unten)
@@ -87,25 +85,20 @@ public class TripView extends JPanel {
         bottomButtonPanel.setToolTipText("Add a completely new trip");
 
         // alles aufs AnzeigePanel
-        anzeigePanel.add(new JScrollPane( table ), BorderLayout.CENTER);
-        anzeigePanel.add(sideButtonPanel, BorderLayout.EAST);
-        anzeigePanel.add(bottomButtonPanel, BorderLayout.SOUTH);
+        this.add(new JScrollPane( table ), BorderLayout.CENTER);
+        this.add(sideButtonPanel, BorderLayout.EAST);
+        this.add(bottomButtonPanel, BorderLayout.SOUTH);
 
         // SIDE Buttons
-        sideButtonPanel.addComponentToPanel(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(detailButton = sideButtonPanel.createButton("Detail", "detail", tripController));
 
-        sideButtonPanel.addComponentToPanel(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
         deleteButton.setForeground(new Color(244, 100, 66));
 
-        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
-        sideButtonPanel.addPanel(true);
-        sideButtonPanel.addComponentToPanel(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
 
-        sideButtonPanel.addComponentToPanel(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
-        sideButtonPanel.addPanel(true);
+        sideButtonPanel.addComponentDirect(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
 
         // BOTTOM Buttons
         bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP", null, null));
@@ -115,7 +108,7 @@ public class TripView extends JPanel {
         bottomButtonPanel.addPanelWithLabel("Trip Name / Label:", true);
 
         bottomButtonPanel.addComponentToPanel(newTripSaveButton = bottomButtonPanel.createButton("Save", "saveNewTrip", tripController));
-        bottomButtonPanel.addPanel(true);
+        bottomButtonPanel.addPanelWithLabel("",true);
 
 
     }

@@ -11,10 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by user on 08.01.2017.
+ *
  */
 public class ActivityController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
@@ -44,8 +45,11 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "detail":
-                executeActionDetail();
+            case "move_up":
+                executeActionMoveUp();
+                break;
+            case "move_down":
+                executeActionMoveDown();
                 break;
             case "show_map":
                 executeActionShowMap();
@@ -57,16 +61,37 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         mainController.openCompleteTripView();
     }
 
-    private void executeActionDetail() {
-        if (1==1) {
-            // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
-            //Trip t = Trip.searchByUserAndId(mainController.getUser(), this.currentTripId);
-            //mainController.setTrip(t);
+    private void executeActionMoveUp() {
+        if (mainController.getActivity() != null) {
+            System.out.println("moving up");
+            // UPDATE (Reorder) und REFRESH
+            try {
+                mainController.getActivity().moveOneDayUp();
+                activityView.refreshTable();
+            } catch (SQLException e1) {
+                mainController.showErrorMessage("Error on deleting trip!");
+                e1.printStackTrace();
+            }
         } else {
-            mainController.showErrorMessage("Please select a trip");
+            mainController.showErrorMessage("Please select an activity");
         }
     }
 
+    private void executeActionMoveDown() {
+        if (mainController.getActivity() != null) {
+            System.out.println("moving down");
+            // UPDATE (Reorder) und REFRESH
+            try {
+                mainController.getActivity().moveOneDayDown();
+                activityView.refreshTable();
+            } catch (SQLException e1) {
+                mainController.showErrorMessage("Error on deleting trip!");
+                e1.printStackTrace();
+            }
+        } else {
+            mainController.showErrorMessage("Please select an activity");
+        }
+    }
 
     //----------------------------------------------------
     // aus dem ListSelectionListener
