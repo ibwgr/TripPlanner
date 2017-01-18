@@ -1,5 +1,6 @@
 package controller.travel;
 
+import com.teamdev.jxmaps.LatLng;
 import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Activity;
@@ -28,6 +29,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         this.mainController = mainController;
     }
 
+    // TODO, diese liste koennten wir uns auf einer Instanzvariable zwischenspeichern
     public ArrayList<Activity> getActivityList() {
         // ActivityListe (from Model)
         return Activity.searchByTrip(mainController.getTrip());
@@ -54,7 +56,14 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "show_map":
                 executeActionShowMap();
                 break;
+            case "newActivty":
+                executeActionNewActivty();
+                break;
         }
+    }
+
+    private void executeActionNewActivty() {
+        mainController.openCitySearchView();
     }
 
     private void executeActionShowMap() {
@@ -66,7 +75,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             System.out.println("moving up");
             // UPDATE (Reorder) und REFRESH
             try {
-                mainController.getActivity().moveOneDayUp();
+                mainController.getActivity().setActivityDateAfter();
                 activityView.refreshTable();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
@@ -82,7 +91,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             System.out.println("moving down");
             // UPDATE (Reorder) und REFRESH
             try {
-                mainController.getActivity().moveOneDayDown();
+                mainController.getActivity().setActivityDateBefore();
                 activityView.refreshTable();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
@@ -125,4 +134,8 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         }
     }
 
+//    public Object getFullTripActivityPath() {
+//        ArrayList<Activity> getActivityList();
+//        return null;
+//    }
 }

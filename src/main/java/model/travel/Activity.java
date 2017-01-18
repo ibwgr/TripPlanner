@@ -241,11 +241,11 @@ public class Activity {
         }
     }
 
-    public void moveOneDayUp() throws SQLException {
+    public void setActivityDateBefore() throws SQLException {
         moveDays(1);
     }
 
-    public void moveOneDayDown() throws SQLException {
+    public void setActivityDateAfter() throws SQLException {
         moveDays(-1);
     }
 }
