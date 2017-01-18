@@ -78,10 +78,19 @@ public class ActivityView extends JPanel {
 
         // TODO, plaziert nach Mergekonflikt, Dieter's Button
         GridPanel buttonPanel = new GridPanel(300,16);
+/*
         buttonPanel.addComponentDirect(buttonPanel.createButton("up", "move_up", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("down", "move_down", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+*/
+        // Variante mit Buttons nebeneinander:
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("up", "move_up", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
+        buttonPanel.addPanel(true);
+
         centerPanel.add(buttonPanel, BorderLayout.EAST);
 
         // alles aufs generelle panel

@@ -50,6 +50,13 @@ public class MainController implements ActionListener {
                  */
                 tripPlannerMain.closeErrorPanel();
                 break;
+            case "view_selected":
+                /*
+                 * öffnet die selektierte View
+                 */
+                currentViewNo = tripPlannerMain.getViewListComboBoxSelectedIndex();
+                openView(currentViewNo);
+                break;
             case "back":
                 /*
                  * eine View zurück
@@ -86,7 +93,9 @@ public class MainController implements ActionListener {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
-        setSubTitle("Current Trip: " + trip.getName());
+        if (trip != null) {
+            setSubTitle("Current Trip: " + trip.getName());
+        }
     }
 
     public void setSubTitle(String subTitle) {
@@ -133,6 +142,12 @@ public class MainController implements ActionListener {
         } else {
             tripPlannerMain.setForwardButtonEnabled(true);
         }
+        tripPlannerMain.setViewListComboBoxSelectedIndex(currentViewNo);
+    }
+
+    public void clearViewList() {
+        viewList.clear();
+        currentViewNo = viewList.size();
     }
 
     public void closeCurrentView() {
@@ -160,6 +175,7 @@ public class MainController implements ActionListener {
             }
         }
         viewList.add(new Pair<>(s, view));
+        tripPlannerMain.setViewListComboBox(viewList);
         currentViewNo = viewList.size();
     }
 

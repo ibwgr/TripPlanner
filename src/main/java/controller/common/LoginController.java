@@ -37,6 +37,9 @@ public class LoginController implements ActionListener {
         }
 
         mainController.setUser(user);
+        mainController.clearViewList();
+        mainController.setTrip(null);
+        mainController.setSubTitleVisible(false);
         if (user.getTypeEnum().equals(UserTypeEnum.ADMIN)) {
             mainController.openAdmin();
         } else if (user.getTypeEnum().equals(UserTypeEnum.USER)) {
