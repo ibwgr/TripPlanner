@@ -6,6 +6,7 @@ import controller.travel.ActivityController;
 import model.common.Poi;
 import model.travel.Activity;
 import model.travel.Trip;
+import org.jdesktop.swingx.JXDatePicker;
 import view.common.GridPanel;
 
 import javax.swing.*;
@@ -24,6 +25,8 @@ public class ActivityView extends JPanel {
     DefaultTableModel tableModel;
     JTable table;
     //MapXXXXX mapView;
+    JTextArea commentText;
+    JXDatePicker datePicker;
     MapPolyline mapView;
 
     // Getters, damit der ActivityController die View Werte lesen ann
@@ -85,7 +88,7 @@ public class ActivityView extends JPanel {
 
 
         // TODO, plaziert nach Mergekonflikt, Dieter's Button
-        GridPanel buttonPanel = new GridPanel(300,16);
+        GridPanel buttonPanel = new GridPanel(100,16);
 /*
         buttonPanel.addComponentDirect(buttonPanel.createButton("up", "move_up", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("down", "move_down", activityController));
@@ -100,6 +103,19 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
         buttonPanel.addPanel(true);
+
+        buttonPanel.addComponentDirect(new JLabel(""));
+
+        buttonPanel.addComponentToPanel(datePicker = new JXDatePicker());
+        buttonPanel.addPanelWithLabel("Date:", true);
+
+        commentText = new JTextArea(5,30);
+        buttonPanel.addComponentToPanel(new JScrollPane(commentText));
+        buttonPanel.addPanelWithLabel("Comment:", true);
+
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Update", "update_activity", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Delete", "delete_activity", activityController));
+        buttonPanel.addPanelWithLabel("", true);
 
         centerPanel.add(buttonPanel, BorderLayout.EAST);
 
@@ -159,6 +175,22 @@ public class ActivityView extends JPanel {
                 table.setRowSelectionInterval(0, i);
             }
         }
+    }
+
+    public Date getDate() {
+        return datePicker.getDate();
+    }
+
+    public void setDate(Date date) {
+        datePicker.setDate(date);
+    }
+
+    public String getComment() {
+        return commentText.getText();
+    }
+
+    public void setComment(String comment) {
+        commentText.setText(comment);
     }
 
 }

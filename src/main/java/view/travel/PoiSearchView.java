@@ -39,7 +39,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(200, 16);
+        GridPanel gridPanel1 = new GridPanel(250, 16);
 /*
         gridPanel1.addComponentToPanel(new JLabel(city.getName()));
         gridPanel1.addPanelWithLabel("City:", true);

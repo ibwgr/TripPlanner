@@ -43,6 +43,8 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         Activity a = Activity.searchById(currentActivityId);
         mapView.setWindow(a);
         mainController.setActivity(a);
+        activityView.setDate(a.getDate());
+        activityView.setComment(a.getComment());
     }
 
     //----------------------------------------------------
@@ -63,7 +65,19 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "newActivty":
                 executeActionNewActivty();
                 break;
+            case "update_activity":
+                updateActivity();
+                break;
+            case "delete_activity":
+                deleteActivity();
+                break;
         }
+    }
+
+    private void refresh() {
+        activityView.refreshTable();
+        mapView.refresh();
+        activityView.setActivityInList(mainController.getActivity());
     }
 
     private void executeActionNewActivty() {
@@ -80,9 +94,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             // UPDATE (Reorder) und REFRESH
             try {
                 mainController.getActivity().setActivityDateAfter();
-                activityView.refreshTable();
-                mapView.refresh();
-                activityView.setActivityInList(mainController.getActivity());
+                refresh();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
                 e1.printStackTrace();
@@ -98,9 +110,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             // UPDATE (Reorder) und REFRESH
             try {
                 mainController.getActivity().setActivityDateBefore();
-                activityView.refreshTable();
-                mapView.refresh();
-                activityView.setActivityInList(mainController.getActivity());
+                refresh();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
                 e1.printStackTrace();
@@ -108,6 +118,40 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         } else {
             mainController.showErrorMessage("Please select an activity");
         }
+    }
+
+    private void updateActivity() {
+
+        if (activityView.getDate() == null
+                || activityView.getComment() == null
+                ) {
+            mainController.showErrorMessage("Date or Comment is missing");
+            return;
+        }
+
+        Activity activity = mainController.getActivity();
+        activity.setDate(activityView.getDate());
+        activity.setComment(activityView.getComment());
+
+        try {
+            activity.save();
+        } catch (SQLException e) {
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+        }
+
+        refresh();
+    }
+
+    private void deleteActivity() {
+
+        Activity activity = mainController.getActivity();
+        try {
+            activity.delete();
+        } catch (SQLException e) {
+            mainController.showErrorMessage("Could not delete Activity (" + e.getMessage() + ")");
+        }
+
+        refresh();
     }
 
     //----------------------------------------------------
