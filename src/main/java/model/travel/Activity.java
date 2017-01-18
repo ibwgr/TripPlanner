@@ -79,6 +79,25 @@ public class Activity {
         }
     }
 
+    /**
+     * Loescht ein Activity Objekt auf der Datenbank. Tabelle: tp_activity
+     */
+    public void delete() throws SQLException {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        String query = null;
+        query = "delete from tp_activity where id = ?";
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+        preparedStatement.setLong(1, id);
+        System.out.println("Delete Activity query: " + preparedStatement.toString());
+        try {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            databaseProxy.close();
+        }
+    }
+
 
     // Zur Info: Der eingeloggte Benutzer kann diese Methode nur im Kontext
     // einer SEINER Reisen Aufrufen.
