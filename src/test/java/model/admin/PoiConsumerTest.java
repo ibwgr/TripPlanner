@@ -2,6 +2,7 @@ package model.admin;
 
 import controller.admin.ImportController;
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import model.common.PoiCategory;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +33,8 @@ public class PoiConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.poiCategories.add(new PoiCategory("1", "name1"));
         importController.poiCategories.add(new PoiCategory("2", "name2"));
@@ -68,7 +70,8 @@ public class PoiConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.poiCategories.add(new PoiCategory("1", "name1"));
         importController.poiCategories.add(new PoiCategory("2", "name2"));
@@ -107,7 +110,8 @@ public class PoiConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.poiCategories.add(new PoiCategory("1", "name1"));
         importController.poiCategories.add(new PoiCategory("2", "name2"));
@@ -146,7 +150,8 @@ public class PoiConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         // rows mit 3 werten dürfen nicht verarbeitet werden
         importController.rowQueue.add("1,def,ghi,jkl,mno");

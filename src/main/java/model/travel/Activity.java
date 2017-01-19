@@ -271,4 +271,9 @@ public class Activity {
     public void setActivityDateAfter() throws SQLException {
         moveDays(-1);
     }
+
+    @Override
+    public String toString() {
+        return poi + " (" + date +")";
+    }
 }

@@ -2,11 +2,13 @@ package model.admin;
 
 import controller.admin.ImportController;
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.TemporaryFolder;
+import org.mockito.Mockito;
 import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
@@ -38,7 +40,8 @@ public class FileReaderTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
         ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController, databaseProxy);
 
         FileReader fileReader = new FileReader(tempFile, importController, false);
         fileReader.run();
@@ -60,7 +63,8 @@ public class FileReaderTest {
         MainController mainController = new MainController(tripPlannerMain);
         AdminView adminView = new AdminView(mainController);
         ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(tempFile, adminView, progressView, mainController, databaseProxy);
 
         FileReader fileReader = new FileReader(tempFile, importController, true);
         fileReader.run();

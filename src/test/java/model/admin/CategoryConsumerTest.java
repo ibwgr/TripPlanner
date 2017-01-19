@@ -2,6 +2,7 @@ package model.admin;
 
 import controller.admin.ImportController;
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -29,7 +30,8 @@ public class CategoryConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         // Row muss zwei Werte haben
         importController.rowQueue.add("abc,def");
@@ -62,7 +64,8 @@ public class CategoryConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         // rows mit 3 werten dürfen nicht verarbeitet werden
         importController.rowQueue.add("abc,def,ghi");
@@ -98,7 +101,8 @@ public class CategoryConsumerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         // rows mit 3 werten dürfen nicht verarbeitet werden
         importController.rowQueue.add("abc,def");

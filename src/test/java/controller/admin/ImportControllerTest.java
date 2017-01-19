@@ -1,6 +1,7 @@
 package controller.admin;
 
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,7 +29,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueue.clear();
 
@@ -46,7 +48,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueue.add("test");
 
@@ -64,7 +67,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.increaseRowQueueCount();
         long result = importController.rowQueueCount;
@@ -85,7 +89,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 5;
@@ -103,7 +108,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 2;
@@ -121,7 +127,8 @@ public class ImportControllerTest {
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.increaseErrorCount();
         long result = importController.errorCount;

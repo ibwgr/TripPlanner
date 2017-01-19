@@ -7,6 +7,7 @@ import model.travel.Activity;
 import view.travel.ActivityView;
 import view.travel.MapPolyline;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
@@ -144,14 +145,17 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
 
     private void deleteActivity() {
 
-        Activity activity = mainController.getActivity();
-        try {
-            activity.delete();
-        } catch (SQLException e) {
-            mainController.showErrorMessage("Could not delete Activity (" + e.getMessage() + ")");
+        int reply = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to delete activity \"" +mainController.getActivity() +" ?"
+                ,"Delete?",  JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                mainController.getActivity().delete();
+            } catch (SQLException e) {
+                mainController.showErrorMessage("Could not delete Activity (" + e.getMessage() + ")");
+            }
+            refresh();
         }
-
-        refresh();
     }
 
     //----------------------------------------------------

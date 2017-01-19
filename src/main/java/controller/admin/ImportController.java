@@ -36,12 +36,12 @@ public class ImportController {
     public FileReader fileReader;
     public ImportProgress importProgress;
 
-    public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController) {
+    public ImportController(File file, AdminView adminView, ProgressView progressView, MainController mainController, DatabaseProxy databaseProxy) {
         this.file = file;
         this.adminView = adminView;
         this.progressView = progressView;
         this.mainController = mainController;
-        databaseProxy = new DatabaseProxy();
+        this.databaseProxy = databaseProxy;
     }
 
     public void start() {
