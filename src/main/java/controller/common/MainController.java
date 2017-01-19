@@ -199,7 +199,7 @@ public class MainController implements ActionListener {
 
     public void openTripOverview() {
         // Immer die gleiche View Instanz öffnen
-        if (adminView == null) {
+        if (tripView == null) {
             tripView = new TripView(this);
         }
         setNewView("Trip Overview", tripView);
