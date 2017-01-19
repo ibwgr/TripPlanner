@@ -36,10 +36,9 @@ public class FileReaderTest {
         writer.write("abc,cde,efg\n123,345,111");
         writer.close();
 
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
         ImportController importController = new ImportController(tempFile, adminView, progressView, mainController, databaseProxy);
 
@@ -59,10 +58,9 @@ public class FileReaderTest {
         writer.write("abc,cde,efg\n123,345,111");
         writer.close();
 
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
+        MainController mainController = Mockito.mock(MainController.class);
+        AdminView adminView = Mockito.mock(AdminView.class);
+        ProgressView progressView = Mockito.mock(ProgressView.class);
         DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
         ImportController importController = new ImportController(tempFile, adminView, progressView, mainController, databaseProxy);
 

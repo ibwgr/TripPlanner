@@ -84,8 +84,10 @@ public class MainControllerTest {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
 
         mainController.currentViewNo = 2;
 
@@ -101,8 +103,10 @@ public class MainControllerTest {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
 
         mainController.currentViewNo = 1;
 
@@ -118,9 +122,11 @@ public class MainControllerTest {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 1;
 
@@ -136,9 +142,11 @@ public class MainControllerTest {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 3;
 
@@ -154,9 +162,11 @@ public class MainControllerTest {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 2;
 

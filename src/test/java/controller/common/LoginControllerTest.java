@@ -66,7 +66,8 @@ public class LoginControllerTest {
         verify(tripPlannerMain, times(1)).showErrorMessage("Username not found or Password incorrect.");
     }
 
-    @Category({ UnitTest.class })
+//    @Category({ UnitTest.class })
+    // ToDo: Nach dem Login wird eine View aufgerufen, deshalb kann dies nicht als UnitTest laufen gelassen werden.
     @Test
     public void doLoginLogsInWithCorrectUser() throws SQLException {
         DatabaseProxy databaseProxy = mock(DatabaseProxy.class);
