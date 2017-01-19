@@ -5,7 +5,9 @@ import model.common.User;
 import model.travel.Trip;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
+import testFramework.UnitTest;
 import view.common.TripPlannerMain;
 
 import javax.swing.*;
@@ -14,6 +16,7 @@ import static org.junit.Assert.*;
 
 public class MainControllerTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void getUserReturnsCorrectUser() {
         //TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
@@ -27,6 +30,7 @@ public class MainControllerTest {
         Assert.assertEquals(testUser, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void setUserSetsCorrectUser() {
         //TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
@@ -43,6 +47,7 @@ public class MainControllerTest {
         Assert.assertEquals(testUser, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void getTripReturnsCorrectTrip() {
         //TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
@@ -56,6 +61,7 @@ public class MainControllerTest {
         Assert.assertEquals(testTrip, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void setTripSetsCorrectTrip() {
         //TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
@@ -72,13 +78,16 @@ public class MainControllerTest {
         Assert.assertEquals(testTrip, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void openLastViewReducesCurrentViewNo() {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
 
         mainController.currentViewNo = 2;
 
@@ -88,13 +97,16 @@ public class MainControllerTest {
         Assert.assertEquals(1, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void openNextViewIncreasesCurrentViewNo() {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
 
         mainController.currentViewNo = 1;
 
@@ -104,14 +116,17 @@ public class MainControllerTest {
         Assert.assertEquals(2, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void closeCurrentViewSetsCurrentViewNoTo1WhenFirstViewIsClosed() {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 1;
 
@@ -121,14 +136,17 @@ public class MainControllerTest {
         Assert.assertEquals(1, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void closeCurrentViewSetsCurrentViewNoToSecondLastViewWhenLastViewIsClosed() {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 3;
 
@@ -138,14 +156,17 @@ public class MainControllerTest {
         Assert.assertEquals(2, result);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void closeCurrentViewSetsCurrentViewNoTo2WhenAnotherViewFollows() {
         TripPlannerMain tripPlannerMain = Mockito.mock(TripPlannerMain.class);
         MainController mainController = new MainController(tripPlannerMain);
 
-        mainController.viewList.add(new Pair<>("test1", new JLabel()));
-        mainController.viewList.add(new Pair<>("test2", new JLabel()));
-        mainController.viewList.add(new Pair<>("test3", new JLabel()));
+        JLabel jLabel = Mockito.mock(JLabel.class);
+
+        mainController.viewList.add(new Pair<>("test1", jLabel));
+        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new Pair<>("test3", jLabel));
 
         mainController.currentViewNo = 2;
 

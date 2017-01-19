@@ -79,6 +79,29 @@ public class Activity {
         }
     }
 
+    public void delete() throws SQLException {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        String query = null;
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot delete Activity (not yet saved)");
+        }
+        query = "delete from tp_activity where id = ?";
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        try {
+            preparedStatement.setLong(1, id);
+
+            System.out.println("delete Activity query: " + preparedStatement.toString());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            databaseProxy.close();
+        }
+    }
+
 
     // Zur Info: Der eingeloggte Benutzer kann diese Methode nur im Kontext
     // einer SEINER Reisen Aufrufen.
@@ -247,5 +270,10 @@ public class Activity {
 
     public void setActivityDateAfter() throws SQLException {
         moveDays(-1);
+    }
+
+    @Override
+    public String toString() {
+        return poi + " (" + date +")";
     }
 }
