@@ -1,6 +1,8 @@
 package view.travel;
 
 import com.teamdev.jxmaps.*;
+import com.teamdev.jxmaps.Icon;
+import com.teamdev.jxmaps.Point;
 import com.teamdev.jxmaps.Polygon;
 import com.teamdev.jxmaps.swing.MapView;
 import controller.common.MainController;
@@ -113,6 +115,7 @@ public class MapPolyline extends MapView {
         polyline = new Polyline(map);
         // Initializing the polyline with created path
         polyline.setPath(path);
+
         // Creating a polyline options object
         PolylineOptions options = new PolylineOptions();
         // Setting geodesic property value
@@ -123,7 +126,30 @@ public class MapPolyline extends MapView {
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
-        // Applying options to the polyline
+
+        // TODO Reto, fertigmachen
+        //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
+        // Google Maps API (JavaScript) verlangt:
+        // Define a symbol using a predefined path (an arrow)
+        // supplied by the Google Maps JavaScript API.
+        // var lineSymbol = {
+        //        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        //
+        // new google.maps.Polyline({
+        //icons: [{
+        //   icon: lineSymbol,
+        //            offset: '100%'
+        //}],
+        Symbol icon = new Symbol();
+        icon.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
+
+        IconSequence iconSequence = new IconSequence();
+        iconSequence.setIcon(icon);
+        iconSequence.setOffset("100%");
+
+        options.setIcons(new IconSequence[]{iconSequence});
+
+        // Applying ALL options to the polyline
         polyline.setOptions(options);
     }
 

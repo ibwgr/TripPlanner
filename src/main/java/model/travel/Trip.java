@@ -148,6 +148,7 @@ public class Trip {
   // Aufrufen. Somit besteht keine Gefahr dass er unberechtigt Reisen anderer
   // Personen sieht.
   public static Trip searchById(Long id){
+    System.out.println("Trip searchById ID:" +id);
     DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;
     ResultSet resultset = null;
@@ -158,6 +159,7 @@ public class Trip {
                       "from tp_trip_aggr_v " +
                       "where trip_id = ? ");
       preparedStatement.setLong(1, id);
+      System.out.println("Query:"+preparedStatement.toString());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));

@@ -43,6 +43,7 @@ public class AdminController implements ActionListener {
                     /*
                      * Fehlermeldung zurückgeben
                      */
+                    mainController.showErrorMessage("Please choose a file first.");
                 } else {
                     /*
                      * Importiere das File

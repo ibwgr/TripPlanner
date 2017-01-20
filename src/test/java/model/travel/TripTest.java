@@ -3,6 +3,7 @@ package model.travel;
 import model.common.DatabaseProxy;
 import model.common.User;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import testFramework.UnitTest;
@@ -86,14 +87,14 @@ public class TripTest {
     */
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
+    @Ignore // TODO, fixwert Trip ID 1 muss es ja nicht zwingend geben!
     @Test
     public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
-        User user = getTestUser();
-        Trip trip = Trip.searchById(1L);
-        // aus DB gelesener Wert vergleichen
-        Assert.assertEquals(new Long(1), trip.getId());
-    }
-
+         User user = getTestUser();
+         Trip trip = Trip.searchById(1L);
+         // aus DB gelesener Wert vergleichen
+         Assert.assertEquals(new Long(1), trip.getId());
+     }
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
@@ -111,10 +112,12 @@ public class TripTest {
 
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
+    @Ignore // TODO, geht so nicht zwingend da bei getTestTrip fix die ID 1 verwendet wird. Die muss aber gar nicht auf der DB existieren!
     @Test
     public void integrationsTestSaveIdUpdatesTrip() throws Exception {
         User user = getTestUser();
         Trip trip = getTestTrip();
+        System.out.println("Trip ID: " +trip.getId());
         // in DB speichern, wird ein UPDATE ergeben
         trip.save();
         // wieder aus DB lesen
