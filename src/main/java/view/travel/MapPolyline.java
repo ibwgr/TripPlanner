@@ -93,6 +93,7 @@ public class MapPolyline extends MapView {
         LatLng[] path = new LatLng[activityList.size()];
         int i = -1;
         for (Activity activity : activityList) {
+            System.out.println("Reihenfolge " +(i+1) +" --> "+activity.getCity());
             // Marker erstellen
             Marker marker = new Marker(map);
             LatLng latLng = new LatLng(activity.getPoi().getLatitudeDouble(), activity.getPoi().getLongitudeDouble());
@@ -112,10 +113,31 @@ public class MapPolyline extends MapView {
             path[++i] = latLng;
         }
         // Creating a new polyline object
-        polyline = new Polyline(map);
+        // Falls aber schon eines existiert, bringt man es kaum mehr von der Map weg
+        // sieht jetzt etwas umstaendlich aus, aber bis anhin hat nichts anderes funktioniert!
+        if (polyline == null) {
+            System.out.println("polyline NEU");
+            polyline = new Polyline(map);
+        } else {
+            System.out.println("polyline BESTEHEND, loeschen");
+            polyline.setVisible(false);
+            polyline = null;
+            polyline = new Polyline(map);
+           // polyline.setVisible(true);
+        }
         // Initializing the polyline with created path
+        //System.out.println("polyline PATH Inhalt: " +polyline.getPath().length);
+        if (polyline.getPath().length > 0) {
+            //System.out.println("polyline PATH bestehend, loeschen! ");
+            //            for (LatLng x : polyline.getPath()) {
+            //                System.out.println(x.getLat());
+            //            }
+            //polyline.setPath(null);
+            //polyline.setPath(new LatLng[0]);
+        }
+        //System.out.println("polyline setzen");
         polyline.setPath(path);
-
+        //
         // Creating a polyline options object
         PolylineOptions options = new PolylineOptions();
         // Setting geodesic property value
