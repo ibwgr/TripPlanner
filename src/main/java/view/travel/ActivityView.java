@@ -134,19 +134,18 @@ public class ActivityView extends JPanel {
         table.repaint();
     }
 
-    // TODO fehlt hier nicht noch CITY ?
     private void setUpTableTableData() {
         // TripListe (from Controller)
         ArrayList<Activity> activityList = activityController.getActivityList();
         for (Activity activity : activityList) {
             // Append a row
-            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
+            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getCity(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
         }
     }
 
     private void setUpTableTableColumns() {
         // Create columns
-        String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
+        String[] columnNames = {"Nr", "Date", "City", "POI", "Cat", "Comment"};
         for (String column : columnNames){
             tableModel.addColumn(column);
         }

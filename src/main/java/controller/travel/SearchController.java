@@ -63,11 +63,12 @@ public class SearchController implements ActionListener {
                 ,searchView.getPoi()
                 ,searchView.getDate()
                 ,searchView.getComment()
+                ,searchView.getCity().getName()
         );
         try {
             activity.save();
         } catch (SQLException e) {
-            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ") (Search)");
         }
 
         // oder
