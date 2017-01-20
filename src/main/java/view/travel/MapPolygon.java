@@ -61,12 +61,12 @@ public class MapPolygon extends MapView {
             });
             path[++i] = latLng;
         }
-        // Creating a new polygon object
-        Polygon polygon = new Polygon(map);
-        // Initializing the polygon with the created path
-        polygon.setPath(path);
+        // Creating a new polyline object
+        Polyline polyline = new Polyline(map);
+        // Initializing the polyline with the created path
+        polyline.setPath(path);
         // Creating a polyline options object
-        PolygonOptions options = new PolygonOptions(map);
+        PolylineOptions options = new PolylineOptions(map);
         // Setting fill color value
 //        options.setFillColor("#FF0000");
         // Setting fill opacity value
@@ -77,8 +77,8 @@ public class MapPolygon extends MapView {
         options.setStrokeOpacity(0.8);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
-        // Applying options to the polygon
-        polygon.setOptions(options);
+        // Applying options to the polyline
+        polyline.setOptions(options);
     }
 
     public void setWindow(Activity activity) {
