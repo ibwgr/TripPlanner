@@ -73,7 +73,7 @@
             <artifactId>license</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/license.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/licence.jar</systemPath>
         </dependency>
     </dependencies>
 

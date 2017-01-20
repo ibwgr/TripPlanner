@@ -236,26 +236,23 @@ public class Trip {
 
 
   /**
-   * Loescht ein Trip Objekt auf die Datenbank. Tabelle: tp_trip
-   * Falls bereits Activitied
+   * Loescht ein Trip Objekt auf der Datenbank. Tabelle: tp_trip
    */
   public void delete() throws SQLException {
     DatabaseProxy databaseProxy = new DatabaseProxy();
     String query = null;
     query = "delete from tp_trip where id = ?";
-
     PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
     preparedStatement.setLong(1, id);
-    System.out.println("delete Trip query: " + preparedStatement.toString());
-
+    System.out.println("Delete Trip query: " + preparedStatement.toString());
     try {
-        preparedStatement.executeUpdate();
-    } catch(SQLException e)   {
-        throw e;
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      throw e;
     } finally {
-        databaseProxy.close();
+      databaseProxy.close();
     }
-}
+  }
 
 
 
