@@ -115,10 +115,10 @@ public class Trip {
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
-        System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
-        System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
-        System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
-        System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
+        //System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
+        //System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
+        //System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
+        //System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
         Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
         //trip.setId(resultset.getLong("trip_id"));
