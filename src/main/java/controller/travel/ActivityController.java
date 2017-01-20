@@ -5,7 +5,9 @@ import controller.common.MainController;
 import model.common.DatabaseProxy;
 import model.travel.Activity;
 import view.travel.ActivityView;
+import view.travel.MapPolyline;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
@@ -23,10 +25,12 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     DatabaseProxy databaseProxy = new DatabaseProxy();
     ActivityView activityView;
     MainController mainController;
+    MapPolyline mapView;
 
-    public ActivityController(ActivityView ActivityView, MainController mainController) {
+    public ActivityController(ActivityView ActivityView, MainController mainController, MapPolyline mapView) {
         this.activityView = ActivityView;
         this.mainController = mainController;
+        this.mapView = mapView;
     }
 
     // TODO, diese liste koennten wir uns auf einer Instanzvariable zwischenspeichern
@@ -38,7 +42,10 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     public void setCurrentActivity(Long currentActivityId) {
         // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
         Activity a = Activity.searchById(currentActivityId);
+        mapView.setWindow(a);
         mainController.setActivity(a);
+        activityView.setDate(a.getDate());
+        activityView.setComment(a.getComment());
     }
 
     //----------------------------------------------------
@@ -59,7 +66,19 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "newActivty":
                 executeActionNewActivty();
                 break;
+            case "update_activity":
+                updateActivity();
+                break;
+            case "delete_activity":
+                deleteActivity();
+                break;
         }
+    }
+
+    private void refresh() {
+        activityView.refreshTable();
+        mapView.refresh();
+        activityView.setActivityInList(mainController.getActivity());
     }
 
     private void executeActionNewActivty() {
@@ -76,7 +95,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             // UPDATE (Reorder) und REFRESH
             try {
                 mainController.getActivity().setActivityDateAfter();
-                activityView.refreshTable();
+                refresh();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
                 e1.printStackTrace();
@@ -92,13 +111,50 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             // UPDATE (Reorder) und REFRESH
             try {
                 mainController.getActivity().setActivityDateBefore();
-                activityView.refreshTable();
+                refresh();
             } catch (SQLException e1) {
                 mainController.showErrorMessage("Error on deleting trip!");
                 e1.printStackTrace();
             }
         } else {
             mainController.showErrorMessage("Please select an activity");
+        }
+    }
+
+    private void updateActivity() {
+
+        if (activityView.getDate() == null
+                || activityView.getComment() == null
+                ) {
+            mainController.showErrorMessage("Date or Comment is missing");
+            return;
+        }
+
+        Activity activity = mainController.getActivity();
+        activity.setDate(activityView.getDate());
+        activity.setComment(activityView.getComment());
+
+        try {
+            activity.save();
+        } catch (SQLException e) {
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+        }
+
+        refresh();
+    }
+
+    private void deleteActivity() {
+
+        int reply = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to delete activity \"" +mainController.getActivity() +" ?"
+                ,"Delete?",  JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            try {
+                mainController.getActivity().delete();
+            } catch (SQLException e) {
+                mainController.showErrorMessage("Could not delete Activity (" + e.getMessage() + ")");
+            }
+            refresh();
         }
     }
 

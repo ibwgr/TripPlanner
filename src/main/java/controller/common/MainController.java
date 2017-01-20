@@ -180,7 +180,6 @@ public class MainController implements ActionListener {
     }
 
     public void openLogin() {
-        tripPlannerMain.removeAllViews();
         // Immer die gleiche View Instanz öffnen
         if (loginView == null) {
             loginView = new LoginView(this);
@@ -190,7 +189,6 @@ public class MainController implements ActionListener {
     }
 
     public void openAdmin() {
-        tripPlannerMain.removeAllViews();
         // Immer die gleiche View Instanz öffnen
         if (adminView == null) {
             adminView = new AdminView(this);
@@ -200,9 +198,8 @@ public class MainController implements ActionListener {
     }
 
     public void openTripOverview() {
-        tripPlannerMain.removeAllViews();
         // Immer die gleiche View Instanz öffnen
-        if (adminView == null) {
+        if (tripView == null) {
             tripView = new TripView(this);
         }
         setNewView("Trip Overview", tripView);
@@ -210,14 +207,14 @@ public class MainController implements ActionListener {
     }
 
     public void openActivityOverview() {
-        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
         activityView = new ActivityView(this);
         setNewView("Activity Overview", activityView);
         openView(currentViewNo);
     }
 
     public ProgressView openProgressView() {
-        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
         progressView = new ProgressView(this);
         setNewView("Administration - Import Processing", progressView);
         openView(currentViewNo);
@@ -225,14 +222,13 @@ public class MainController implements ActionListener {
     }
 
     public void openCitySearchView() {
-        tripPlannerMain.removeAllViews();
+        // Immer eine neue View Instanz erstellen
         citySearchView = new CitySearchView(this);
         setNewView("City Search", citySearchView);
         openView(currentViewNo);
     }
 
     public void openPoiSearchView(Poi city) {
-        tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
         poiSearchView = new PoiSearchView(this, city);
         setNewView("Point of interest Search", poiSearchView);
@@ -240,7 +236,6 @@ public class MainController implements ActionListener {
     }
 
     public void openCompleteTripView() {
-        tripPlannerMain.removeAllViews();
         // Immer eine neue View Instanz erstellen
         completeTripView = new CompleteTripView(this);
         setNewView("Complete Trip", completeTripView);
