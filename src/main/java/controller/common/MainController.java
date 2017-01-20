@@ -1,8 +1,8 @@
 package controller.common;
 
-import model.common.Pair;
 import model.common.Poi;
 import model.common.User;
+import model.common.ViewInfo;
 import model.travel.Activity;
 import model.travel.Trip;
 import view.admin.AdminView;
@@ -14,6 +14,7 @@ import view.travel.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public class MainController implements ActionListener {
     ActivityView activityView;
     TripView tripView;
     CompleteTripView completeTripView;
-    ArrayList<Pair<String, Component>> viewList = new ArrayList<>();
+    ArrayList<ViewInfo> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
     public MainController(TripPlannerMain tripPlannerMain) {
@@ -94,6 +95,11 @@ public class MainController implements ActionListener {
     public void setTrip(Trip trip) {
         this.trip = trip;
         if (trip != null) {
+            for (ViewInfo viewInfo:viewList) {
+                if (viewInfo.getNeedsRefresh()) {
+                    viewInfo.setHasBeenRefreshed(false);
+                }
+            }
             setSubTitle("Current Trip: " + trip.getName());
         }
     }
@@ -127,11 +133,32 @@ public class MainController implements ActionListener {
     }
 
     private void openView(int i) {
+        ViewInfo viewInfo = viewList.get(i - 1);
+        String title = viewInfo.getTitle();
+        Component compo = viewInfo.getCompo();
         tripPlannerMain.removeAllViews();
-        tripPlannerMain.addView(
-                viewList.get(i - 1).getKey()
-                ,viewList.get(i - 1).getValue()
-        );
+
+        tripPlannerMain.setSubTitleVisible(viewInfo.getShowSubTitle());
+
+        if (viewInfo.getNeedsRefresh() && !viewInfo.getHasBeenRefreshed()) {
+            // reload class
+            try {
+                compo = compo.getClass().getConstructor(MainController.class).newInstance(this);
+                viewInfo.setCompo(compo);
+                viewInfo.setHasBeenRefreshed(true);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+
+        tripPlannerMain.addView(title, compo);
+
         if (currentViewNo == 1) {
             tripPlannerMain.setBackButtonEnabled(false);
         } else {
@@ -168,13 +195,13 @@ public class MainController implements ActionListener {
         }
     }
 
-    private void setNewView(String s, Component view) {
+    private void setNewView(String title, Component compo, Boolean showSubTitle, Boolean needsRefresh) {
         if (currentViewNo < viewList.size()) {
             for (int i = viewList.size(); i > currentViewNo; i--) {
                 viewList.remove(i - 1);
             }
         }
-        viewList.add(new Pair<>(s, view));
+        viewList.add(new ViewInfo(title, compo, showSubTitle, needsRefresh));
         tripPlannerMain.setViewListComboBox(viewList);
         currentViewNo = viewList.size();
     }
@@ -184,7 +211,7 @@ public class MainController implements ActionListener {
         if (loginView == null) {
             loginView = new LoginView(this);
         }
-        setNewView("Login", loginView);
+        setNewView("Login", loginView, false, false);
         openView(currentViewNo);
     }
 
@@ -193,7 +220,7 @@ public class MainController implements ActionListener {
         if (adminView == null) {
             adminView = new AdminView(this);
         }
-        setNewView("Administration - Import", adminView);
+        setNewView("Administration - Import", adminView,false,false);
         openView(currentViewNo);
     }
 
@@ -202,21 +229,21 @@ public class MainController implements ActionListener {
         if (tripView == null) {
             tripView = new TripView(this);
         }
-        setNewView("Trip Overview", tripView);
+        setNewView("Trip Overview", tripView,true,false);
         openView(currentViewNo);
     }
 
     public void openActivityOverview() {
         // Immer eine neue View Instanz erstellen
         activityView = new ActivityView(this);
-        setNewView("Activity Overview", activityView);
+        setNewView("Activity Overview", activityView, true,true);
         openView(currentViewNo);
     }
 
     public ProgressView openProgressView() {
         // Immer eine neue View Instanz erstellen
         progressView = new ProgressView(this);
-        setNewView("Administration - Import Processing", progressView);
+        setNewView("Administration - Import Processing", progressView, false,false);
         openView(currentViewNo);
         return progressView;
     }
@@ -224,21 +251,21 @@ public class MainController implements ActionListener {
     public void openCitySearchView() {
         // Immer eine neue View Instanz erstellen
         citySearchView = new CitySearchView(this);
-        setNewView("City Search", citySearchView);
+        setNewView("City Search", citySearchView, true,false);
         openView(currentViewNo);
     }
 
     public void openPoiSearchView(Poi city) {
         // Immer eine neue View Instanz erstellen
         poiSearchView = new PoiSearchView(this, city);
-        setNewView("Point of interest Search", poiSearchView);
+        setNewView("Point of interest Search", poiSearchView, true, false);
         openView(currentViewNo);
     }
 
     public void openCompleteTripView() {
         // Immer eine neue View Instanz erstellen
         completeTripView = new CompleteTripView(this);
-        setNewView("Complete Trip", completeTripView);
+        setNewView("Complete Trip", completeTripView, true,true);
         openView(currentViewNo);
     }
 
