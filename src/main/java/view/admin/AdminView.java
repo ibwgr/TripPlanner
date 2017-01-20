@@ -29,7 +29,7 @@ public class AdminView extends GridPanel {
         /**
          * Anzeige des Filenamens und File Öffnen Button
          */
-        addComponentToPanel(fileName = new JLabel("Please select file"));
+        addComponentToPanel(fileName = new JLabel("Please choose file"));
         addComponentToPanel(createButton("Open file", "open_file", adminController));
         addPanelWithLabel("File:", true);
 
