@@ -3,6 +3,8 @@ package controller.common;
 import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import testFramework.UnitTest;
 import view.common.LoginView;
 import view.common.TripPlannerMain;
 
@@ -15,6 +17,7 @@ import static org.mockito.Mockito.*;
 
 public class LoginControllerTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void doLoginShowsErrorForEmptyUser() {
         DatabaseProxy databaseProxy = mock(DatabaseProxy.class);
@@ -28,6 +31,7 @@ public class LoginControllerTest {
         verify(tripPlannerMain, times(1)).showErrorMessage("Username and Password must be filled.");
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void doLoginShowsErrorForEmptyPassword() {
         DatabaseProxy databaseProxy = mock(DatabaseProxy.class);
@@ -41,6 +45,7 @@ public class LoginControllerTest {
         verify(tripPlannerMain, times(1)).showErrorMessage("Username and Password must be filled.");
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void doLoginShowsErrorForUserNotFound() throws SQLException {
         DatabaseProxy databaseProxy = mock(DatabaseProxy.class);
@@ -61,6 +66,8 @@ public class LoginControllerTest {
         verify(tripPlannerMain, times(1)).showErrorMessage("Username not found or Password incorrect.");
     }
 
+//    @Category({ UnitTest.class })
+    // ToDo: Nach dem Login wird eine View aufgerufen, deshalb kann dies nicht als UnitTest laufen gelassen werden.
     @Test
     public void doLoginLogsInWithCorrectUser() throws SQLException {
         DatabaseProxy databaseProxy = mock(DatabaseProxy.class);

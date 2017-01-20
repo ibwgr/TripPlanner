@@ -79,17 +79,21 @@ public class Activity {
         }
     }
 
-    /**
-     * Loescht ein Activity Objekt auf der Datenbank. Tabelle: tp_activity
-     */
     public void delete() throws SQLException {
         DatabaseProxy databaseProxy = new DatabaseProxy();
         String query = null;
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot delete Activity (not yet saved)");
+        }
         query = "delete from tp_activity where id = ?";
+
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
-        preparedStatement.setLong(1, id);
-        System.out.println("Delete Activity query: " + preparedStatement.toString());
+
         try {
+            preparedStatement.setLong(1, id);
+
+            System.out.println("delete Activity query: " + preparedStatement.toString());
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw e;
@@ -266,5 +270,10 @@ public class Activity {
 
     public void setActivityDateAfter() throws SQLException {
         moveDays(-1);
+    }
+
+    @Override
+    public String toString() {
+        return poi + " (" + date +")";
     }
 }
