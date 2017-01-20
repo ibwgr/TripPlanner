@@ -2,6 +2,7 @@ package view.common;
 
 import controller.common.MainController;
 import model.common.Pair;
+import model.common.ViewInfo;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import javax.swing.*;
@@ -252,8 +253,8 @@ public class TripPlannerMain extends JFrame {
         forwardButton.setEnabled(enabled);
     }
 
-    public void setViewListComboBox(ArrayList<Pair<String, Component>> viewList) {
-        viewListComboBox.setModel(new ListComboBoxModel<Pair<String, Component>>(viewList));
+    public void setViewListComboBox(ArrayList<ViewInfo> viewList) {
+        viewListComboBox.setModel(new ListComboBoxModel<ViewInfo>(viewList));
         viewListComboBox.setSelectedIndex(viewList.size()-1);
     }
 

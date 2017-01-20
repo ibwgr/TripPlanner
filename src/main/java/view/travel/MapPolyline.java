@@ -167,7 +167,7 @@ public class MapPolyline extends MapView {
 
             Marker marker = null;
             for (Pair<Marker, Activity> pair : markerList) {
-                if (pair.getValue().equals(activity)) {
+                if (pair.getValue().getId().equals(activity.getId())) {
                     marker = pair.getKey();
                 }
             }
