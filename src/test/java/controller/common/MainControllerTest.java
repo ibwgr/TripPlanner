@@ -2,6 +2,7 @@ package controller.common;
 
 import model.common.Pair;
 import model.common.User;
+import model.common.ViewInfo;
 import model.travel.Trip;
 import org.junit.Assert;
 import org.junit.Test;
@@ -86,8 +87,8 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new Pair<>("test1", jLabel));
-        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
 
         mainController.currentViewNo = 2;
 
@@ -105,8 +106,8 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new Pair<>("test1", jLabel));
-        mainController.viewList.add(new Pair<>("test2", jLabel));
+        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
 
         mainController.currentViewNo = 1;
 
@@ -124,9 +125,9 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new Pair<>("test1", jLabel));
-        mainController.viewList.add(new Pair<>("test2", jLabel));
-        mainController.viewList.add(new Pair<>("test3", jLabel));
+        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
+        mainController.viewList.add(new ViewInfo("test3", jLabel,false,false));
 
         mainController.currentViewNo = 1;
 
@@ -144,9 +145,9 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new Pair<>("test1", jLabel));
-        mainController.viewList.add(new Pair<>("test2", jLabel));
-        mainController.viewList.add(new Pair<>("test3", jLabel));
+        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
+        mainController.viewList.add(new ViewInfo("test3", jLabel,false,false));
 
         mainController.currentViewNo = 3;
 
@@ -164,9 +165,9 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new Pair<>("test1", jLabel));
-        mainController.viewList.add(new Pair<>("test2", jLabel));
-        mainController.viewList.add(new Pair<>("test3", jLabel));
+        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
+        mainController.viewList.add(new ViewInfo("test3", jLabel,false,false));
 
         mainController.currentViewNo = 2;
 
