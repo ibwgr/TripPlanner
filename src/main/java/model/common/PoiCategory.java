@@ -33,7 +33,7 @@ public class PoiCategory {
     }
 
     public static ArrayList<PoiCategory> getAllPoiCategories() {
-       DatabaseProxy databaseProxy = new DatabaseProxy();
+        DatabaseProxy databaseProxy = new DatabaseProxy();
 
         PreparedStatement preparedStatement = databaseProxy.prepareStatement("select id, name from poi_category");
 
@@ -46,6 +46,38 @@ public class PoiCategory {
                         new PoiCategory(
                                 resultSet.getString(1)
                                 ,resultSet.getString(2)
+                        )
+                );
+
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            databaseProxy.close();
+        }
+
+        return poiCategoryList;
+    }
+
+    public static ArrayList<Pair<String, PoiCategory>> getAllPoiCategoriesForComboBox() {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement("select id, name from poi_category");
+
+        ArrayList<Pair<String, PoiCategory>> poiCategoryList = new ArrayList<>();
+        poiCategoryList.add(new Pair<String, PoiCategory>("All", null));
+
+        try {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                poiCategoryList.add(
+                        new Pair<String, PoiCategory>(
+                                resultSet.getString(2)
+                                ,new PoiCategory(
+                                        resultSet.getString(1)
+                                        ,resultSet.getString(2)
+                                )
                         )
                 );
 
