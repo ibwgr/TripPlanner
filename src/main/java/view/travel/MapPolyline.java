@@ -98,6 +98,7 @@ public class MapPolyline extends MapView {
             Marker marker = new Marker(map);
             LatLng latLng = new LatLng(activity.getPoi().getLatitudeDouble(), activity.getPoi().getLongitudeDouble());
             marker.setPosition(latLng);
+            marker.setTitle(activity.getPoi().getName());
             markerList.add(new Pair<>(marker, activity));
             map.setCenter(latLng);
 
@@ -185,7 +186,7 @@ public class MapPolyline extends MapView {
         closeAllWindows();
         if (activity != null) {
             InfoWindow window = new InfoWindow(map);
-            window.setContent(activity.getPoi().getName());
+            window.setContent(activity.getCity() +": " +activity.getPoi().getName() );
 
             Marker marker = null;
             for (Pair<Marker, Activity> pair : markerList) {
