@@ -3,6 +3,7 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
+import model.common.Pair;
 import model.common.Poi;
 import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
@@ -28,7 +29,7 @@ public class PoiSearchView extends JPanel implements SearchView {
     JTextArea commentText;
     JXDatePicker datePicker;
     MapWithPoi mapView;
-    JComboBox<PoiCategory> poiCategoryCombo;
+    JComboBox<Pair<String, PoiCategory>> poiCategoryCombo;
     JComboBox<Double> radiusCombo;
 
     public PoiSearchView(MainController mainController, Poi city) {
@@ -50,8 +51,11 @@ public class PoiSearchView extends JPanel implements SearchView {
         radiusCombo.setModel(new DefaultComboBoxModel<>(radiusList));
         gridPanel1.addPanelWithLabel("City: " + city.getName() + "  /  Radius in km:", true);
 
-        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
-        poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategories()));
+//        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
+
+        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<Pair<String, PoiCategory>>());
+
+        poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategoriesForComboBox()));
         gridPanel1.addPanelWithLabel("Poi category:", true);
 
         gridPanel1.addComponentToPanel(searchText = new JTextField(10));
@@ -134,7 +138,7 @@ public class PoiSearchView extends JPanel implements SearchView {
 
     @Override
     public PoiCategory getPoiCategory() {
-        return (PoiCategory) poiCategoryCombo.getSelectedItem();
+        return (PoiCategory) ((Pair) poiCategoryCombo.getSelectedItem()).getValue();
     }
 
     @Override
