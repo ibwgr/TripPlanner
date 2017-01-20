@@ -145,7 +145,9 @@ public class MainController implements ActionListener {
             // reload class
             try {
                 compo = compo.getClass().getConstructor(MainController.class).newInstance(this);
+                viewInfo.setCompo(compo);
                 viewInfo.setHasBeenRefreshed(true);
+//                viewList.set(i - 1, viewInfo);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {

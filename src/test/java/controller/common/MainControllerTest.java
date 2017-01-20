@@ -125,7 +125,7 @@ public class MainControllerTest {
 
         JLabel jLabel = Mockito.mock(JLabel.class);
 
-        mainController.viewList.add(new ViewInfo("test1", jLabel, false,false));
+        mainController.viewList.add(new ViewInfo("test1", jLabel,false,false));
         mainController.viewList.add(new ViewInfo("test2", jLabel,false,false));
         mainController.viewList.add(new ViewInfo("test3", jLabel,false,false));
 
