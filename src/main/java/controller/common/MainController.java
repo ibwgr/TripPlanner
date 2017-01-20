@@ -1,6 +1,5 @@
 package controller.common;
 
-import model.common.Pair;
 import model.common.Poi;
 import model.common.User;
 import model.common.ViewInfo;
@@ -147,7 +146,6 @@ public class MainController implements ActionListener {
                 compo = compo.getClass().getConstructor(MainController.class).newInstance(this);
                 viewInfo.setCompo(compo);
                 viewInfo.setHasBeenRefreshed(true);
-//                viewList.set(i - 1, viewInfo);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {
