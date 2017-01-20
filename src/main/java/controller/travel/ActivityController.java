@@ -40,7 +40,8 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     }
 
     public void setCurrentActivity(Long currentActivityId) {
-        // dem MainController mitteilen welche Reise fixiert werden soll (fuer nachfolgende Aktionen)
+        // dem MainController mitteilen welche Activity fixiert werden soll (fuer nachfolgende Aktionen)
+        // TODO die muessen wir hier eigentlich nicht nochmals lesen wenn wir sie schon haben
         Activity a = Activity.searchById(currentActivityId);
         mapView.setWindow(a);
         mainController.setActivity(a);
@@ -137,7 +138,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         try {
             activity.save();
         } catch (SQLException e) {
-            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ") (Act)");
         }
 
         refresh();

@@ -34,10 +34,8 @@ public class ActivityTest {
         return fakeTrip;
     }
 
-
-
-
     // INTEGRATIONSTEST
+    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByTripWithRealDbAccessReturnsActivityList() throws Exception {
         User user = getFakeUser();
@@ -47,7 +45,7 @@ public class ActivityTest {
     }
 
     // INTEGRATIONSTEST
-    @Ignore  // TODO weil es die ID 1 allenfalls gar nicht gibt!
+    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByIdWithRealDbAccessReturnsActivity() throws Exception {
         User user = getFakeUser();

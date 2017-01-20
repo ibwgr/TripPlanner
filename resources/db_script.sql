@@ -61,11 +61,15 @@ CREATE TABLE tp_activity
   poi_id    varchar (50),
   date      date,
   comment   varchar (250),
+  city      varchar (250),
   FOREIGN KEY (trip_id) REFERENCES tp_trip (id) ON DELETE CASCADE,
   FOREIGN KEY (poi_id) REFERENCES poi (id)
 );
 
 ALTER SEQUENCE tp_activity_id_seq OWNED BY tp_activity.id;
+
+--alter table tp_activity add city varchar(250)
+
 
 -----------------------------------------------------------
 -- Function for update when id already exists
@@ -157,6 +161,8 @@ EXECUTE PROCEDURE poi_category_insert_before_func ();
 -----------------------------------------------------------
 -- VIEW: Reise (Komplett inkl. Aktivitaeten und POI)
 -----------------------------------------------------------
+DROP VIEW IF EXISTS tp_trip_aggr_v;
+DROP VIEW IF EXISTS tp_trip_full_v;
 
 CREATE OR REPLACE VIEW tp_trip_full_v
 AS
@@ -166,6 +172,7 @@ AS
     a.id    AS activity_id,
     a.date,
     a.comment,
+    a.city,
     a.poi_id,
     p.longitude,
     p.latitude,
