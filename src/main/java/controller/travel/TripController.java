@@ -73,7 +73,11 @@ public class TripController extends MouseAdapter implements ActionListener, List
     }
 
     private void executeActionNewAcitivy() {
-        mainController.openCitySearchView();
+        if (mainController.getTrip() != null) {
+            mainController.openCitySearchView();
+        } else {
+            mainController.showErrorMessage("Please select a trip");
+        }
     }
 
     private void executeActionDelete() {
