@@ -39,10 +39,6 @@ public class MapPolyline extends MapView {
                     controlOptions.setPosition(ControlPosition.TOP_RIGHT);
                     // Setting map type control options
                     mapOptions.setMapTypeControlOptions(controlOptions);
-                    // Tripplanner spezial, zieht aber alles nicht...
-                    mapOptions.setStreetViewControl(false);
-                    mapOptions.setDisableDefaultUI(true);
-                    mapOptions.setOverviewMapControl(false);
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting initial zoom value
