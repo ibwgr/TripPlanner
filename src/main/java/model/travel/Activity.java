@@ -126,15 +126,15 @@ public class Activity {
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
                 System.out.println("DB, ACT_ID    : " +resultset.getLong("activity_id"));
-                System.out.println("DB, DATE      : " +resultset.getDate("date"));
-                System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
-                System.out.println("DB, CITY      : " +resultset.getString("city"));
-                System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
-                System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
-                System.out.println("DB, longitude : " +resultset.getString("longitude"));
-                System.out.println("DB, latitude  : " +resultset.getString("latitude"));
-                System.out.println("DB, category_id : " +resultset.getString("category_id"));
-                System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
+                //System.out.println("DB, DATE      : " +resultset.getDate("date"));
+                //System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
+                //System.out.println("DB, CITY      : " +resultset.getString("city"));
+                //System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
+                //System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
+                //System.out.println("DB, longitude : " +resultset.getString("longitude"));
+                //System.out.println("DB, latitude  : " +resultset.getString("latitude"));
+                //System.out.println("DB, category_id : " +resultset.getString("category_id"));
+                //System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
                 // neues Activity Objekt
                 PoiCategory poiCategory = new PoiCategory(resultset.getString("category_id"),resultset.getString("poi_category_name"));
                 Poi poi = new Poi(resultset.getString("poi_id"),resultset.getString("poi_name"),poiCategory ,resultset.getString("longitude"),resultset.getString("latitude"));
@@ -174,15 +174,15 @@ public class Activity {
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
                 System.out.println("DB, ACT_ID    : " +resultset.getLong("activity_id"));
-                System.out.println("DB, DATE      : " +resultset.getDate("date"));
-                System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
-                System.out.println("DB, CITY      : " +resultset.getString("city"));
-                System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
-                System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
-                System.out.println("DB, longitude : " +resultset.getString("longitude"));
-                System.out.println("DB, latitude  : " +resultset.getString("latitude"));
-                System.out.println("DB, category_id : " +resultset.getString("category_id"));
-                System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
+                //System.out.println("DB, DATE      : " +resultset.getDate("date"));
+                //System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
+                //System.out.println("DB, CITY      : " +resultset.getString("city"));
+                //System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
+                //System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
+                //System.out.println("DB, longitude : " +resultset.getString("longitude"));
+                //System.out.println("DB, latitude  : " +resultset.getString("latitude"));
+                //System.out.println("DB, category_id : " +resultset.getString("category_id"));
+                //System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
                 // neues Activity Objekt
                 User user = User.searchById(databaseProxy, resultset.getLong("user_id"));
                 Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
