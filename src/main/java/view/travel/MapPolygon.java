@@ -84,7 +84,7 @@ public class MapPolygon extends MapView {
     public void setWindow(Activity activity) {
         if (activity != null) {
             InfoWindow window = new InfoWindow(map);
-            window.setContent(activity.getPoi().getName());
+            window.setContent(activity.getCity() +": " +activity.getPoi().getName() );
 
             Marker marker = null;
             for (Pair<Marker, Activity> pair : markerList) {
