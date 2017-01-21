@@ -87,7 +87,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     }
 
     private void executeActionShowMap() {
-        mainController.openCompleteTripView();
+        mainController.openBigMapView();
     }
 
     private void executeActionMoveUp() {

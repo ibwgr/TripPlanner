@@ -8,7 +8,7 @@ import org.jdesktop.swingx.JXDatePicker;
 import javax.swing.*;
 import java.awt.*;
 
-public class CompleteTripView extends JPanel {
+public class BigMapView extends JPanel {
 
     MainController mainController;
     CompleteTripController completeTripController;
@@ -19,7 +19,7 @@ public class CompleteTripView extends JPanel {
     JXDatePicker datePicker;
     MapPolylineSingle mapView;
 
-    public CompleteTripView(MainController mainController) {
+    public BigMapView(MainController mainController) {
         this.mainController = mainController;
         completeTripController = new CompleteTripController(this, mainController);
 

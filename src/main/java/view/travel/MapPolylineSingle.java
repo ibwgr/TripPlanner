@@ -105,7 +105,14 @@ public class MapPolylineSingle extends MapView {
     public void setWindow(Activity activity) {
         if (activity != null) {
             InfoWindow window = new InfoWindow(map);
-            window.setContent(activity.getCity() +": " +activity.getPoi().getName() );
+            window.setContent("<b>" + activity.getCity() +": " +activity.getPoi().getName() + "</b><p>" + activity.getComment() + "</p>");
+
+            // falls Fenster bereits offen ist, schliessen
+            for (InfoWindow window2 : windowList) {
+                if (window2.getContent().equals(window.getContent())) {
+                    window2.close();
+                }
+            }
 
             Marker marker = null;
             for (Pair<Marker, Activity> pair : markerList) {

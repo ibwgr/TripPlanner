@@ -387,7 +387,7 @@ public class TripPlannerMain extends JFrame {
         {
             citySearchMenuItem = new JMenuItem();
             citySearchMenuItem.setText("CitySearch");
-            citySearchMenuItem.addActionListener(e -> mainController.openCompleteTripView());
+            citySearchMenuItem.addActionListener(e -> mainController.openBigMapView());
         }
         return citySearchMenuItem;
     }
