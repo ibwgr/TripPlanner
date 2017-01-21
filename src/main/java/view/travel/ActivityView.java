@@ -80,28 +80,17 @@ public class ActivityView extends JPanel {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-      //mapView = new MapXXXXX(options);
-//        if (mainController.getActivity() != null) {
-            //mapView.setMarker(mainController.getActivity());
-//        }
+
         centerPanel.add(mapView);
 
-
-        // TODO, plaziert nach Mergekonflikt, Dieter's Button
         GridPanel buttonPanel = new GridPanel(100,16);
-/*
-        buttonPanel.addComponentDirect(buttonPanel.createButton("up", "move_up", activityController));
-        buttonPanel.addComponentDirect(buttonPanel.createButton("down", "move_down", activityController));
-        buttonPanel.addComponentDirect(buttonPanel.createLabel("", "", activityController));
-        buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
-*/
         // Variante mit Buttons nebeneinander:
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("up", "move_up", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Up", "move_up", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Down", "move_down", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Show map", "show_map", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));
