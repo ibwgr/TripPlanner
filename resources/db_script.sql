@@ -255,14 +255,14 @@ from tp_trip;
 -----------------------------------------------------------
 -- some dummy TR_ACTIVITY data --> load sweden-latest.csv first!
 -----------------------------------------------------------
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N444868954',  to_date('2017-01-01','yyyy-mm-dd'), 'Malmö Flughafen', 'Malmö');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N1680808493', to_date('2017-01-02','yyyy-mm-dd'), 'Kommissar Wallander Rundfahrt', 'Ystad');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N27377535',   to_date('2017-01-03','yyyy-mm-dd'), 'nur Zwischenstop bei Onkel Björn', 'Kristianstad');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W438952439',  to_date('2017-01-04','yyyy-mm-dd'), 'schöner Park', 'Karlshamn');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N1599473536', to_date('2017-01-05','yyyy-mm-dd'), 'Schärengarten Rundfahrt mit dem Schiff', 'Karlskrona');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W244384754',  to_date('2017-01-06','yyyy-mm-dd'), 'Der kleine Hafen ist grossartig', 'Kristianopel');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W36194480',   to_date('2017-01-07','yyyy-mm-dd'), 'Schöner Park', 'Kalmar');
-INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N4389197835', to_date('2017-01-08','yyyy-mm-dd'), 'Übernachtung auf Öland', 'Färjestaden');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N444868954',  to_date('2017-01-01','yyyy-mm-dd'), '1 Malmö Flughafen', 'Malmö');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N1680808493', to_date('2017-01-02','yyyy-mm-dd'), '2 Kommissar Wallander Rundfahrt', 'Ystad');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N27377535',   to_date('2017-01-03','yyyy-mm-dd'), '3 nur Zwischenstop bei Onkel Björn', 'Kristianstad');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W438952439',  to_date('2017-01-04','yyyy-mm-dd'), '4 schöner Park', 'Karlshamn');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N1599473536', to_date('2017-01-05','yyyy-mm-dd'), '5 Schärengarten Rundfahrt mit dem Schiff', 'Karlskrona');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W244384754',  to_date('2017-01-06','yyyy-mm-dd'), '6 Der kleine Hafen ist grossartig', 'Kristianopel');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'W36194480',   to_date('2017-01-07','yyyy-mm-dd'), '7 Schöner Park', 'Kalmar');
+INSERT INTO tp_activity (trip_id, poi_id, date, comment, city) VALUES ( (select id from tp_trip where name = 'Sommerferien Schweden 2016'), 'N4389197835', to_date('2017-01-08','yyyy-mm-dd'), '8 Übernachtung auf Öland', 'Färjestaden');
 COMMIT;
 /*
 select *
