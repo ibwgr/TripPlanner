@@ -113,6 +113,10 @@ public class TripPlannerMain extends JFrame {
         viewListComboBox.setActionCommand("view_selected");
         viewListComboBox.addActionListener(mainController);
         viewListComboBox.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+        // Problem auf Windows (Offenbar nicht auf MacBook)
+        // Die Dropdown Liste verschwindet hinter dem Map Panel, ist also nur halbwegs ersichtlich
+        // Gemaess einigen Stackoverflow Eintraegen muss die "heavyweight component" verwendet werden
+        viewListComboBox.setLightWeightPopupEnabled(false);
         JPanel flowPanel5 = new JPanel(new FlowLayout());
         flowPanel5.setBackground(headerColor);
         flowPanel5.add(viewListComboBox);
