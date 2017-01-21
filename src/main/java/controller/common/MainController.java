@@ -34,7 +34,7 @@ public class MainController implements ActionListener {
     PoiSearchView poiSearchView;
     ActivityView activityView;
     TripView tripView;
-    CompleteTripView completeTripView;
+    BigMapView bigMapView;
     ArrayList<ViewInfo> viewList = new ArrayList<>();
     int currentViewNo = 0;
 
@@ -262,10 +262,10 @@ public class MainController implements ActionListener {
         openView(currentViewNo);
     }
 
-    public void openCompleteTripView() {
+    public void openBigMapView() {
         // Immer eine neue View Instanz erstellen
-        completeTripView = new CompleteTripView(this);
-        setNewView("Complete Trip", completeTripView, true,true);
+        bigMapView = new BigMapView(this);
+        setNewView("Big Map View", bigMapView, true,true);
         openView(currentViewNo);
     }
 

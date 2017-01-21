@@ -9,14 +9,14 @@ import sun.applet.Main;
 
 import java.util.ArrayList;
 
-public class MapPolygon extends MapView {
+public class MapPolylineSingle extends MapView {
 
     Map map;
     MainController mainController;
     ArrayList<Pair<Marker, Activity>> markerList = new ArrayList<>();
     ArrayList<InfoWindow> windowList = new ArrayList<>();
 
-    public MapPolygon(MapViewOptions options, MainController mainController) {
+    public MapPolylineSingle(MapViewOptions options, MainController mainController) {
         super(options);
         this.mainController = mainController;
         initMap();
@@ -66,25 +66,53 @@ public class MapPolygon extends MapView {
         // Initializing the polyline with the created path
         polyline.setPath(path);
         // Creating a polyline options object
-        PolylineOptions options = new PolylineOptions(map);
-        // Setting fill color value
-//        options.setFillColor("#FF0000");
-        // Setting fill opacity value
-//        options.setFillOpacity(0.35);
+        PolylineOptions options = new PolylineOptions();
+        // Setting geodesic property value
+        options.setGeodesic(true);
         // Setting stroke color value
         options.setStrokeColor("#FF0000");
         // Setting stroke opacity value
-        options.setStrokeOpacity(0.8);
+        options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
-        // Applying options to the polyline
+
+        // TODO Reto, fertigmachen
+        //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
+        // Google Maps API (JavaScript) verlangt:
+        // Define a symbol using a predefined path (an arrow)
+        // supplied by the Google Maps JavaScript API.
+        // var lineSymbol = {
+        //        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        //
+        // new google.maps.Polyline({
+        //icons: [{
+        //   icon: lineSymbol,
+        //            offset: '100%'
+        //}],
+        Symbol icon = new Symbol();
+        icon.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
+
+        IconSequence iconSequence = new IconSequence();
+        iconSequence.setIcon(icon);
+        iconSequence.setOffset("100%");
+
+        options.setIcons(new IconSequence[]{iconSequence});
+
+        // Applying ALL options to the polyline
         polyline.setOptions(options);
     }
 
     public void setWindow(Activity activity) {
         if (activity != null) {
             InfoWindow window = new InfoWindow(map);
-            window.setContent(activity.getCity() +": " +activity.getPoi().getName() );
+            window.setContent("<b>" + activity.getCity() +": " +activity.getPoi().getName() + "</b><p>" + activity.getComment() + "</p>");
+
+            // falls Fenster bereits offen ist, schliessen
+            for (InfoWindow window2 : windowList) {
+                if (window2.getContent().equals(window.getContent())) {
+                    window2.close();
+                }
+            }
 
             Marker marker = null;
             for (Pair<Marker, Activity> pair : markerList) {
