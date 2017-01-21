@@ -49,6 +49,10 @@ public class MapPolyline extends MapView {
                     controlOptions.setPosition(ControlPosition.TOP_RIGHT);
                     // Setting map type control options
                     mapOptions.setMapTypeControlOptions(controlOptions);
+                    // Tripplanner spezial, zieht aber alles nicht...
+                    mapOptions.setStreetViewControl(false);
+                    mapOptions.setDisableDefaultUI(true);
+                    mapOptions.setOverviewMapControl(false);
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting initial zoom value
@@ -128,49 +132,52 @@ public class MapPolyline extends MapView {
         }
         // Initializing the polyline with created path
         //System.out.println("polyline PATH Inhalt: " +polyline.getPath().length);
-        if (polyline.getPath().length > 0) {
+        //if (polyline.getPath().length > 0) {
             //System.out.println("polyline PATH bestehend, loeschen! ");
             //            for (LatLng x : polyline.getPath()) {
             //                System.out.println(x.getLat());
             //            }
             //polyline.setPath(null);
             //polyline.setPath(new LatLng[0]);
-        }
+        //}
         //System.out.println("polyline setzen");
         polyline.setPath(path);
         //
         // Creating a polyline options object
         PolylineOptions options = new PolylineOptions();
         // Setting geodesic property value
-        options.setGeodesic(true);
+        options.setGeodesic(false);
         // Setting stroke color value
-        options.setStrokeColor("#FF0000");
+        //options.setStrokeColor("#F7584C");
+        options.setStrokeWeight(3);
         // Setting stroke opacity value
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
-        options.setStrokeWeight(2.0);
+        options.setClickable(false);
 
-        // TODO Reto, fertigmachen
-        //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
-        // Google Maps API (JavaScript) verlangt:
-        // Define a symbol using a predefined path (an arrow)
-        // supplied by the Google Maps JavaScript API.
-        // var lineSymbol = {
-        //        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-        //
-        // new google.maps.Polyline({
-        //icons: [{
-        //   icon: lineSymbol,
-        //            offset: '100%'
-        //}],
-        Symbol icon = new Symbol();
-        icon.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
-
-        IconSequence iconSequence = new IconSequence();
-        iconSequence.setIcon(icon);
-        iconSequence.setOffset("100%");
-
-        options.setIcons(new IconSequence[]{iconSequence});
+        /*
+         https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
+         Google Maps API (JavaScript) verlangt:
+         Define a symbol using a predefined path (an arrow)
+         supplied by the Google Maps JavaScript API.
+         var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+         new google.maps.Polyline({
+          icons: [{
+           icon: lineSymbol,
+                    offset: '100%'
+          }],
+        */
+        //TODO Reto, fertigmachen, funktioniert irgendwie nicht recht, ist aber nicht so wichtig...
+        //Symbol lineSymbol = new Symbol();
+        //lineSymbol.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
+        //lineSymbol.setStrokeColor("#F7584C");
+        //lineSymbol.setFillColor("#F7584C");
+        //IconSequence iconSequence = new IconSequence();
+        //iconSequence.setIcon(lineSymbol );
+        //iconSequence.setOffset("100%");  // 100% ist bereits default
+        //iconSequence.setRepeat("20px");
+        //options.setIcons(new IconSequence[]{iconSequence});
 
         // Applying ALL options to the polyline
         polyline.setOptions(options);
