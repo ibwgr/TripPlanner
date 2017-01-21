@@ -42,6 +42,9 @@ public class SearchController implements ActionListener {
                 return;
             }
             searchView.setSearchResult(Poi.searchPoiByNameAndRadius(searchView.getSearchText(), boundingBox));
+        } else if (searchView.getPoiCategory() == null) {
+            // Suche nur nach Radius (Category = All)
+            searchView.setSearchResult(Poi.searchPoiByRadius(boundingBox));
         } else {
             // Suche nach Kategorie
             searchView.setSearchResult(Poi.searchPoiByCategoryAndRadius(searchView.getPoiCategory(), boundingBox));
@@ -52,7 +55,7 @@ public class SearchController implements ActionListener {
 
         if (searchView.getPoi() == null
                 || searchView.getDate() == null
-                || searchView.getComment() == null
+                || searchView.getComment().isEmpty()
                 ) {
             mainController.showErrorMessage("City/Point of interest, Date or Comment is missing");
             return;
@@ -63,11 +66,12 @@ public class SearchController implements ActionListener {
                 ,searchView.getPoi()
                 ,searchView.getDate()
                 ,searchView.getComment()
+                ,searchView.getCity() != null ? searchView.getCity().getName() : searchView.getPoi().getName()
         );
         try {
             activity.save();
         } catch (SQLException e) {
-            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ")");
+            mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ") (Search)");
         }
 
         // oder

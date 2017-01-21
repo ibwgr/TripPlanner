@@ -16,20 +16,23 @@ public class Activity {
     private Poi poi;
     private Date date;
     private String comment;
+    private String city;
 
-    public Activity(Long id, Trip trip, Poi poi, Date date, String comment) {
+    public Activity(Long id, Trip trip, Poi poi, Date date, String comment, String city) {
         this.id = id;
         this.trip = trip;
         this.poi = poi;
         this.date = date;
         this.comment = comment;
+        this.city = city;
     }
 
-    public Activity(Trip trip, Poi poi, Date date, String comment) {
+    public Activity(Trip trip, Poi poi, Date date, String comment, String city) {
         this.trip = trip;
         this.poi = poi;
         this.date = date;
         this.comment = comment;
+        this.city = city;
     }
 
     /**
@@ -38,16 +41,17 @@ public class Activity {
      * - wenn ID vorhanden ist, wird ein Update gemacht
      */
     public void save() throws SQLException {
+        System.out.println("activity save!");
         DatabaseProxy databaseProxy = new DatabaseProxy();
         String query = null;
         if (id == null) {
-            query = "insert into tp_activity (trip_id, poi_id, date, comment) "
-                    + "values (?, ?, ?, ?)";
+            query = "insert into tp_activity (trip_id, poi_id, date, comment, city) "
+                    + "values (?, ?, ?, ?, ?)";
         } else {
-            query = "update tp_activity set trip_id = ?, poi_id = ?, date = ?, comment = ? "
+            query = "update tp_activity set trip_id = ?, poi_id = ?, date = ?, comment = ?, city = ? "
                     + "where id = ?";
         }
-
+        System.out.println("activity query: " +query);
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         try {
@@ -55,8 +59,9 @@ public class Activity {
             preparedStatement.setString(2, poi.getId());
             preparedStatement.setDate(3, new java.sql.Date(date.getTime()));
             preparedStatement.setString(4, comment);
+            preparedStatement.setString(5, city);
             if (id != null) {
-                preparedStatement.setLong(5, id);
+                preparedStatement.setLong(6, id);
             }
 
             System.out.println("save Activity query: " + preparedStatement.toString());
@@ -79,6 +84,29 @@ public class Activity {
         }
     }
 
+    public void delete() throws SQLException {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        String query = null;
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot delete Activity (not yet saved)");
+        }
+        query = "delete from tp_activity where id = ?";
+
+        PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
+
+        try {
+            preparedStatement.setLong(1, id);
+
+            System.out.println("delete Activity query: " + preparedStatement.toString());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            databaseProxy.close();
+        }
+    }
+
 
     // Zur Info: Der eingeloggte Benutzer kann diese Methode nur im Kontext
     // einer SEINER Reisen Aufrufen.
@@ -90,7 +118,7 @@ public class Activity {
         ArrayList<Activity> activityList = new ArrayList<Activity>();
         try {
             preparedStatement = databaseProxy.prepareStatement(
-                    "select trip_id, activity_id, date, comment, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
+                    "select trip_id, activity_id, date, comment, city, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
                             "where trip_id = ? order by date asc");
             preparedStatement.setLong(1, trip.getId());
@@ -98,18 +126,19 @@ public class Activity {
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
                 System.out.println("DB, ACT_ID    : " +resultset.getLong("activity_id"));
-                System.out.println("DB, DATE      : " +resultset.getDate("date"));
-                System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
-                System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
-                System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
-                System.out.println("DB, longitude : " +resultset.getString("longitude"));
-                System.out.println("DB, latitude  : " +resultset.getString("latitude"));
-                System.out.println("DB, category_id : " +resultset.getString("category_id"));
-                System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
+                //System.out.println("DB, DATE      : " +resultset.getDate("date"));
+                //System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
+                //System.out.println("DB, CITY      : " +resultset.getString("city"));
+                //System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
+                //System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
+                //System.out.println("DB, longitude : " +resultset.getString("longitude"));
+                //System.out.println("DB, latitude  : " +resultset.getString("latitude"));
+                //System.out.println("DB, category_id : " +resultset.getString("category_id"));
+                //System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
                 // neues Activity Objekt
                 PoiCategory poiCategory = new PoiCategory(resultset.getString("category_id"),resultset.getString("poi_category_name"));
                 Poi poi = new Poi(resultset.getString("poi_id"),resultset.getString("poi_name"),poiCategory ,resultset.getString("longitude"),resultset.getString("latitude"));
-                Activity activity = new Activity(resultset.getLong("activity_id"), trip, poi, resultset.getDate("date"), resultset.getString("comment"));
+                Activity activity = new Activity(resultset.getLong("activity_id"), trip, poi, resultset.getDate("date"), resultset.getString("comment"), resultset.getString("city"));
                 // zur ACTIVITY-LISTE hinzufuegen
                 activityList.add(activity);
             }
@@ -137,7 +166,7 @@ public class Activity {
         Activity activity = null;
         try {
             preparedStatement = databaseProxy.prepareStatement(
-                    "select trip_id, trip_name, user_id, activity_id, date, comment, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
+                    "select trip_id, trip_name, user_id, activity_id, date, comment, city, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
                             "where activity_id = ? ");
             preparedStatement.setLong(1, currentActivityId);
@@ -145,20 +174,21 @@ public class Activity {
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
                 System.out.println("DB, ACT_ID    : " +resultset.getLong("activity_id"));
-                System.out.println("DB, DATE      : " +resultset.getDate("date"));
-                System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
-                System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
-                System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
-                System.out.println("DB, longitude : " +resultset.getString("longitude"));
-                System.out.println("DB, latitude  : " +resultset.getString("latitude"));
-                System.out.println("DB, category_id : " +resultset.getString("category_id"));
-                System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
+                //System.out.println("DB, DATE      : " +resultset.getDate("date"));
+                //System.out.println("DB, COMMENT   : " +resultset.getString("comment"));
+                //System.out.println("DB, CITY      : " +resultset.getString("city"));
+                //System.out.println("DB, POI_ID    : " +resultset.getString("poi_id"));
+                //System.out.println("DB, POI_NAME  : " +resultset.getString("poi_name"));
+                //System.out.println("DB, longitude : " +resultset.getString("longitude"));
+                //System.out.println("DB, latitude  : " +resultset.getString("latitude"));
+                //System.out.println("DB, category_id : " +resultset.getString("category_id"));
+                //System.out.println("DB, poi_category_name  : " +resultset.getString("poi_category_name"));
                 // neues Activity Objekt
                 User user = User.searchById(databaseProxy, resultset.getLong("user_id"));
                 Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
                 PoiCategory poiCategory = new PoiCategory(resultset.getString("category_id"),resultset.getString("poi_category_name"));
                 Poi poi = new Poi(resultset.getString("poi_id"),resultset.getString("poi_name"),poiCategory ,resultset.getString("longitude"),resultset.getString("latitude"));
-                activity = new Activity(resultset.getLong("activity_id"), trip, poi, resultset.getDate("date"), resultset.getString("comment"));
+                activity = new Activity(resultset.getLong("activity_id"), trip, poi, resultset.getDate("date"), resultset.getString("comment"),resultset.getString("city"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -215,6 +245,13 @@ public class Activity {
         this.comment = comment;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     // Entweder Plus oder Minus (z.B. +1, +5, -1, -5)
     public void moveDays(int days) throws SQLException {
@@ -241,11 +278,16 @@ public class Activity {
         }
     }
 
-    public void moveOneDayUp() throws SQLException {
+    public void setActivityDateBefore() throws SQLException {
         moveDays(1);
     }
 
-    public void moveOneDayDown() throws SQLException {
+    public void setActivityDateAfter() throws SQLException {
         moveDays(-1);
+    }
+
+    @Override
+    public String toString() {
+        return poi + " (" + date +")";
     }
 }

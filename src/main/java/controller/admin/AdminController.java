@@ -1,6 +1,7 @@
 package controller.admin;
 
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 
@@ -42,12 +43,13 @@ public class AdminController implements ActionListener {
                     /*
                      * Fehlermeldung zurückgeben
                      */
+                    mainController.showErrorMessage("Please choose a file first.");
                 } else {
                     /*
                      * Importiere das File
                      */
                     ProgressView progressView = mainController.openProgressView();
-                    ImportController importController = new ImportController(file, adminView, progressView, mainController);
+                    ImportController importController = new ImportController(file, adminView, progressView, mainController, new DatabaseProxy());
                     progressView.setImportController(importController);
                     importController.start();
                 }

@@ -8,7 +8,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -35,10 +34,8 @@ public class ActivityTest {
         return fakeTrip;
     }
 
-
-
-
     // INTEGRATIONSTEST
+    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByTripWithRealDbAccessReturnsActivityList() throws Exception {
         User user = getFakeUser();
@@ -48,7 +45,7 @@ public class ActivityTest {
     }
 
     // INTEGRATIONSTEST
-    @Ignore  // TODO weil es die ID 1 allenfalls gar nicht gibt!
+    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByIdWithRealDbAccessReturnsActivity() throws Exception {
         User user = getFakeUser();
@@ -66,7 +63,7 @@ public class ActivityTest {
         for (Activity activity: activityList) {
             Date dateBefore = activity.getDate();
             System.out.println("before: " +dateBefore);
-            activity.moveOneDayUp();
+            activity.setActivityDateBefore();
             System.out.println("after: " +activity.getDate());
             Assert.assertEquals(Util.addDays(dateBefore,1), activity.getDate());
         }
@@ -80,7 +77,7 @@ public class ActivityTest {
         for (Activity activity: activityList) {
             Date dateBefore = activity.getDate();
             System.out.println("before: " +dateBefore);
-            activity.moveOneDayDown();
+            activity.setActivityDateAfter();
             System.out.println("after: " +activity.getDate());
             Assert.assertEquals(Util.addDays(dateBefore,-1), activity.getDate());
         }

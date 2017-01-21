@@ -3,7 +3,10 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.ActivityController;
+import model.common.Poi;
 import model.travel.Activity;
+import model.travel.Trip;
+import org.jdesktop.swingx.JXDatePicker;
 import view.common.GridPanel;
 
 import javax.swing.*;
@@ -12,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ActivityView extends JPanel {
 
@@ -20,7 +24,10 @@ public class ActivityView extends JPanel {
 
     DefaultTableModel tableModel;
     JTable table;
-    MapXXXXX mapView;
+    //MapXXXXX mapView;
+    JTextArea commentText;
+    JXDatePicker datePicker;
+    MapPolyline mapView;
 
     // Getters, damit der ActivityController die View Werte lesen ann
     public JTable getTable() {
@@ -31,7 +38,10 @@ public class ActivityView extends JPanel {
     public ActivityView(MainController mainController) {
 
         this.mainController = mainController;
-        activityController = new ActivityController(this, mainController);
+
+        mapView = new MapPolyline(mainController, this);
+
+        activityController = new ActivityController(this, mainController, mapView);
 
         // generelles panel
         this.setLayout(new BorderLayout());
@@ -44,6 +54,7 @@ public class ActivityView extends JPanel {
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
       //table.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
@@ -69,19 +80,43 @@ public class ActivityView extends JPanel {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-        mapView = new MapXXXXX(options);
-      //mapView.setMarker(mainController.getActivity());
-      //mapView.setMarker(Activity.searchById(1L));  // TODO
-      //mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
+      //mapView = new MapXXXXX(options);
+//        if (mainController.getActivity() != null) {
+            //mapView.setMarker(mainController.getActivity());
+//        }
         centerPanel.add(mapView);
 
 
         // TODO, plaziert nach Mergekonflikt, Dieter's Button
-        GridPanel buttonPanel = new GridPanel(300,16);
+        GridPanel buttonPanel = new GridPanel(100,16);
+/*
         buttonPanel.addComponentDirect(buttonPanel.createButton("up", "move_up", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("down", "move_down", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createLabel("", "", activityController));
         buttonPanel.addComponentDirect(buttonPanel.createButton("show map", "show_map", activityController));
+*/
+        // Variante mit Buttons nebeneinander:
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("up", "move_up", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("down", "move_down", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("show map", "show_map", activityController));
+        buttonPanel.addPanel(true);
+
+        buttonPanel.addComponentDirect(new JLabel(""));
+
+        buttonPanel.addComponentToPanel(datePicker = new JXDatePicker());
+        buttonPanel.addPanelWithLabel("Date:", true);
+
+        commentText = new JTextArea(5,30);
+        buttonPanel.addComponentToPanel(new JScrollPane(commentText));
+        buttonPanel.addPanelWithLabel("Comment:", true);
+
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Update", "update_activity", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Delete", "delete_activity", activityController));
+        buttonPanel.addPanelWithLabel("", true);
+
         centerPanel.add(buttonPanel, BorderLayout.EAST);
 
         // alles aufs generelle panel
@@ -104,13 +139,13 @@ public class ActivityView extends JPanel {
         ArrayList<Activity> activityList = activityController.getActivityList();
         for (Activity activity : activityList) {
             // Append a row
-            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
+            tableModel.addRow(new Object[]{activity.getId(), activity.getDate(), activity.getCity(), activity.getPoi().getName(), activity.getPoi().getPoiCategory().getName(), activity.getComment()});
         }
     }
 
     private void setUpTableTableColumns() {
         // Create columns
-        String[] columnNames = {"Nr", "Date", "POI", "Cat", "Comment"};
+        String[] columnNames = {"Nr", "Date", "City", "POI", "Cat", "Comment"};
         for (String column : columnNames){
             tableModel.addColumn(column);
         }
@@ -131,6 +166,30 @@ public class ActivityView extends JPanel {
                 width=150;
             columnModel.getColumn(column).setPreferredWidth(width);
         }
+    }
+
+    public void setActivityInList(Activity activity) {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            if (tableModel.getValueAt(i, 0).equals(activity.getId())) {
+                table.setRowSelectionInterval(0, i);
+            }
+        }
+    }
+
+    public Date getDate() {
+        return datePicker.getDate();
+    }
+
+    public void setDate(Date date) {
+        datePicker.setDate(date);
+    }
+
+    public String getComment() {
+        return commentText.getText();
+    }
+
+    public void setComment(String comment) {
+        commentText.setText(comment);
     }
 
 }
