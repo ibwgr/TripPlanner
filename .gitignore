@@ -1,6 +1,6 @@
 #Manuell
 **/*.zip
-**/*.iml
+#**/*.iml
 **/.idea/inspectionProfiles/**
 **/.idea/dictionaries/**
 **/.idea/*.iml

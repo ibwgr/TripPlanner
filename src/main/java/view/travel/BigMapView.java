@@ -3,19 +3,12 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.CompleteTripController;
-import controller.travel.SearchController;
-import model.common.Poi;
-import model.travel.Activity;
 import org.jdesktop.swingx.JXDatePicker;
-import view.common.GridPanel;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.util.ArrayList;
 
-public class CompleteTripView extends JPanel {
+public class BigMapView extends JPanel {
 
     MainController mainController;
     CompleteTripController completeTripController;
@@ -24,9 +17,9 @@ public class CompleteTripView extends JPanel {
     JTextField searchText;
     JTextArea commentText;
     JXDatePicker datePicker;
-    MapPolygon mapView;
+    MapPolylineSingle mapView;
 
-    public CompleteTripView(MainController mainController) {
+    public BigMapView(MainController mainController) {
         this.mainController = mainController;
         completeTripController = new CompleteTripController(this, mainController);
 
@@ -48,7 +41,7 @@ public class CompleteTripView extends JPanel {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-        mapView = new MapPolygon(options, mainController);
+        mapView = new MapPolylineSingle(options, mainController);
 //        centerPanel.add(mapView);
 
 //        mapView.setMarkerList(Activity.searchByTrip(mainController.getTrip()));
