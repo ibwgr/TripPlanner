@@ -66,7 +66,7 @@ public class SearchController implements ActionListener {
                 ,searchView.getPoi()
                 ,searchView.getDate()
                 ,searchView.getComment()
-                ,searchView.getCity().getName()
+                ,searchView.getCity() != null ? searchView.getCity().getName() : searchView.getPoi().getName()
         );
         try {
             activity.save();
