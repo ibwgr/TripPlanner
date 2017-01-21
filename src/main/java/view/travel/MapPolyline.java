@@ -49,6 +49,10 @@ public class MapPolyline extends MapView {
                     controlOptions.setPosition(ControlPosition.TOP_RIGHT);
                     // Setting map type control options
                     mapOptions.setMapTypeControlOptions(controlOptions);
+                    // Tripplanner spezial, zieht aber alles nicht...
+                    mapOptions.setStreetViewControl(false);
+                    mapOptions.setDisableDefaultUI(true);
+                    mapOptions.setOverviewMapControl(false);
                     // Setting map options
                     map.setOptions(mapOptions);
                     // Setting initial zoom value
@@ -149,7 +153,7 @@ public class MapPolyline extends MapView {
         // Setting stroke opacity value
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
-        options.setClickable(true);
+        options.setClickable(false);
 
         /*
          https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
