@@ -1,23 +1,13 @@
 package view.travel;
 
 import com.teamdev.jxmaps.*;
-import com.teamdev.jxmaps.Icon;
-import com.teamdev.jxmaps.Point;
-import com.teamdev.jxmaps.Polygon;
 import com.teamdev.jxmaps.swing.MapView;
 import controller.common.MainController;
 import model.common.Pair;
 import model.travel.Activity;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * This example demonstrates how to draw polylines on the map.
- *
- * @author Vitaly Eremenko
- */
 public class MapPolyline extends MapView {
 
     Map map;
