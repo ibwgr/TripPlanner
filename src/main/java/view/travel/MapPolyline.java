@@ -128,27 +128,29 @@ public class MapPolyline extends MapView {
         }
         // Initializing the polyline with created path
         //System.out.println("polyline PATH Inhalt: " +polyline.getPath().length);
-        if (polyline.getPath().length > 0) {
+        //if (polyline.getPath().length > 0) {
             //System.out.println("polyline PATH bestehend, loeschen! ");
             //            for (LatLng x : polyline.getPath()) {
             //                System.out.println(x.getLat());
             //            }
             //polyline.setPath(null);
             //polyline.setPath(new LatLng[0]);
-        }
+        //}
         //System.out.println("polyline setzen");
         polyline.setPath(path);
         //
         // Creating a polyline options object
         PolylineOptions options = new PolylineOptions();
         // Setting geodesic property value
-        options.setGeodesic(true);
+        options.setGeodesic(false);
         // Setting stroke color value
         options.setStrokeColor("#FF0000");
         // Setting stroke opacity value
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
+
+        options.setClickable(true);
 
         // TODO Reto, fertigmachen
         //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
@@ -163,17 +165,20 @@ public class MapPolyline extends MapView {
         //   icon: lineSymbol,
         //            offset: '100%'
         //}],
-        Symbol icon = new Symbol();
-        icon.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
+        Symbol lineSymbol = new Symbol();
+        lineSymbol.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
 
         IconSequence iconSequence = new IconSequence();
-        iconSequence.setIcon(icon);
-        iconSequence.setOffset("100%");
+        iconSequence.setIcon(lineSymbol );
+        iconSequence.setOffset("100%");  // 100% ist bereits default
+        iconSequence.setRepeat("20px");
 
         options.setIcons(new IconSequence[]{iconSequence});
 
         // Applying ALL options to the polyline
         polyline.setOptions(options);
+
+
     }
 
     public void closeAllWindows() {
