@@ -54,6 +54,10 @@ public class PoiSearchView extends JPanel implements SearchView {
 //        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
 
         gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<Pair<String, PoiCategory>>());
+        // Problem auf Windows (Offenbar nicht auf MacBook)
+        // Die Dropdown Liste verschwindet hinter dem Map Panel, ist also nur halbwegs ersichtlich
+        // Gemaess einigen Stackoverflow Eintraegen muss die "heavyweight component" verwendet werden
+        poiCategoryCombo.setLightWeightPopupEnabled(false);
 
         poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategoriesForComboBox()));
         gridPanel1.addPanelWithLabel("Poi category:", true);
