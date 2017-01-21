@@ -144,41 +144,39 @@ public class MapPolyline extends MapView {
         // Setting geodesic property value
         options.setGeodesic(false);
         // Setting stroke color value
-        options.setStrokeColor("#FF0000");
+        //options.setStrokeColor("#F7584C");
+        options.setStrokeWeight(3);
         // Setting stroke opacity value
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
-        options.setStrokeWeight(2.0);
-
         options.setClickable(true);
 
-        // TODO Reto, fertigmachen
-        //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
-        // Google Maps API (JavaScript) verlangt:
-        // Define a symbol using a predefined path (an arrow)
-        // supplied by the Google Maps JavaScript API.
-        // var lineSymbol = {
-        //        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-        //
-        // new google.maps.Polyline({
-        //icons: [{
-        //   icon: lineSymbol,
-        //            offset: '100%'
-        //}],
-        Symbol lineSymbol = new Symbol();
-        lineSymbol.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
-
-        IconSequence iconSequence = new IconSequence();
-        iconSequence.setIcon(lineSymbol );
-        iconSequence.setOffset("100%");  // 100% ist bereits default
-        iconSequence.setRepeat("20px");
-
-        options.setIcons(new IconSequence[]{iconSequence});
+        /*
+         https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
+         Google Maps API (JavaScript) verlangt:
+         Define a symbol using a predefined path (an arrow)
+         supplied by the Google Maps JavaScript API.
+         var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+         new google.maps.Polyline({
+          icons: [{
+           icon: lineSymbol,
+                    offset: '100%'
+          }],
+        */
+        //TODO Reto, fertigmachen, funktioniert irgendwie nicht recht, ist aber nicht so wichtig...
+        //Symbol lineSymbol = new Symbol();
+        //lineSymbol.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
+        //lineSymbol.setStrokeColor("#F7584C");
+        //lineSymbol.setFillColor("#F7584C");
+        //IconSequence iconSequence = new IconSequence();
+        //iconSequence.setIcon(lineSymbol );
+        //iconSequence.setOffset("100%");  // 100% ist bereits default
+        //iconSequence.setRepeat("20px");
+        //options.setIcons(new IconSequence[]{iconSequence});
 
         // Applying ALL options to the polyline
         polyline.setOptions(options);
-
-
     }
 
     public void closeAllWindows() {
