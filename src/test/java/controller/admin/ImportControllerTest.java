@@ -1,10 +1,13 @@
 package controller.admin;
 
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 import sun.applet.Main;
+import testFramework.UnitTest;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
@@ -19,13 +22,15 @@ public class ImportControllerTest {
     /**
      * queueIsEmpty gibt true züruck wenn rowQueue leer ist
      */
+    @Category({ UnitTest.class })
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsEmpty() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueue.clear();
 
@@ -36,13 +41,15 @@ public class ImportControllerTest {
     /**
      * queueIsEmpty gibt false züruck wenn rowQueue nicht leer ist
      */
+    @Category({ UnitTest.class })
     @Test
     public void queueIsEmptyReturnsTrueWhenRowQueueIsNotEmpty() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueue.add("test");
 
@@ -53,13 +60,15 @@ public class ImportControllerTest {
     /**
      * increaseRowQueueCount erhöht den rowQueueCount
      */
+    @Category({ UnitTest.class })
     @Test
     public void increaseRowQueueCountIncreasesRowQueueCount() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.increaseRowQueueCount();
         long result = importController.rowQueueCount;
@@ -73,13 +82,15 @@ public class ImportControllerTest {
     /**
      * allRowsProcessed gibt True zurück wenn alle Rows verarbeitet sind
      */
+    @Category({ UnitTest.class })
     @Test
     public void allRowsProcessedReturnsTrueWhenAllRowsAreProcessed() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 5;
@@ -90,13 +101,15 @@ public class ImportControllerTest {
     /**
      * allRowsProcessed gibt False zurück wenn nicht alle Rows verarbeitet sind
      */
+    @Category({ UnitTest.class })
     @Test
     public void allRowsProcessedReturnsFalseWhenNotAllRowsAreProcessed() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.rowQueueCount = 5;
         importController.processedCount = 2;
@@ -107,13 +120,15 @@ public class ImportControllerTest {
     /**
      * increaseErrorCount erhöht den errorCount
      */
+    @Category({ UnitTest.class })
     @Test
     public void increaseErrorCountIncreasesErrorCount() {
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);
         ProgressView progressView = Mockito.mock(ProgressView.class);
-        ImportController importController = new ImportController(file, adminView, progressView, mainController);
+        DatabaseProxy databaseProxy = Mockito.mock(DatabaseProxy.class);
+        ImportController importController = new ImportController(file, adminView, progressView, mainController, databaseProxy);
 
         importController.increaseErrorCount();
         long result = importController.errorCount;

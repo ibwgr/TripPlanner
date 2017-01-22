@@ -1,18 +1,17 @@
 package controller.admin;
 
-import com.sun.tools.internal.ws.wsdl.document.Import;
 import controller.common.MainController;
-import model.common.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
+import testFramework.UnitTest;
 import view.admin.ProgressView;
 import view.common.TripPlannerMain;
 
-import static org.junit.Assert.*;
-
 public class ProgressControllerTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void setImportControllerSetsCorrectImportController() {
         ProgressView progressView = Mockito.mock(ProgressView.class);

@@ -1,18 +1,18 @@
 package controller.travel;
 
 import controller.common.MainController;
-import view.travel.CompleteTripView;
+import view.travel.BigMapView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CompleteTripController implements ActionListener {
 
-    private CompleteTripView completeTripView;
+    private BigMapView bigMapView;
     private MainController mainController;
 
-    public CompleteTripController(CompleteTripView completeTripView, MainController mainController) {
-        this.completeTripView = completeTripView;
+    public CompleteTripController(BigMapView bigMapView, MainController mainController) {
+        this.bigMapView = bigMapView;
         this.mainController = mainController;
     }
 

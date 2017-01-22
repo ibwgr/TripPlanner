@@ -115,10 +115,10 @@ public class Trip {
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
-        System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
-        System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
-        System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
-        System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
+        //System.out.println("DB, TRIP_NAME : " +resultset.getString("trip_name"));
+        //System.out.println("DB, ACTIVITIES: " +resultset.getInt("count_acitvities"));
+        //System.out.println("DB, MIN DATE  : " +resultset.getDate("min_date"));
+        //System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
         Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
         //trip.setId(resultset.getLong("trip_id"));
@@ -148,6 +148,7 @@ public class Trip {
   // Aufrufen. Somit besteht keine Gefahr dass er unberechtigt Reisen anderer
   // Personen sieht.
   public static Trip searchById(Long id){
+    System.out.println("Trip searchById ID:" +id);
     DatabaseProxy databaseProxy = new DatabaseProxy();
     PreparedStatement preparedStatement;
     ResultSet resultset = null;
@@ -158,6 +159,7 @@ public class Trip {
                       "from tp_trip_aggr_v " +
                       "where trip_id = ? ");
       preparedStatement.setLong(1, id);
+      System.out.println("Query:"+preparedStatement.toString());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -236,26 +238,23 @@ public class Trip {
 
 
   /**
-   * Loescht ein Trip Objekt auf die Datenbank. Tabelle: tp_trip
-   * Falls bereits Activitied
+   * Loescht ein Trip Objekt auf der Datenbank. Tabelle: tp_trip
    */
   public void delete() throws SQLException {
     DatabaseProxy databaseProxy = new DatabaseProxy();
     String query = null;
     query = "delete from tp_trip where id = ?";
-
     PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
     preparedStatement.setLong(1, id);
-    System.out.println("delete Trip query: " + preparedStatement.toString());
-
+    System.out.println("Delete Trip query: " + preparedStatement.toString());
     try {
-        preparedStatement.executeUpdate();
-    } catch(SQLException e)   {
-        throw e;
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      throw e;
     } finally {
-        databaseProxy.close();
+      databaseProxy.close();
     }
-}
+  }
 
 
 

@@ -1,6 +1,9 @@
 package view.common;
 
 import controller.common.MainController;
+import model.common.Pair;
+import model.common.ViewInfo;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +20,8 @@ public class TripPlannerMain extends JFrame {
     private GridBagConstraints constraintsHeader, constraintsView;
     private MainController mainController;
     private ArrayList<Component> componentList = new ArrayList<>();
+    private JComboBox<Pair<String, Component>> viewListComboBox;
+    private ComboBoxModel<Pair<String, Component>> viewListComboBoxModel;
     private JPanel contentPanel;
     private JMenuBar jJMenuBar = null;
     private JMenu loginMenu = null, helpMenu = null, testMenu = null;
@@ -57,21 +62,67 @@ public class TripPlannerMain extends JFrame {
         headerPanel.setBackground(headerColor);
         headerPanel.setSize(new Dimension(300, 60));
 
+        // 1. Feld: Applikationsnamen
         titleLabel = new JLabel("TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
+/*
+        JPanel flowPanel1 = new JPanel(new FlowLayout());
+        flowPanel1.setBackground(headerColor);
+        flowPanel1.add(titleLabel);
+        headerPanel.add(flowPanel1);
+*/
 
+        // 2. Feld: View Titel Combobox
         headerPanel.add(new JLabel());
+/*
+        viewListComboBox = new JComboBox<>();
+        viewListComboBox.setActionCommand("view_selected");
+        viewListComboBox.addActionListener(mainController);
+        viewListComboBox.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+        JPanel flowPanel4 = new JPanel(new FlowLayout());
+        flowPanel4.setBackground(headerColor);
+        flowPanel4.add(viewListComboBox);
+        headerPanel.add(flowPanel4);
+*/
 
+        // 3. Feld: eingeloggter User
         usernameLabel = new JLabel();
-        usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-        headerPanel.add(usernameLabel);
+        usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+//        headerPanel.add(usernameLabel);
+        JPanel flowPanel3 = new JPanel(new FlowLayout());
+        flowPanel3.setBackground(headerColor);
+        flowPanel3.add(usernameLabel);
+        headerPanel.add(flowPanel3);
 
+        // 4. Feld:
+        headerPanel.add(new JLabel());
+/*
         viewTitleLabel = new JLabel();
         viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-        headerPanel.add(viewTitleLabel);
+//        headerPanel.add(viewTitleLabel);
+        JPanel flowPanel2 = new JPanel(new FlowLayout());
+        flowPanel2.setBackground(headerColor);
+        flowPanel2.add(viewTitleLabel);
+        headerPanel.add(flowPanel2);
+*/
 
+        // 5. Feld: Navigations-Button
         Dimension buttonDimension = new Dimension(10,15);
+        viewListComboBox = new JComboBox<>();
+        viewListComboBox.setActionCommand("view_selected");
+        viewListComboBox.addActionListener(mainController);
+        viewListComboBox.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+        // Problem auf Windows (Offenbar nicht auf MacBook)
+        // Die Dropdown Liste verschwindet hinter dem Map Panel, ist also nur halbwegs ersichtlich
+        // Gemaess einigen Stackoverflow Eintraegen muss die "heavyweight component" verwendet werden
+        viewListComboBox.setLightWeightPopupEnabled(false);
+        JPanel flowPanel5 = new JPanel(new FlowLayout());
+        flowPanel5.setBackground(headerColor);
+        flowPanel5.add(viewListComboBox);
+        headerPanel.add(flowPanel5);
+
+        // 6. Feld: Close Button
         backButton = new JButton("<");
         backButton.setActionCommand("back");
         backButton.addActionListener(mainController);
@@ -84,15 +135,12 @@ public class TripPlannerMain extends JFrame {
         closeViewButton.setActionCommand("close_view");
         closeViewButton.addActionListener(mainController);
         closeViewButton.setSize(buttonDimension);
-        JPanel flowPanel1 = new JPanel(new FlowLayout());
-        flowPanel1.setBackground(headerColor);
-        flowPanel1.add(backButton);
-        flowPanel1.add(forwardButton);
-        headerPanel.add(flowPanel1);
-        JPanel flowPanel2 = new JPanel(new FlowLayout());
-        flowPanel2.setBackground(headerColor);
-        flowPanel2.add(closeViewButton);
-        headerPanel.add(flowPanel2);
+        JPanel flowPanel6 = new JPanel(new FlowLayout());
+        flowPanel6.setBackground(headerColor);
+        flowPanel6.add(backButton);
+        flowPanel6.add(forwardButton);
+        flowPanel6.add(closeViewButton);
+        headerPanel.add(flowPanel6);
 
         this.add(headerPanel, constraintsHeader);
 
@@ -181,7 +229,7 @@ public class TripPlannerMain extends JFrame {
     }
 
     public void setViewTitle(String viewTitle) {
-        viewTitleLabel.setText(viewTitle);
+//        viewTitleLabel.setText(viewTitle);
     }
 
     public void closeErrorPanel() {
@@ -209,6 +257,19 @@ public class TripPlannerMain extends JFrame {
         forwardButton.setEnabled(enabled);
     }
 
+    public void setViewListComboBox(ArrayList<ViewInfo> viewList) {
+        viewListComboBox.setModel(new ListComboBoxModel<ViewInfo>(viewList));
+        viewListComboBox.setSelectedIndex(viewList.size()-1);
+    }
+
+    public int getViewListComboBoxSelectedIndex() {
+        return viewListComboBox.getSelectedIndex() + 1;
+    }
+
+    public void setViewListComboBoxSelectedIndex(int i) {
+        viewListComboBox.setSelectedIndex(i - 1);
+    }
+
     private JMenuBar getJJMenuBar()
     {
         if (jJMenuBar == null)
@@ -216,7 +277,7 @@ public class TripPlannerMain extends JFrame {
             jJMenuBar = new JMenuBar();
             jJMenuBar.add(getLoginMenu());
             jJMenuBar.add(getHelpMenu());
-            jJMenuBar.add(getTestMenu());
+//            jJMenuBar.add(getTestMenu());
             //jJMenuBar.add(getLoggedInInformationText());
 //            JMenuItem menuItem = new JMenuItem();
 //            JPanel panelLabel = new JPanel();
@@ -258,7 +319,7 @@ public class TripPlannerMain extends JFrame {
         {
             testMenu = new JMenu();
             testMenu.setText("Test");
-            testMenu.add(getCitySearchMenuItem());
+//            testMenu.add(getCitySearchMenuItem());
         }
         return testMenu;
     }
@@ -330,7 +391,7 @@ public class TripPlannerMain extends JFrame {
         {
             citySearchMenuItem = new JMenuItem();
             citySearchMenuItem.setText("CitySearch");
-            citySearchMenuItem.addActionListener(e -> mainController.openCompleteTripView());
+            citySearchMenuItem.addActionListener(e -> mainController.openBigMapView());
         }
         return citySearchMenuItem;
     }

@@ -24,8 +24,21 @@ Der Benutzer loggt sich ein und beginnt mit der Erstellung einer neuen Reise. Da
 Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Java. Dies beinhaltet im Moment auch ein Swing GUI. Natürlich könnte dieses GUI später auch durch ein zusätzliches Web-basiertes Java GUI, wie zum Beispiel “Vaadin”, erweitert werden.
 
 <p align="left">
-  <img src="https://github.com/ibwgr/TripPlanner/blob/master/README.Komponenten.jpg" width="800" height="600"/>
+  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Komponenten.jpg" width="800" height="600"/>
 </p>
+
+<b>Screeshot</b>
+
+Aktivitätenliste mit Google Map Ansicht
+
+<p align="left">
+  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot1.jpg" width="800" height="600"/>
+</p>
+
+<b>Lizenz</b>
+
+Lizenziert unter der GNU Lesser General Public License, siehe <a href="https://github.com/ibwgr/TripPlanner/blob/master/COPYRIGHT.txt">COPYRIGHT.txt</a> und <a href="https://github.com/ibwgr/TripPlanner/blob/master/COPYING.LESSER.GNU-LPGL.txt">COPYING.LESSER.GNU-LPGL.txt</a> </br>
+LGPL ist eine etwas entschärfte Variante der GPL (Lizenz für freie Software), die aussagt, dass die Verwendung von Programmen, die unter dieser Lizenz stehen, nicht dazu führen muss, dass die ganze Software unter dieser Lizenz (und damit frei) herausgegeben werden muss. 
 
 <p>&nbsp;</p>
 
