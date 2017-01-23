@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class TripPlannerMain extends JFrame {
 
+    // TODO Frage: Sollen wir am Anfang nicht gleich auf Fullsize wechseln?
+
     private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
     private JPanel errorPanel, headerPanel, subHeaderPanel;
     private JButton closeErrorPanel, backButton, forwardButton, closeViewButton;
