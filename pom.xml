@@ -36,37 +36,37 @@
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>
             <artifactId>jxmaps</artifactId>
-            <version>1.2</version>
+            <version>1.2.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-1.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>
             <artifactId>jxmaps-linux32</artifactId>
-            <version>1.2</version>
+            <version>1.2.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux32-1.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux32-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>
             <artifactId>jxmaps-linux64</artifactId>
-            <version>1.2</version>
+            <version>1.2.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux64-1.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-linux64-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>
             <artifactId>jxmaps-mac</artifactId>
-            <version>1.2</version>
+            <version>1.2.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-mac-1.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-mac-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>
             <artifactId>jxmaps-win</artifactId>
-            <version>1.2</version>
+            <version>1.2.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-win-1.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/jxMaps/lib/jxmaps-win-1.2.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.teamdev.jxmaps</groupId>

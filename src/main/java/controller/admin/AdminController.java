@@ -25,34 +25,40 @@ public class AdminController implements ActionListener {
         this.mainController = mainController;
     }
 
+    /*
+     * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
+     */
+    public void openFile() {
+        file = getFile();
+        if (file != null) {
+            adminView.setFileName(file.getName());
+        }
+    }
+
+    /*
+     * Importiere das File
+     */
+    public void importFile() {
+        if (file == null) {
+            // Fehlermeldung zurückgeben
+            mainController.showErrorMessage("Please choose a file first.");
+        } else {
+            ProgressView progressView = mainController.openProgressView();
+            ImportController importController = new ImportController(file, adminView, progressView, mainController, new DatabaseProxy());
+            progressView.setImportController(importController);
+            importController.start();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         switch (e.getActionCommand()) {
             case "open_file":
-                /*
-                 * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
-                 */
-                file = getFile();
-                if (file != null) {
-                    adminView.setFileName(file.getName());
-                }
+                openFile();
                 break;
             case "import_file":
-                if (file == null) {
-                    /*
-                     * Fehlermeldung zurückgeben
-                     */
-                    mainController.showErrorMessage("Please choose a file first.");
-                } else {
-                    /*
-                     * Importiere das File
-                     */
-                    ProgressView progressView = mainController.openProgressView();
-                    ImportController importController = new ImportController(file, adminView, progressView, mainController, new DatabaseProxy());
-                    progressView.setImportController(importController);
-                    importController.start();
-                }
+                importFile();
                 break;
         }
 

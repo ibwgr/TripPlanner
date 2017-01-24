@@ -1,16 +1,11 @@
 package view.travel;
 
 import com.teamdev.jxmaps.*;
-import com.teamdev.jxmaps.Icon;
-import com.teamdev.jxmaps.Point;
-import com.teamdev.jxmaps.Polygon;
 import com.teamdev.jxmaps.swing.MapView;
 import controller.common.MainController;
 import model.common.Pair;
 import model.travel.Activity;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -105,7 +100,6 @@ public class MapPolyline extends MapView {
             marker.setTitle(activity.getPoi().getName());
             markerList.add(new Pair<>(marker, activity));
             map.setCenter(latLng);
-
             // Adding event listener that intercepts clicking on marker
             marker.addEventListener("click", new MapMouseEvent() {
                 @Override
@@ -169,15 +163,15 @@ public class MapPolyline extends MapView {
           }],
         */
         //TODO Reto, fertigmachen, funktioniert irgendwie nicht recht, ist aber nicht so wichtig...
-        //Symbol lineSymbol = new Symbol();
-        //lineSymbol.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
-        //lineSymbol.setStrokeColor("#F7584C");
-        //lineSymbol.setFillColor("#F7584C");
-        //IconSequence iconSequence = new IconSequence();
-        //iconSequence.setIcon(lineSymbol );
-        //iconSequence.setOffset("100%");  // 100% ist bereits default
-        //iconSequence.setRepeat("20px");
-        //options.setIcons(new IconSequence[]{iconSequence});
+        Symbol lineSymbol = new Symbol();
+        lineSymbol.setPath(StandardSymbol.BACKWARD_CLOSED_ARROW);
+        lineSymbol.setStrokeColor("#F7584C");
+        lineSymbol.setFillColor("#F7584C");
+        IconSequence iconSequence = new IconSequence();
+        iconSequence.setIcon(lineSymbol );
+        iconSequence.setOffset("100%");  // 100% ist bereits default
+        iconSequence.setRepeat("20px");
+        options.setIcons(new IconSequence[]{iconSequence});
 
         // Applying ALL options to the polyline
         polyline.setOptions(options);

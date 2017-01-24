@@ -1,4 +1,4 @@
-package model.travel;
+package model.common;
 
 import model.common.User;
 import model.common.UserTypeEnum;
