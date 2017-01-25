@@ -3,8 +3,9 @@ package model.common;
 /**
  * Enumeration for User Class
  * 1 = User, 2 = Administrator
+ *
+ * @author  Reto Kaufmann
  */
-
 public enum UserTypeEnum  {
     USER, ADMIN;
 

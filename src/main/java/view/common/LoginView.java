@@ -6,7 +6,13 @@ import model.common.DatabaseProxy;
 
 import javax.swing.*;
 
-public class LoginView extends GridPanel {
+/**
+ * View zum Einloggen in die Applikation
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
+public class LoginView extends FormPanel {
 
     JTextField userField;
     JPasswordField passwordField;

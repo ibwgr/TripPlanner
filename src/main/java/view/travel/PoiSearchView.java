@@ -8,7 +8,7 @@ import model.common.Poi;
 import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
-import view.common.GridPanel;
+import view.common.FormPanel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -40,37 +40,37 @@ public class PoiSearchView extends JPanel implements SearchView {
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(250, 16);
+        FormPanel formPanel1 = new FormPanel(250, 16);
 /*
-        gridPanel1.addComponentToPanel(new JLabel(city.getName()));
-        gridPanel1.addPanelWithLabel("City:", true);
+        formPanel1.addComponentToPanel(new JLabel(city.getName()));
+        formPanel1.addPanelWithLabel("City:", true);
 */
 
         Double[] radiusList = {1d,5d,10d,15d};
-        gridPanel1.addComponentToPanel(radiusCombo = new JComboBox<Double>());
+        formPanel1.addComponentToPanel(radiusCombo = new JComboBox<Double>());
         radiusCombo.setModel(new DefaultComboBoxModel<>(radiusList));
-        gridPanel1.addPanelWithLabel("City: " + city.getName() + "  /  Radius in km:", true);
+        formPanel1.addPanelWithLabel("City: " + city.getName() + "  /  Radius in km:", true);
 
-//        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
+//        formPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
 
-        gridPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<Pair<String, PoiCategory>>());
+        formPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<Pair<String, PoiCategory>>());
         // Problem auf Windows (Offenbar nicht auf MacBook)
         // Die Dropdown Liste verschwindet hinter dem Map Panel, ist also nur halbwegs ersichtlich
         // Gemaess einigen Stackoverflow Eintraegen muss die "heavyweight component" verwendet werden
         poiCategoryCombo.setLightWeightPopupEnabled(false);
 
         poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategoriesForComboBox()));
-        gridPanel1.addPanelWithLabel("Poi category:", true);
+        formPanel1.addPanelWithLabel("Poi category:", true);
 
-        gridPanel1.addComponentToPanel(searchText = new JTextField(10));
-        gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_poi", searchController));
-        gridPanel1.addPanelWithLabel("or Poi name:", true);
+        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_poi", searchController));
+        formPanel1.addPanelWithLabel("or Poi name:", true);
 
         // Default Action für Enter innerhalb des Eingabefeldes
         searchText.setActionCommand("search_poi");
         searchText.addActionListener(searchController);
 
-        this.add(gridPanel1, BorderLayout.NORTH);
+        this.add(formPanel1, BorderLayout.NORTH);
 
         // CENTER: Result
         JPanel centerPanel = new JPanel(new GridLayout(1, 2));
@@ -91,21 +91,21 @@ public class PoiSearchView extends JPanel implements SearchView {
         this.add(centerPanel, BorderLayout.CENTER);
 
         // SOUTH: add Activity, forward to Poi Search
-        GridPanel gridPanel2 = new GridPanel(300, 16);
+        FormPanel formPanel2 = new FormPanel(300, 16);
 
-        gridPanel2.addPanelWithLabel("Add Point of interest to the activity:", true);
+        formPanel2.addPanelWithLabel("Add Point of interest to the activity:", true);
 
-        gridPanel2.addComponentToPanel(datePicker = new JXDatePicker());
-        gridPanel2.addPanelWithLabel("Date:", true);
+        formPanel2.addComponentToPanel(datePicker = new JXDatePicker());
+        formPanel2.addPanelWithLabel("Date:", true);
 
         commentText = new JTextArea(5, 30);
-        gridPanel2.addComponentToPanel(new JScrollPane(commentText));
-        gridPanel2.addPanelWithLabel("Comment:", true);
+        formPanel2.addComponentToPanel(new JScrollPane(commentText));
+        formPanel2.addPanelWithLabel("Comment:", true);
 
-        gridPanel2.addComponentToPanel(gridPanel2.createButton("Add Activity", "add_activity", searchController));
-        gridPanel2.addPanelWithLabel("", true);
+        formPanel2.addComponentToPanel(formPanel2.createButton("Add Activity", "add_activity", searchController));
+        formPanel2.addPanelWithLabel("", true);
 
-        this.add(gridPanel2, BorderLayout.SOUTH);
+        this.add(formPanel2, BorderLayout.SOUTH);
 
     }
 

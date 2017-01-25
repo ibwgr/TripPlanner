@@ -5,6 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ *
+ *
+ * @author  Reto Kaufmann
+ */
 public class User {
 
   // Instanzvariablen Transfer-Object
