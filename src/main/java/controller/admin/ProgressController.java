@@ -8,6 +8,12 @@ import java.awt.event.ActionListener;
 
 /**
  * Controller Class für ProgressView
+ *
+ * In dieser Klasse werden die Aktionen für die ProgressView abgehandelt.
+ * - AdminView öffnen, damit ein neuer File Import gestartet werden kann.
+ * - Abbruch des laufenden Import Prozesses
+ *
+ * @author  Dieter Biedermann
  */
 public class ProgressController implements ActionListener {
 

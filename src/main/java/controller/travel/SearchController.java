@@ -10,6 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+/**
+ * Controller Class für SearchViews
+ *
+ * Diese Klasse behandelt alle Views die das Interface SearchView implementieren.
+ * - Suche nach City
+ * - Suche nach Point of interest
+ * - Hinzufügen einer neuen Activity
+ *
+ * @author  Dieter Biedermann
+ */
 public class SearchController implements ActionListener {
 
     SearchView searchView;
@@ -73,17 +83,6 @@ public class SearchController implements ActionListener {
         } catch (SQLException e) {
             mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ") (Search)");
         }
-
-        // oder
-
-/*
-        Activity.saveNewActivity(
-                mainController.getTrip()
-                ,citySearchView.getPoi()
-                ,citySearchView.getDate()
-                ,citySearchView.getComment()
-        );
-*/
 
         mainController.openActivityOverview();
     }

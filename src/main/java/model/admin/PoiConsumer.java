@@ -5,6 +5,15 @@ import controller.admin.ImportController;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+/**
+ * In dieser Klasse werden die Rows für Point of interest in der Queue verarbeitet.
+ *
+ * - die eingelesene Zeile wird validiert (5 Spalten müssen vorhanden sein)
+ * - die Category zu dem Point of Interest muss vorhanden sein
+ * - wenn 100 Zeilen eingelesen wurden, werden die Categories in die Datenbank geschrieben
+ *
+ * @author  Dieter Biedermann
+ */
 public class PoiConsumer extends Thread {
 
     private ImportController importController;
@@ -21,53 +30,28 @@ public class PoiConsumer extends Thread {
 
     public void run() {
 
-/*
-        Connection conn = null;
-
-        try {
-            conn = DBConnection.getConnection();
-            conn.setAutoCommit(false);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-*/
-
         while (!importController.allRowsProcessed() && !isInterrupted()) {
             String row = importController.getRow();
-//            System.out.println(Thread.currentThread().getName() + " - after getRow");
             if (row != null) {
                 String[] rowItem = row.split(Pattern.quote(delimiter));
-//                System.out.println(Thread.currentThread().getName() + " - after split");
                 if (rowItem.length != 5 || rowItem[0].isEmpty()) {
-//                    System.out.println("Error -> wrong row");
-                    /**
-                     * increase error count
-                     */
+                    // increase error count
                     importController.increaseErrorCount();
                 } else if (!importController.poiCategoryExists(rowItem[0])) {
-//                    System.out.println("Error -> category does not exist");
-//                    System.out.println(this.getName() + " -> " + row);
+                    // increase error count
                     importController.increaseErrorCategoryCount();
                 } else {
-
                     poiList.add(rowItem);
                     importController.increaseProcessedCount();
-                    // mit println werden alle Daten in die DB geschrieben !!!
-//                    System.out.println(Thread.currentThread().getName() + " - after increase - poiList.size:" + poiList.size());
-
                     if (poiList.size() >= 100) {
-//                        System.out.println(Thread.currentThread().getName() + " - 1 - " + poiList.size());
                         databaseImport.insertMultiValuePois(poiList);
-//                        conn.commit();
                         poiList.clear();
                     }
                 }
             }
         }
 
-//        System.out.println(Thread.currentThread().getName() + " - 2 - " + poiList.size());
         if (poiList.size() > 0) {
-//            System.out.println(Thread.currentThread().getName() + " - 2 - " + poiList.size());
             databaseImport.insertMultiValuePois(poiList);
             poiList.clear();
         }
