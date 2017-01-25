@@ -2,6 +2,11 @@ package model.admin;
 
 import controller.admin.ImportController;
 
+/**
+ * Diese Klasse aktualisiert die Fortschrittsanzeige. Anzahl verarbeitete Zeilen und den Fortschrittsbalken.
+ *
+ * @author  Dieter Biedermann
+ */
 public class ImportProgress extends Thread {
 
     private ImportController importController;

@@ -4,6 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Diese Klasse wird verwendet um eine Datenbankverbindung zu bekommen.
+ * Alle DB Zugriffe sind synchronized damit es durch den Import zu keinen Problemen auf der Datenbank führt.
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class DatabaseProxy {
 
     private Connection conn;
