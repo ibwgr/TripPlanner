@@ -1,8 +1,6 @@
 package controller.travel;
 
-import com.teamdev.jxmaps.LatLng;
 import controller.common.MainController;
-import model.common.DatabaseProxy;
 import model.travel.Activity;
 import view.travel.ActivityView;
 import view.travel.MapPolyline;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
  */
 public class ActivityController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
-    DatabaseProxy databaseProxy = new DatabaseProxy();
     ActivityView activityView;
     MainController mainController;
     MapPolyline mapView;

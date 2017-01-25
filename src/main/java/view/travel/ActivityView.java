@@ -3,11 +3,9 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.ActivityController;
-import model.common.Poi;
 import model.travel.Activity;
-import model.travel.Trip;
 import org.jdesktop.swingx.JXDatePicker;
-import view.common.GridPanel;
+import view.common.FormPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -83,14 +81,14 @@ public class ActivityView extends JPanel {
 
         centerPanel.add(mapView);
 
-        GridPanel buttonPanel = new GridPanel(100,16);
+        FormPanel buttonPanel = new FormPanel(100,16);
         // Variante mit Buttons nebeneinander:
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Up", "move_up", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Down", "move_down", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createLabel("", "", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("Show map", "show_map", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Show Map View", "show_map", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));

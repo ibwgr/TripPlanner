@@ -30,17 +30,17 @@ public class AdminController implements ActionListener {
         this.mainController = mainController;
     }
 
-    /*
+    /**
      * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
      */
     public void openFile() {
-        file = getFile();
+        file = adminView.getFile();
         if (file != null) {
             adminView.setFileName(file.getName());
         }
     }
 
-    /*
+    /**
      * Importiere das File
      */
     public void importFile() {
@@ -69,32 +69,6 @@ public class AdminController implements ActionListener {
 
     }
 
-    public File getFile() {
-        JFileChooser fileChooser = new JFileChooser();
-
-        File workingDirectory = new File(System.getProperty("user.dir") + "/resources");
-        fileChooser.setCurrentDirectory(workingDirectory);
-
-        FileFilter filter = new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().toLowerCase().endsWith("csv");
-            }
-
-            @Override
-            public String getDescription() {
-                return "CSV Datei";
-            }
-        };
-        fileChooser.setFileFilter(filter);
-
-        fileChooser.setMultiSelectionEnabled(false);
-        int returnCode = fileChooser.showOpenDialog(adminView);
-        if (returnCode == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile();
-        }
-        return null;
-    }
 
 
 }

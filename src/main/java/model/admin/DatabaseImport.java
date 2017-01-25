@@ -21,13 +21,8 @@ public class DatabaseImport {
     int counter = 0, rowCount = 0;
 
     public DatabaseImport(ImportController importController, DatabaseProxy databaseProxy) {
-        try {
-            this.databaseProxy = databaseProxy;
-            this.importController = importController;
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        this.databaseProxy = databaseProxy;
+        this.importController = importController;
     }
 
     public void insertMultiValuePois(ArrayList<String[]> poiList) {
@@ -59,7 +54,6 @@ public class DatabaseImport {
             counter++;
             preparedStatement.addBatch();
             if (counter % 50 == 0) {
-//                System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                 preparedStatement.executeBatch();
                 databaseProxy.commit();
                 rowCount = 0;
@@ -71,7 +65,6 @@ public class DatabaseImport {
                 if (preparedStatement != null && !preparedStatement.isClosed()) {
 
                     if (rowCount > 0) {
-//                        System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                         preparedStatement.executeBatch();
                         databaseProxy.commit();
                         rowCount = 0;
@@ -114,7 +107,6 @@ public class DatabaseImport {
             counter++;
             preparedStatement.addBatch();
             if (counter % 50 == 0) {
-//                System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                 preparedStatement.executeBatch();
                 databaseProxy.commit();
                 rowCount = 0;
@@ -126,7 +118,6 @@ public class DatabaseImport {
                 if (preparedStatement != null && !preparedStatement.isClosed()) {
 
                     if (rowCount > 0) {
-//                        System.out.println(Thread.currentThread().getName() + " - " + preparedStatement.toString());
                         preparedStatement.executeBatch();
                         databaseProxy.commit();
                         rowCount = 0;
