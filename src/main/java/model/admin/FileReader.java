@@ -7,6 +7,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
+/**
+ * In dieser Klasse wird das übergebene CSV File eingelesen und alle Zeilen in die Queue geschrieben.
+ *
+ * @author  Dieter Biedermann
+ */
 public class FileReader extends Thread {
 
     private File file;

@@ -13,9 +13,12 @@ import java.util.LinkedList;
 
 /**
  * Controller Class für den Import eines CSV Files
+ *
  * - erstellt einen ImportProgress Thread
  * - erstellt einen FileReader Thread
  * - erstellt drei PoiConsumer oder einen CategoryConsumer Thread
+ *
+ * @author  Dieter Biedermann
  */
 public class ImportController {
 

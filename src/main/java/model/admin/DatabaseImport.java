@@ -7,6 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * In dieser Klasse werden die Daten aus den Consumer Threads in die Datenbank geschrieben.
+ * Es wird ein Multi Insert Statement als Prepared Statement erstellt.
+ *
+ * @author  Dieter Biedermann
+ */
 public class DatabaseImport {
 
     ImportController importController;
