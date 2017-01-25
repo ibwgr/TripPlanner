@@ -2,6 +2,8 @@ package model.common;
 
 /**
  * Hilfsklasse zum Speichern von zwei zusammengehörenden Objekten
+ *
+ * @author  Dieter Biedermann
  */
 public class Pair <K, V> {
 

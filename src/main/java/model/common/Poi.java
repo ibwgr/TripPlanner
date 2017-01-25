@@ -5,6 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Diese Klasse speichert Point of interest Daten aus der Tabelle POI.
+ *
+ * Zur Suche von Point of interests stehen folgende statischen Methoden zur Verfügung:
+ * - searchCityByName
+ * - searchPoiByNameAndRadius
+ * - searchPoiByCategoryAndRadius
+ * - searchPoiByRadius
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Poi {
 
     // Instanzvariablen

@@ -4,7 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by user on 17.01.2017.
+ *
+ *
+ * @author  Reto Kaufmann
  */
 public class Util {
 

@@ -5,14 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class GridPanel extends JPanel {
+/**
+ * View für den Admin Bereich. Hier kann ein File importiert werden.
+ *
+ * @author  Dieter Biedermann
+ */
+public class FormPanel extends JPanel {
 
     private Dimension labelDimension;
     JPanel gridBagPanel;
     GridBagConstraints constraints;
     ArrayList<Component> compoList = new ArrayList<>();
 
-    public GridPanel(int labelWidth, int labelHeight) {
+    public FormPanel(int labelWidth, int labelHeight) {
         labelDimension = new Dimension(labelWidth, labelHeight);
         gridBagPanel = new JPanel(new GridBagLayout());
 
@@ -52,7 +57,7 @@ public class GridPanel extends JPanel {
         return button;
     }
 
-    public JLabel createLabel(String text, String cmd, ActionListener actionListener) {
+    public JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         return label;
     }
@@ -60,7 +65,6 @@ public class GridPanel extends JPanel {
     public void addPanelWithLabel(String text, Boolean clearComponent) {
         JLabel label = new JLabel(text);
         label.setPreferredSize(labelDimension);
-//        label.setHorizontalAlignment(JLabel.RIGHT);
         JPanel jpanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         jpanel.add(label);
         for (Component compo:compoList) {
