@@ -88,7 +88,7 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("Show map", "show_map", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Show Map View", "show_map", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));

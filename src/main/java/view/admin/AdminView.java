@@ -5,6 +5,8 @@ import controller.common.MainController;
 import view.common.FormPanel;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.io.File;
 
 /**
  * View für den Admin Bereich. Hier kann ein File importiert werden.
@@ -70,6 +72,33 @@ public class AdminView extends FormPanel {
 
     public Boolean getFileHasHeader() {
         return fileHasHeader.isSelected();
+    }
+
+    public File getFile() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        File workingDirectory = new File(System.getProperty("user.dir") + "/resources");
+        fileChooser.setCurrentDirectory(workingDirectory);
+
+        FileFilter filter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.getName().toLowerCase().endsWith("csv");
+            }
+
+            @Override
+            public String getDescription() {
+                return "CSV Datei";
+            }
+        };
+        fileChooser.setFileFilter(filter);
+
+        fileChooser.setMultiSelectionEnabled(false);
+        int returnCode = fileChooser.showOpenDialog(this);
+        if (returnCode == JFileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile();
+        }
+        return null;
     }
 
 }

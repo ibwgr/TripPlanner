@@ -1,4 +1,4 @@
-package model.admin;
+package model.common;
 
 import static org.junit.Assert.*;
 

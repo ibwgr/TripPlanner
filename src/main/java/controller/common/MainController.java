@@ -273,7 +273,7 @@ public class MainController implements ActionListener {
     public void openBigMapView() {
         // Immer eine neue View Instanz erstellen
         bigMapView = new BigMapView(this);
-        setNewView("Big Map View", bigMapView, true,true);
+        setNewView("Map View", bigMapView, true,true);
         openView(currentViewNo);
     }
 

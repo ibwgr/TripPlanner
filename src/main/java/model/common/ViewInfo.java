@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Hilfsklasse zum Speichern von Optionen/Metadaten zu einer View
  *
- * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
  */
 public class ViewInfo {
 
