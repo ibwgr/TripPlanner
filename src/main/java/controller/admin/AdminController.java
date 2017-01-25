@@ -13,6 +13,11 @@ import java.io.File;
 
 /**
  * Controller Class für AdminView
+ *
+ * Diese Klasse öffnet einen File Dialog zum Auswählen einer Datei für den Import
+ * und startet den File Import.
+ *
+ * @author  Dieter Biedermann
  */
 public class AdminController implements ActionListener {
 

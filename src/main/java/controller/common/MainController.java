@@ -20,6 +20,14 @@ import java.util.ArrayList;
 /**
  * Controller Class für TripPlannerMain
  *
+ * Haupt-Controller für die TripPlanner Applikation.
+ * - Öffnen von Detail Views und navigieren innerhalb der geöffneten Views.
+ * - Speichern von User und aktuellem Trip.
+ * - Fehlermeldungen anzeigen
+ * - mit Hilfe der ViewInfo Klasse werden den einzelnen Views Optionen für die Anzeige mitgegeben
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
  */
 public class MainController implements ActionListener {
 
