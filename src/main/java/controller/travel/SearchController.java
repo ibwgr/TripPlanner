@@ -31,8 +31,8 @@ public class SearchController implements ActionListener {
     }
 
     public void searchCity() {
-        if (searchView.getSearchText().length() < 4) {
-            mainController.showErrorMessage("Search text is too short. Minimum length is 4 characters.");
+        if (searchView.getSearchText().length() < 3) {
+            mainController.showErrorMessage("Search text is too short. Minimum length is 3 characters.");
             return;
         }
         searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText()));
@@ -78,6 +78,7 @@ public class SearchController implements ActionListener {
                 ,searchView.getComment()
                 ,searchView.getCity() != null ? searchView.getCity().getName() : searchView.getPoi().getName()
         );
+
         try {
             activity.save();
         } catch (SQLException e) {
