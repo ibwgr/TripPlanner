@@ -12,11 +12,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Haupt-View für die Applikation
+ *
+ * Stellt Methoden zum Hinzufügen/Entfernen von Content-Views zur Verfügung.
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class TripPlannerMain extends JFrame {
 
     // TODO Frage: Sollen wir am Anfang nicht gleich auf Fullsize wechseln?
 
-    private JLabel titleLabel, viewTitleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
+    private JLabel titleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
     private JPanel errorPanel, headerPanel, subHeaderPanel;
     private JButton closeErrorPanel, backButton, forwardButton, closeViewButton;
     private GridBagLayout mainLayout;
@@ -70,30 +78,13 @@ public class TripPlannerMain extends JFrame {
         titleLabel = new JLabel("TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
-/*
-        JPanel flowPanel1 = new JPanel(new FlowLayout());
-        flowPanel1.setBackground(headerColor);
-        flowPanel1.add(titleLabel);
-        headerPanel.add(flowPanel1);
-*/
 
         // 2. Feld: View Titel Combobox
         headerPanel.add(new JLabel());
-/*
-        viewListComboBox = new JComboBox<>();
-        viewListComboBox.setActionCommand("view_selected");
-        viewListComboBox.addActionListener(mainController);
-        viewListComboBox.setFont(new Font("TimesRoman", Font.PLAIN, 18));
-        JPanel flowPanel4 = new JPanel(new FlowLayout());
-        flowPanel4.setBackground(headerColor);
-        flowPanel4.add(viewListComboBox);
-        headerPanel.add(flowPanel4);
-*/
 
         // 3. Feld: eingeloggter User
         usernameLabel = new JLabel();
         usernameLabel.setFont(new Font("TimesRoman", Font.PLAIN, 18));
-//        headerPanel.add(usernameLabel);
         JPanel flowPanel3 = new JPanel(new FlowLayout());
         flowPanel3.setBackground(headerColor);
         flowPanel3.add(usernameLabel);
@@ -101,15 +92,6 @@ public class TripPlannerMain extends JFrame {
 
         // 4. Feld:
         headerPanel.add(new JLabel());
-/*
-        viewTitleLabel = new JLabel();
-        viewTitleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-//        headerPanel.add(viewTitleLabel);
-        JPanel flowPanel2 = new JPanel(new FlowLayout());
-        flowPanel2.setBackground(headerColor);
-        flowPanel2.add(viewTitleLabel);
-        headerPanel.add(flowPanel2);
-*/
 
         // 5. Feld: Navigations-Button
         Dimension buttonDimension = new Dimension(10,15);
@@ -204,7 +186,6 @@ public class TripPlannerMain extends JFrame {
     }
 
     public void addView(String title, Component component) {
-        setViewTitle(title);
         addView(component);
     }
 
@@ -230,10 +211,6 @@ public class TripPlannerMain extends JFrame {
     public void removeAllViews() {
         componentList.clear();
         refreshView();
-    }
-
-    public void setViewTitle(String viewTitle) {
-//        viewTitleLabel.setText(viewTitle);
     }
 
     public void closeErrorPanel() {

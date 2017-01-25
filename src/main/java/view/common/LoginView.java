@@ -6,6 +6,12 @@ import model.common.DatabaseProxy;
 
 import javax.swing.*;
 
+/**
+ * View zum Einloggen in die Applikation
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class LoginView extends FormPanel {
 
     JTextField userField;

@@ -6,7 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * View für den Admin Bereich. Hier kann ein File importiert werden.
+ * Diese Klasse stellt ein Panel zur Verfügung, welches die Programmierung eines Formulars vereinfacht.
+ * Dadurch sind die View Klassen viel kürzer und besser lesbar.
+ *
+ * Beim Konstruktor muss die Grösse des Labels mitgegeben werden.
+ *
+ * Es gibt zusätzlich noch Methoden zur vereinfachten Erstellung von Buttons, RadioButtons und Labels.
  *
  * @author  Dieter Biedermann
  */
