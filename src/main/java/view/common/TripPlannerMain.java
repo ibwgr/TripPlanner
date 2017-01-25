@@ -3,6 +3,7 @@ package view.common;
 import controller.common.MainController;
 import model.common.Pair;
 import model.common.ViewInfo;
+import org.apache.commons.lang3.SystemUtils;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class TripPlannerMain extends JFrame {
     }
 
     public TripPlannerMain(int rows, int cols) {
+        setLookAndFeel();
 
         mainController = new MainController(this);
 
@@ -398,4 +400,27 @@ public class TripPlannerMain extends JFrame {
         return citySearchMenuItem;
     }
 
+    /**
+     * Methode legt das optische Aussehen der gesamten TripPlanner Swing Applikation fest
+     */
+    public void setLookAndFeel() {
+        // je nach Betriebssystem das L&F setzten
+        // bei Mac lassen wir das default Layout bestehen
+        if (!SystemUtils.IS_OS_MAC) {
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    //System.out.println(info.getName());  // Metal,Nimbus,CDE/Motif,Windows,Windows Classic
+                    // Falls Nimbus L&F vorhanden, dann verwenden sonst default L&F
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                // If Nimbus is not available, set the GUI to the default look and feel.
+                // Set cross-platform Java Look and Feel (also called "Metal")
+                // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            }
+        }
+    }
 }
