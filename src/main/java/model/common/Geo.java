@@ -1,5 +1,10 @@
 package model.common;
 
+/**
+ *
+ *
+ * @author  Reto Kaufmann
+ */
 public class Geo {
 
     public static double[] getBoundingBox(double lat, double lon, double radius) {

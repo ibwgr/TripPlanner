@@ -43,12 +43,10 @@ public class MapPolyline extends MapView {
                     map.setOptions(mapOptions);
                     // Setting initial zoom value
                     map.setZoom(5.0);
-
+                    // unbenoetigte optische Google Map Elemente entfernen
+                    MapHelper.removeGoogleMapElements(map);
+                    //
                     refresh();
-
-                    // Creating a path (array of coordinates) that represents a polyline
-//                    ArrayList<Activity> activityList = Activity.searchByTrip(mainController.getTrip());
-
                 }
             }
         });
@@ -113,19 +111,7 @@ public class MapPolyline extends MapView {
             polyline.setVisible(false);
             polyline = null;
             polyline = new Polyline(map);
-           // polyline.setVisible(true);
         }
-        // Initializing the polyline with created path
-        //System.out.println("polyline PATH Inhalt: " +polyline.getPath().length);
-        //if (polyline.getPath().length > 0) {
-            //System.out.println("polyline PATH bestehend, loeschen! ");
-            //            for (LatLng x : polyline.getPath()) {
-            //                System.out.println(x.getLat());
-            //            }
-            //polyline.setPath(null);
-            //polyline.setPath(new LatLng[0]);
-        //}
-        //System.out.println("polyline setzen");
         polyline.setPath(path);
         //
         // Creating a polyline options object
@@ -139,31 +125,16 @@ public class MapPolyline extends MapView {
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setClickable(false);
-
-        /*
-         https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
-         Google Maps API (JavaScript) verlangt:
-         Define a symbol using a predefined path (an arrow)
-         supplied by the Google Maps JavaScript API.
-         var lineSymbol = {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-         new google.maps.Polyline({
-          icons: [{
-           icon: lineSymbol,
-                    offset: '100%'
-          }],
-        */
-        //TODO Reto, fertigmachen, funktioniert irgendwie nicht recht, ist aber nicht so wichtig...
+        // Die Polyline mit Pfeilen versehen
         Symbol lineSymbol = new Symbol();
-        lineSymbol.setPath(StandardSymbol.BACKWARD_CLOSED_ARROW);
+        lineSymbol.setPath(StandardSymbol.FORWARD_CLOSED_ARROW);
         lineSymbol.setStrokeColor("#F7584C");
         lineSymbol.setFillColor("#F7584C");
         IconSequence iconSequence = new IconSequence();
         iconSequence.setIcon(lineSymbol );
-        iconSequence.setOffset("100%");  // 100% ist bereits default
-        iconSequence.setRepeat("20px");
+        iconSequence.setRepeat("50px");
         options.setIcons(new IconSequence[]{iconSequence});
-
+        //
         // Applying ALL options to the polyline
         polyline.setOptions(options);
     }

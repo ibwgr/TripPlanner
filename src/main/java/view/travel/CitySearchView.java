@@ -6,7 +6,7 @@ import controller.travel.SearchController;
 import model.common.Poi;
 import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
-import view.common.GridPanel;
+import view.common.FormPanel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -34,16 +34,16 @@ public class CitySearchView extends JPanel implements SearchView {
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
-        GridPanel gridPanel1 = new GridPanel(100,16);
-        gridPanel1.addComponentToPanel(searchText = new JTextField(10));
-        gridPanel1.addComponentToPanel(gridPanel1.createButton("Search", "search_city", searchController));
-        gridPanel1.addPanelWithLabel("City name:", true);
+        FormPanel formPanel1 = new FormPanel(100,16);
+        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_city", searchController));
+        formPanel1.addPanelWithLabel("City name:", true);
 
         // Default Action für Enter innerhalb des Eingabefeldes
         searchText.setActionCommand("search_city");
         searchText.addActionListener(searchController);
 
-        this.add(gridPanel1, BorderLayout.NORTH);
+        this.add(formPanel1, BorderLayout.NORTH);
 
         // CENTER: Result
         JPanel centerPanel = new JPanel(new GridLayout(1,2));
@@ -63,22 +63,22 @@ public class CitySearchView extends JPanel implements SearchView {
         this.add(centerPanel, BorderLayout.CENTER);
 
         // SOUTH: add Activity, forward to Poi Search
-        GridPanel gridPanel2 = new GridPanel(300,16);
+        FormPanel formPanel2 = new FormPanel(300,16);
 
-        gridPanel2.addComponentToPanel(gridPanel2.createButton("Search Poi near city", "open_poi_search", searchController));
-        gridPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
+        formPanel2.addComponentToPanel(formPanel2.createButton("Search Poi near city", "open_poi_search", searchController));
+        formPanel2.addPanelWithLabel("Add city to the activity or search for POI:", true);
 
-        gridPanel2.addComponentToPanel(datePicker = new JXDatePicker());
-        gridPanel2.addPanelWithLabel("Date:", true);
+        formPanel2.addComponentToPanel(datePicker = new JXDatePicker());
+        formPanel2.addPanelWithLabel("Date:", true);
 
         commentText = new JTextArea(5,30);
-        gridPanel2.addComponentToPanel(new JScrollPane(commentText));
-        gridPanel2.addPanelWithLabel("Comment:", true);
+        formPanel2.addComponentToPanel(new JScrollPane(commentText));
+        formPanel2.addPanelWithLabel("Comment:", true);
 
-        gridPanel2.addComponentToPanel(gridPanel2.createButton("Add Activity", "add_activity", searchController));
-        gridPanel2.addPanelWithLabel("", true);
+        formPanel2.addComponentToPanel(formPanel2.createButton("Add Activity", "add_activity", searchController));
+        formPanel2.addPanelWithLabel("", true);
 
-        this.add(gridPanel2, BorderLayout.SOUTH);
+        this.add(formPanel2, BorderLayout.SOUTH);
 
     }
 

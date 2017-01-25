@@ -5,6 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Diese Klasse speichert Category Daten aus der Tabelle POI_CATEGORY.
+ *
+ * Zur Suche von Category stehen folgende statischen Methoden zur Verfügung:
+ * - getAllPoiCategories
+ * - getAllPoiCategoriesForComboBox
+ * - searchById
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class PoiCategory {
 
     // Instanzvariablen

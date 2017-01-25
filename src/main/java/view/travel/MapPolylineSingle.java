@@ -31,6 +31,8 @@ public class MapPolylineSingle extends MapView {
                     map.setZoom(10.0);
                     map.setCenter(new LatLng(46.8555150,9.5254066));
                     setMarkerList(Activity.searchByTrip(mainController.getTrip()));
+                    // unbenoetigte optische Google Map Elemente entfernen
+                    MapHelper.removeGoogleMapElements(map);
                 }
             }
         });
@@ -75,29 +77,17 @@ public class MapPolylineSingle extends MapView {
         options.setStrokeOpacity(1.0);
         // Setting stroke weight value
         options.setStrokeWeight(2.0);
-
-        // TODO Reto, fertigmachen
-        //https://developers.google.com/maps/documentation/javascript/examples/overlay-symbol-arrow?hl=de
-        // Google Maps API (JavaScript) verlangt:
-        // Define a symbol using a predefined path (an arrow)
-        // supplied by the Google Maps JavaScript API.
-        // var lineSymbol = {
-        //        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-        //
-        // new google.maps.Polyline({
-        //icons: [{
-        //   icon: lineSymbol,
-        //            offset: '100%'
-        //}],
-        Symbol icon = new Symbol();
-        icon.setPath("google.maps.SymbolPath.FORWARD_CLOSED_ARROW");
-
+        options.setClickable(false);
+        // Die Polyline mit Pfeilen versehen
+        Symbol lineSymbol = new Symbol();
+        lineSymbol.setPath(StandardSymbol.FORWARD_CLOSED_ARROW);
+        lineSymbol.setStrokeColor("#F7584C");
+        lineSymbol.setFillColor("#F7584C");
         IconSequence iconSequence = new IconSequence();
-        iconSequence.setIcon(icon);
-        iconSequence.setOffset("100%");
-
+        iconSequence.setIcon(lineSymbol );
+        iconSequence.setRepeat("50px");
         options.setIcons(new IconSequence[]{iconSequence});
-
+        //
         // Applying ALL options to the polyline
         polyline.setOptions(options);
     }

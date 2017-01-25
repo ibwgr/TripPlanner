@@ -94,9 +94,6 @@ public class CategoryConsumerTest {
 
         DatabaseImport databaseImport = Mockito.mock(DatabaseImport.class);
 
-        // database proxy kann nicht gemockt werden, es muss DatabaseImport gemockt werden !!!
-        //Mockito.when(databaseImport.insertMultiValueCategories(Mockito.any()));
-
         File file = Mockito.mock(File.class);
         MainController mainController = Mockito.mock(MainController.class);
         AdminView adminView = Mockito.mock(AdminView.class);

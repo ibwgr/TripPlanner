@@ -6,6 +6,11 @@ import model.common.PoiCategory;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Interface für die SearchViews
+ *
+ * @author  Dieter Biedermann
+ */
 public interface SearchView {
 
     String getSearchText();
