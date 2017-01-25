@@ -75,6 +75,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jxMaps/lib/licence.jar</systemPath>
         </dependency>
+        <!-- https://commons.apache.org/proper/commons-lang/  -->
+        <!-- notwendig zur Ermittlung des Betriebssystems -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
     </dependencies>
 
     <build>
