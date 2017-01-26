@@ -12,9 +12,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * View für den Admin Bereich. Hier wird der File Import Fortschritt angezeigt.
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class ActivityView extends JPanel {
 
     ActivityController activityController;
@@ -85,10 +92,11 @@ public class ActivityView extends JPanel {
         // Variante mit Buttons nebeneinander:
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Up", "move_up", activityController));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Down", "move_down", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "newActivty", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
+//        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "new_activity", activityController));
+//        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Show Map View", "show_map", activityController));
+        buttonPanel.addComponentToPanel(buttonPanel.createButton("Export to PDF", "export_pdf", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));
