@@ -9,6 +9,12 @@ import sun.applet.Main;
 
 import java.util.ArrayList;
 
+/**
+ * Map mit Verbindungslinien zwischen den Markern
+ * ohne Synchronisation auf Tabelle
+ *
+ * @author  Reto Kaufmann
+ */
 public class MapPolylineSingle extends MapView {
 
     Map map;

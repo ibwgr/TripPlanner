@@ -13,6 +13,11 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Diese Klasse zeigt alle Trips des Users an
+ *
+ * @author  Reto Kaufmann
+ */
 public class TripView extends JPanel {
 
     TripController tripController;
@@ -80,7 +85,7 @@ public class TripView extends JPanel {
         FormPanel sideButtonPanel = new FormPanel(20,150);
         // Spezielles Panel fuer die Buttons (unten)
         FormPanel bottomButtonPanel = new FormPanel(150,20);
-        bottomButtonPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
+//        bottomButtonPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
         bottomButtonPanel.setToolTipText("Add a completely new trip");
 
         // alles aufs AnzeigePanel

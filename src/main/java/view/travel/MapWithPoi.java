@@ -7,6 +7,11 @@ import model.common.Poi;
 
 import java.util.ArrayList;
 
+/**
+ * Map nur mit Markern
+ *
+ * @author  Reto Kaufmann
+ */
 public class MapWithPoi extends MapView {
 
     SearchView searchView;
