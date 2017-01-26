@@ -212,7 +212,6 @@ from tp_trip_aggr_v
 -----------------------------------------------------------
 -- some dummy USER data
 -----------------------------------------------------------
-
 INSERT INTO tp_user (username,
                      password,
                      email,
@@ -242,6 +241,65 @@ from tp_user
 ;
 */
 
+-----------------------------------------------------------
+-- some dummy POI_CATEGORY data
+-----------------------------------------------------------
+/*
+select 'insert into poi_category (id, name) values (''' ||id ||''',''' ||name ||''');'
+from poi_category
+where id in (
+	select category_id from poi
+	where id in (
+	'N444868954',
+	'N1680808493',
+	'N27377535',
+	'W438952439',
+	'N1599473536',
+	'W244384754',
+	'W36194480',
+	'N4389197835'
+	)
+)
+*/
+insert into poi_category (id, name) values ('6','ACCOMMO_HOTEL');
+insert into poi_category (id, name) values ('25','FOOD_CAFE');
+insert into poi_category (id, name) values ('40','LANDUSE_GRASS');
+insert into poi_category (id, name) values ('66','POI_CITY');
+insert into poi_category (id, name) values ('69','POI_TOWN');
+insert into poi_category (id, name) values ('164','TRANSPORT_MARINA');
+commit;
+/*
+select * from poi_category
+*/
+-----------------------------------------------------------
+-- some dummy POI data
+-----------------------------------------------------------
+/*
+select 'insert into poi (id, longitude, latitude, category_id, name) values (''' ||id ||''',' ||longitude ||',' ||latitude ||',' ||category_id ||',''' ||name ||''');'
+from poi p
+where id in (
+'N444868954',
+'N1680808493',
+'N27377535',
+'W438952439',
+'N1599473536',
+'W244384754',
+'W36194480',
+'N4389197835'
+)
+ */
+insert into poi (id, longitude, latitude, category_id, name) values ('N1599473536',15.5866422,56.1621073,66,'Karlskrona');
+insert into poi (id, longitude, latitude, category_id, name) values ('N1680808493',13.8210691,55.4302902,25,'Kaffestugan Bäckahästen');
+insert into poi (id, longitude, latitude, category_id, name) values ('N27377535',14.1566859,56.0293778,69,'Kristianstad');
+insert into poi (id, longitude, latitude, category_id, name) values ('N4389197835',16.4672577,56.6488992,6,'Hotell Skansen');
+insert into poi (id, longitude, latitude, category_id, name) values ('N444868954',12.9989894,55.6057336,6,'Scandic Stortorget');
+insert into poi (id, longitude, latitude, category_id, name) values ('W244384754',16.0446385,56.2566705,164,'Kristianopel hamnen');
+insert into poi (id, longitude, latitude, category_id, name) values ('W36194480',16.3585569,56.6595944,40,'Sylvanderparken');
+insert into poi (id, longitude, latitude, category_id, name) values ('W438952439',14.8722605,56.1660065,40,'Väggaparken');
+commit;
+/*
+select * from poi
+*/
 -----------------------------------------------------------
 -- some dummy TRIP data
 -----------------------------------------------------------
