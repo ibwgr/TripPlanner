@@ -24,6 +24,11 @@ import controller.common.MainController;
 import model.common.Pair;
 import model.travel.Activity;
 
+/**
+ * Map mit Verbindungslinien zwischen den Markern
+ *
+ * @author  Reto Kaufmann
+ */
 public class MapPolyline extends MapView {
 
     Map map;

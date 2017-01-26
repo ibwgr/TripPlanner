@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+/**
+ * Mit dieser View können Orte (Cities) gesucht und einem Trip hinzugefügt werden.
+ *
+ * @author  Dieter Biedermann
+ */
 public class CitySearchView extends JPanel implements SearchView {
 
     MainController mainController;
@@ -71,8 +76,7 @@ public class CitySearchView extends JPanel implements SearchView {
         formPanel2.addComponentToPanel(datePicker = new JXDatePicker());
         formPanel2.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5,30);
-        formPanel2.addComponentToPanel(new JScrollPane(commentText));
+        formPanel2.addComponentToPanel(new JScrollPane(commentText = formPanel2.createTextArea("", 5, 30, true)));
         formPanel2.addPanelWithLabel("Comment:", true);
 
         formPanel2.addComponentToPanel(formPanel2.createButton("Add Activity", "add_activity", searchController));

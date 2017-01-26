@@ -27,12 +27,39 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
   <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Komponenten.jpg" width="800" height="600"/>
 </p>
 
-<b>Screeshot</b>
+<b>Instsallationsanleitung</b>
+1. IntelliJ "New - Project from version control" (git clone https://github.com/ibwgr/TripPlanner)
+2. Postgres DB: Create Database
+3. Postgres DB: das db_script.sql file auf der neuen Datenbank starten (/resources/db_script.sql)
+4. Property File mit den Datenbank-Credentials anpassen: /resources/db.properties
+5. IntelliJ start Klasse: /src/main/java/Start.java
+
+
+<b>Betriebsanleitung Admin Funktionen</b>
+1. Login als "admin" (PW="admin")
+2. Importieren der Kategorien-Datei: /resources/poi_categories.csv
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_Import_Category.png"/><br/>
+3. Importieren der POI (Point of Interests) Dateien, z.B.: /resources/sweden-latest.csv und switzerland-latest.csv usw.
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_Import_Poi.png"/><br/>
+
+<b>Betriebsanleitung Benutzer Funktionen</b>
+1. Login als "benutzer" (PW="benutzer")
+2. Neue Reise erfassen
+3. Neue Aktivität zur Reise erfassen
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_ActivityView.png" /><br/>
+4. Ort suchen
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_CitySearch.png" /><br/>
+5. POI zum Ort suchen
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_PointOfInterestSearch.png" /><br/>
+
+
+<p>&nbsp;</p>
+<b>Demo / Screeshot</b>
 
 Aktivitätenliste mit Google Map Ansicht
 
 <p align="left">
-  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot2.jpg" width="800" height="600"/>
+  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot2.jpg" /><br/>
 </p>
 
 <b>Lizenz</b>
