@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * Beim Konstruktor muss die Grösse des Labels mitgegeben werden.
  *
- * Es gibt zusätzlich noch Methoden zur vereinfachten Erstellung von Buttons, RadioButtons und Labels.
+ * Es gibt zusätzlich noch Methoden zur vereinfachten Erstellung von Buttons, RadioButtons, TextFields und Labels.
  *
  * @author  Dieter Biedermann
  */
@@ -47,6 +47,14 @@ public class FormPanel extends JPanel {
         radioButton.setActionCommand(cmd);
         buttonGroup.add(radioButton);
         return radioButton;
+    }
+
+    public JTextArea createTextArea(String text, int rows, int columns, Boolean enabled) {
+        JTextArea textArea = new JTextArea(text);
+        textArea.setEnabled(enabled);
+        textArea.setRows(rows);
+        textArea.setColumns(columns);
+        return textArea;
     }
 
     public JButton createButton(String text, String cmd, ActionListener actionListener) {
