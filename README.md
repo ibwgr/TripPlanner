@@ -32,7 +32,7 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 Aktivitätenliste mit Google Map Ansicht
 
 <p align="left">
-  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot1.jpg" width="800" height="600"/>
+  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot2.jpg" width="800" height="600"/>
 </p>
 
 <b>Lizenz</b>
