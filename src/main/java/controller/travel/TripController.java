@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class TripController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
-    DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
     MainController mainController;
 
