@@ -104,8 +104,7 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(datePicker = new JXDatePicker());
         buttonPanel.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5,30);
-        buttonPanel.addComponentToPanel(new JScrollPane(commentText));
+        buttonPanel.addComponentToPanel(new JScrollPane(commentText = buttonPanel.createTextArea("", 5, 30, true)));
         buttonPanel.addPanelWithLabel("Comment:", true);
 
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Update", "update_activity", activityController));

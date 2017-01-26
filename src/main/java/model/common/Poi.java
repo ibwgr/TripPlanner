@@ -251,4 +251,9 @@ public class Poi {
     public String toString() {
         return name + " (" + poiCategory + ")";
     }
+
+    public String getShortName() {
+        int maxLength = 16;
+        return name.substring(0,name.length() < maxLength ? name.length() : maxLength);
+    }
 }
