@@ -3,24 +3,44 @@ package model.travel;
 import model.common.DatabaseProxy;
 import model.common.User;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 import testFramework.UnitTest;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.mockito.Mockito.when;
+
 /**
  * Created by user on 09.01.2017.
  */
 public class TripTest {
 
+    private static Long realerTripIdausDb;
+
+    // Es besteht das Problem dass  aufgrund der Integrationstests zwingend ein "echter"
+    // Trip ermittelt werden muss, der effektiv in der DB besteht, da sonst die Assertions fehlschlagen.
+    // Deswegen die BEFORE Annoation. Wir suchen uns den erstbesten Trip aus der DB und verwenden
+    // diesen fuer die weiteren Tests.
+    @Before
+    public void initializeTestCases() {
+        User user = getTestUser();
+        ArrayList<Trip> tripList = Trip.searchByUser(user);
+        if (tripList.size() > 0) {
+            realerTripIdausDb = tripList.get(1).getId();
+        }
+    }
+
     // Helper / Test Object (bestehend in DB, siehe \TripPlanner\resources\db_script.sql)
     private static Trip getTestTrip(){
+        // hierbei
         Trip testTrip = new Trip();
-        testTrip.setId(1L);
+        testTrip.setId(realerTripIdausDb);
         testTrip.setName("Test Ferien");
         testTrip.setUser(getTestUser());
         return testTrip;
@@ -50,16 +70,20 @@ public class TripTest {
         User testUser = new User();
         testUser.setUsername("benutzer");
         testUser.setPassword("benutzer");
-        testUser.setId(1L);
+        testUser.setId(1L); // fix!
         return testUser;
     }
 
-    // TODO ... ein Versuch ...
-    @Category({ UnitTest.class })
-    @Test
-    public void testTest(){
-        Assert.assertTrue(true);
-    }
+
+//    // TEST MACHT VOELLIG KEINEN SINN! MUESSTE JA ALLES MOCKEN, KEINERLEI TEST!
+//    @Category({ UnitTest.class })
+//    @Test
+//    public void fakeTestSearchByUserReturnsFakeTripList() throws Exception {
+//        User user = getTestUser();
+//        ArrayList<Trip> tripList = Mockito.mock(Trip.class).searchByUser(user);
+//        ...
+//    }
+
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
@@ -77,29 +101,20 @@ public class TripTest {
 
     }
 
-    /* TEST MACHT VOELLIG KEINEN SINN! MUESSTE JA ALLES MOCKEN, KEINERLEI TEST!
-    @Test
-    public void fakeTestSearchByUserReturnsFakeTripList() throws Exception {
-        User user = getTestUser();
-        ArrayList<Trip> tripList = Mockito.mock(Trip.class).searchByUser(user);
-        when(searchUser.searchByCredentials()).thenReturn(fakeUser);
-    }
-    */
-
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
-    @Ignore // TODO, fixwert Trip ID 1 muss es ja nicht zwingend geben!
     @Test
     public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
          User user = getTestUser();
-         Trip trip = Trip.searchById(1L);
+         Trip trip = Trip.searchById(realerTripIdausDb);
          // aus DB gelesener Wert vergleichen
-         Assert.assertEquals(new Long(1), trip.getId());
+         Assert.assertEquals(realerTripIdausDb, trip.getId());
      }
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSaveWithoutIdInsertsNewTrip() throws Exception {
         User user = getTestUser();
+        // dieses Trip Objekt hat noch keine ID
         Trip trip = getNewTestTripWithoutId();
         // in DB speichern, wird ein INSERT ergeben
         // nun bekommt das trip Objekt seine ID gesetzt
@@ -112,7 +127,6 @@ public class TripTest {
 
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
-    @Ignore // TODO, geht so nicht zwingend da bei getTestTrip fix die ID 1 verwendet wird. Die muss aber gar nicht auf der DB existieren!
     @Test
     public void integrationsTestSaveIdUpdatesTrip() throws Exception {
         User user = getTestUser();
@@ -125,5 +139,7 @@ public class TripTest {
         // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
+
+    // TODO  @After : alle Testdaten wieder loeschen (also z.B. alle hier neu angelegten Trips)
 
 }

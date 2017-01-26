@@ -29,6 +29,8 @@ public class MapWithPoi extends MapView {
                     map = getMap();
                     map.setZoom(10.0);
                     map.setCenter(new LatLng(46.8555150,9.5254066));
+                    // unbenoetigte optische Google Map Elemente entfernen
+                    MapHelper.removeGoogleMapElements(map);
                 }
             }
         });

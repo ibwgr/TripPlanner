@@ -5,6 +5,14 @@ import controller.admin.ImportController;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+/**
+ * In dieser Klasse werden die Rows für Categories in der Queue verarbeitet.
+ *
+ * - Die eingelesene Zeile wird validiert (2 Spalten müssen vorhanden sein)
+ * - wenn 10 Zeilen eingelesen wurden, werden die Categories in die Datenbank geschrieben
+ *
+ * @author  Dieter Biedermann
+ */
 public class CategoryConsumer extends Thread {
 
     private ImportController importController;
@@ -25,11 +33,8 @@ public class CategoryConsumer extends Thread {
             if (row != null) {
                 String[] rowItem = row.split(Pattern.quote(delimiter));
                 if (rowItem.length != 2 || rowItem[0].isEmpty()) {
-//                    System.out.println("Error -> wrong row -> " + row);
                     importController.increaseErrorCount();
                 } else {
-
-//                    System.out.println(this.getName() + " -> " + row);
                     categoryList.add(rowItem);
                     importController.increaseProcessedCount();
 

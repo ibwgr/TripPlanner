@@ -7,6 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Diese Klasse liest das db.properties File und öffnet eine Verbindung
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class DBConnection {
 
     public static Connection getConnection() {

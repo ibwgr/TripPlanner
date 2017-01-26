@@ -3,12 +3,10 @@ package view.travel;
 import controller.common.MainController;
 import controller.travel.TripController;
 import model.travel.Trip;
-import view.common.GridPanel;
+import view.common.FormPanel;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -56,6 +54,7 @@ public class TripView extends JPanel {
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultEditor(Object.class, null); // damit Feld nicht editiert werden kann
         //
         // SelectionListener in Controller!
@@ -78,9 +77,9 @@ public class TripView extends JPanel {
 
         this.setLayout(new BorderLayout());
         // Spezielles Panel fuer die Buttons (rechts)
-        GridPanel sideButtonPanel = new GridPanel(20,150);
+        FormPanel sideButtonPanel = new FormPanel(20,150);
         // Spezielles Panel fuer die Buttons (unten)
-        GridPanel bottomButtonPanel = new GridPanel(150,20);
+        FormPanel bottomButtonPanel = new FormPanel(150,20);
         bottomButtonPanel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
         bottomButtonPanel.setToolTipText("Add a completely new trip");
 
@@ -95,13 +94,13 @@ public class TripView extends JPanel {
         sideButtonPanel.addComponentDirect(deleteButton = sideButtonPanel.createButton("Delete", "delete", tripController));
         deleteButton.setForeground(new Color(244, 100, 66));
 
-        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
-        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" ", null, null));
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" "));
+        sideButtonPanel.addComponentDirect(dummyLabel = sideButtonPanel.createLabel(" "));
 
         sideButtonPanel.addComponentDirect(newActivityButton = sideButtonPanel.createButton("New Activity", "newActivty", tripController));
 
         // BOTTOM Buttons
-        bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP", null, null));
+        bottomButtonPanel.addComponentToPanel(dummyLabel = bottomButtonPanel.createLabel("ADD NEW TRIP"));
         bottomButtonPanel.addPanel(true);
 
         bottomButtonPanel.addComponentToPanel(newTripNameField = new JTextField(20));

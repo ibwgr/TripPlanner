@@ -4,22 +4,24 @@ import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import testFramework.UnitTest;
 
 public class GeoTest {
 
-    //Ap Daun Chur
+    //Ap-N-Daun Chur
     private static final double kletterzentrumApDaunChurLat = 46.852338;
     private static final double kletterzentrumApDaunChurLon = 9.518351;
 
-    //Hotel Ibis, Chur (ca. 1 KM)
+    //Hotel Ibis, Chur (ca. 1 KM Entfernung zum Ap-N-Daun)
     private static final double hotelIbisMcDonaldsChurLat = 46.846138;
     private static final double hotelIbisMcDonaldsChurLon = 9.512531;
 
-    //Hotel Krone, Churwalden  (ca. 8 KM)
+    //Hotel Krone, Churwalden  (ca. 8 KM Entfernung zum Ap-N-Daun)
     private static final double hotelKroneChurwaldentLat = 46.777204;
     private static final double hotelKroneChurwaldenLon = 9.545394;
 
-    //Waldorf Astoria, New York (ca. 6800km)
+    //Waldorf Astoria, New York (ca. 6800km Entfernung zum Ap-N-Daun)
     private static final double hotelWaldorfAstoriaNewYorkLat = 40.756482;
     private static final double hotelWaldorfAstoriaNewYorkLon = -73.973305;
 
@@ -29,14 +31,15 @@ public class GeoTest {
      *  BoundingBox
      * ------------------------------------------------------------------------------
      */
+    @Category({ UnitTest.class })
     @Test
     public void testBoundingBoxKletterzentrumMitRadiusEinKm(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
-        double radius = 1.0;
+        double radius = 1.0; // 1km
 
         Geo g = new Geo();
         double[] boundingBoxArray = g.getBoundingBox(mittelpunktLat,mittelpunktLon,radius);
@@ -51,7 +54,8 @@ public class GeoTest {
         System.out.println(" ['ne    ' , " + maxLat + ", " + maxLon + "],");
         System.out.println(" ['sw    ' , " + minLat + ", " + minLon + "],");
         System.out.println(" ['se    ' , " + minLat + ", " + maxLon + "] ");
-        /*
+        /* Es muessen zwingend immer diese Werte zurueckgegeben werden.
+           Diese sind korrekt (einmalig in Google geprueft)
          ['center' , 46.852338, 9.518351],
          ['nw    ' , 46.86133121605919, 9.505200734104253],
          ['ne    ' , 46.86133121605919, 9.531501265895745],
@@ -62,14 +66,15 @@ public class GeoTest {
         Assert.assertEquals(9.531501265895745,maxLon,0.0000000000000000000000);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testBoundingBoxKletterzentrumMitRadiusZehnKm(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
-        double radius = 10.0;
+        double radius = 10.0; //10km
 
         Geo g = new Geo();
         double[] boundingBoxArray = g.getBoundingBox(mittelpunktLat,mittelpunktLon,radius);
@@ -84,7 +89,8 @@ public class GeoTest {
         System.out.println(" ['ne    ' , " + maxLat + ", " + maxLon + "],");
         System.out.println(" ['sw    ' , " + minLat + ", " + minLon + "],");
         System.out.println(" ['se    ' , " + minLat + ", " + maxLon + "] ");
-        /*
+        /* Es muessen zwingend immer diese Werte zurueckgegeben werden.
+           Diese sind korrekt (einmalig in Google geprueft)
          ['center' , 46.852338, 9.518351],
          ['nw    ' , 46.942270160591875, 9.386848341042548],
          ['ne    ' , 46.942270160591875, 9.64985365895745],
@@ -100,10 +106,11 @@ public class GeoTest {
      *  Einzeln
      * ------------------------------------------------------------------------------
      */
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxMitArray(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -111,21 +118,21 @@ public class GeoTest {
         double pruefpunktLat = hotelIbisMcDonaldsChurLat;
         double pruefpunktLon = hotelIbisMcDonaldsChurLon;
 
-        double radius = 1.0;
+        double radius = 1.0; // 1km
 
         Geo g = new Geo();
         double[] boundingBoxArray = g.getBoundingBox(mittelpunktLat,mittelpunktLon,radius);
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
                 boundingBoxArray
                 ,pruefpunktLat,pruefpunktLon);
-
         Assert.assertEquals(isInnerhalbBoundingBox,true);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxIbisInnerhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -133,7 +140,7 @@ public class GeoTest {
         double pruefpunktLat = hotelIbisMcDonaldsChurLat;
         double pruefpunktLon = hotelIbisMcDonaldsChurLon;
 
-        double radius = 1.0;
+        double radius = 1.0; // 1km
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -144,10 +151,11 @@ public class GeoTest {
         Assert.assertEquals(isInnerhalbBoundingBox,true);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxIbisAusserhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -155,7 +163,7 @@ public class GeoTest {
         double pruefpunktLat = hotelIbisMcDonaldsChurLat;
         double pruefpunktLon = hotelIbisMcDonaldsChurLon;
 
-        double radius = 0.2;
+        double radius = 0.2; // 200meter, sehr kleine boundingbox
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -166,10 +174,11 @@ public class GeoTest {
         Assert.assertEquals(isInnerhalbBoundingBox,false);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxChurwaldenInnerhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -177,7 +186,7 @@ public class GeoTest {
         double pruefpunktLat = hotelKroneChurwaldentLat;
         double pruefpunktLon = hotelKroneChurwaldenLon;
 
-        double radius = 15;
+        double radius = 15; // 15km
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -188,10 +197,11 @@ public class GeoTest {
         Assert.assertEquals(isInnerhalbBoundingBox,true);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxChurwaldenAusserhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -199,7 +209,7 @@ public class GeoTest {
         double pruefpunktLat = hotelKroneChurwaldentLat;
         double pruefpunktLon = hotelKroneChurwaldenLon;
 
-        double radius = 8;
+        double radius = 8; // 8km
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -210,10 +220,11 @@ public class GeoTest {
         Assert.assertEquals(isInnerhalbBoundingBox,false);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxWaldorfNewYorkInnerhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -221,7 +232,7 @@ public class GeoTest {
         double pruefpunktLat = hotelWaldorfAstoriaNewYorkLat;
         double pruefpunktLon = hotelWaldorfAstoriaNewYorkLon;
 
-        double radius = 8000;
+        double radius = 8000; // 8000km, da wird ja wohl vieles in dieser BoundingBox sein!
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -232,10 +243,11 @@ public class GeoTest {
         Assert.assertEquals(isInnerhalbBoundingBox,true);
     }
 
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxWaldorfNewYorkAusserhalb(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -243,7 +255,7 @@ public class GeoTest {
         double pruefpunktLat = hotelWaldorfAstoriaNewYorkLat;
         double pruefpunktLon = hotelWaldorfAstoriaNewYorkLon;
 
-        double radius = 6000;
+        double radius = 6000; // 6000km, dieser Radius reicht nicht aus, das Waldorf ist 6800km entfernt
 
         Geo g = new Geo();
         boolean isInnerhalbBoundingBox = g.isInnerhalbBoundingBox(
@@ -260,10 +272,11 @@ public class GeoTest {
      *  Abarbeitung Liste
      * ------------------------------------------------------------------------------
      */
+    @Category({ UnitTest.class })
     @Test
     public void testKoordinatenInnerhalbBoundingBoxMitListeZwanzigKm(){
 
-        //Ap Daun Chur
+        //Ap-N-Daun Chur
         double mittelpunktLat = kletterzentrumApDaunChurLat;
         double mittelpunktLon = kletterzentrumApDaunChurLon;
 
@@ -291,5 +304,7 @@ public class GeoTest {
                 System.out.println("ist ausserhalb");
             }
         }
+        // wenn ohne Fehler durchgelaufen, dann ok
+        Assert.assertTrue(true);
     }
 }

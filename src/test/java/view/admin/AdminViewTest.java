@@ -1,12 +1,9 @@
 package view.admin;
 
-import controller.admin.ImportController;
 import controller.common.MainController;
 import org.junit.Assert;
 import org.junit.Test;
 import view.common.TripPlannerMain;
-
-import javax.swing.*;
 
 /**
  * Created by dieterbiedermann on 06.01.17.

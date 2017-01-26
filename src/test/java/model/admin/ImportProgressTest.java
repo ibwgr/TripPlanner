@@ -15,29 +15,27 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by dieterbiedermann on 06.01.17.
  */
 public class ImportProgressTest {
 
+    @Category({ UnitTest.class })
     @Test
     public void runCallsShowStatusAndImportIsFinished() throws IOException {
 
         ImportController importController = Mockito.mock(ImportController.class);
 
-/*
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        MainController mainController = new MainController(tripPlannerMain);
-        AdminView adminView = new AdminView(mainController);
-        ProgressView progressView = new ProgressView(mainController);
-        ImportController importController = new ImportController(new File(""), adminView, progressView, mainController);
-*/
-        Mockito.when(importController.allRowsProcessed()).thenReturn(true);
+        Mockito.when(importController.allRowsProcessed()).thenReturn(false).thenReturn(true);
 
         ImportProgress importProgress = new ImportProgress(importController);
         importProgress.run();
 
+        verify(importController, times(2)).showStatus();
+        verify(importController, times(1)).importIsFinished();
     }
 
 }

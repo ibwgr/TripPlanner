@@ -1,17 +1,14 @@
 package model.common;
 
-import controller.common.MainController;
-import org.junit.Assert;
 import org.junit.Test;
-import view.admin.AdminView;
-import view.common.TripPlannerMain;
-
-import static org.junit.Assert.*;
 
 public class PoiTest {
 
     @Test
     public void searchCityByNameReturnsCorrectCity() {
+
+        // Damit der DatabaseProxy injected werden kann, darf die Methode nicht statisch sein!
+
         Poi.searchCityByName("Schellenberg");
 
         // TODO

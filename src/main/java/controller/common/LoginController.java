@@ -10,6 +10,12 @@ import java.awt.event.ActionListener;
 
 /**
  * Controller Class für LoginView
+ *
+ * Diese Klasse prüft Benutzer und Passwort auf der Datenbank.
+ * Falls dieser Benutzer vorhanden ist und das Passwort übereinstimmt, wird der User eingelogged.
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
  */
 public class LoginController implements ActionListener {
 

@@ -21,45 +21,45 @@
     <orderEntry type="library" name="Maven: com.jhlabs:filters:2.0.235" level="project" />
     <orderEntry type="library" name="Maven: org.swinglabs:swing-worker:1.1" level="project" />
     <orderEntry type="module-library">
-      <library name="Maven: com.teamdev.jxmaps:jxmaps:1.2">
+      <library name="Maven: com.teamdev.jxmaps:jxmaps:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Maven: com.teamdev.jxmaps:jxmaps-linux32:1.2">
+      <library name="Maven: com.teamdev.jxmaps:jxmaps-linux32:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-linux32-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-linux32-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Maven: com.teamdev.jxmaps:jxmaps-linux64:1.2">
+      <library name="Maven: com.teamdev.jxmaps:jxmaps-linux64:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-linux64-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-linux64-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Maven: com.teamdev.jxmaps:jxmaps-mac:1.2">
+      <library name="Maven: com.teamdev.jxmaps:jxmaps-mac:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-mac-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-mac-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Maven: com.teamdev.jxmaps:jxmaps-win:1.2">
+      <library name="Maven: com.teamdev.jxmaps:jxmaps-win:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-win-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jxMaps/lib/jxmaps-win-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -74,5 +74,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
   </component>
 </module>

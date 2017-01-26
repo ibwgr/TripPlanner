@@ -10,6 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+/**
+ * Controller Class für SearchViews
+ *
+ * Diese Klasse behandelt alle Views die das Interface SearchView implementieren.
+ * - Suche nach City
+ * - Suche nach Point of interest
+ * - Hinzufügen einer neuen Activity
+ *
+ * @author  Dieter Biedermann
+ */
 public class SearchController implements ActionListener {
 
     SearchView searchView;
@@ -21,8 +31,8 @@ public class SearchController implements ActionListener {
     }
 
     public void searchCity() {
-        if (searchView.getSearchText().length() < 4) {
-            mainController.showErrorMessage("Search text is too short. Minimum length is 4 characters.");
+        if (searchView.getSearchText().length() < 3) {
+            mainController.showErrorMessage("Search text is too short. Minimum length is 3 characters.");
             return;
         }
         searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText()));
@@ -68,22 +78,12 @@ public class SearchController implements ActionListener {
                 ,searchView.getComment()
                 ,searchView.getCity() != null ? searchView.getCity().getName() : searchView.getPoi().getName()
         );
+
         try {
             activity.save();
         } catch (SQLException e) {
             mainController.showErrorMessage("Could not save Activity (" + e.getMessage() + ") (Search)");
         }
-
-        // oder
-
-/*
-        Activity.saveNewActivity(
-                mainController.getTrip()
-                ,citySearchView.getPoi()
-                ,citySearchView.getDate()
-                ,citySearchView.getComment()
-        );
-*/
 
         mainController.openActivityOverview();
     }

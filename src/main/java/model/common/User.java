@@ -5,6 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ *
+ *
+ * @author  Reto Kaufmann
+ */
 public class User {
 
   // Instanzvariablen Transfer-Object
@@ -154,7 +159,7 @@ public class User {
 
   // Search by Credentials (Username AND Password)
   public static User searchByCredentials(DatabaseProxy databaseProxy, String username, String password) {
-    System.out.println("searchByCredentials(String username, String password)");
+    System.out.println("searchByCredentials username="+username +", password="+password);
     ResultSet resultSet = null;
     User user = null;
     try {

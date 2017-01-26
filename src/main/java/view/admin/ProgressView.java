@@ -3,13 +3,18 @@ package view.admin;
 import controller.admin.ImportController;
 import controller.admin.ProgressController;
 import controller.common.MainController;
-import view.common.GridPanel;
+import view.common.FormPanel;
 
 import javax.swing.*;
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
-public class ProgressView extends GridPanel {
+/**
+ * View für den Admin Bereich. Hier wird der File Import Fortschritt angezeigt.
+ *
+ * @author  Dieter Biedermann
+ */
+public class ProgressView extends FormPanel {
 
     ProgressController progressController;
 
@@ -20,9 +25,7 @@ public class ProgressView extends GridPanel {
     DecimalFormat timeFormat = new DecimalFormat("00");
 
     public ProgressView(MainController mainController) {
-        /**
-         * Anzahl Zeilen und Spalten für diese View
-         */
+        // Label Grösse diese View
         super(145, 20);
 
         progressController = new ProgressController(this, mainController);
@@ -44,11 +47,9 @@ public class ProgressView extends GridPanel {
 
         addComponentDirect(progressBar = new JProgressBar());
         progressBar.setMinimum(0);
-//        addComponentDirect(progressBar);
 
         addComponentDirect(cancelButton = createButton("cancel", "cancel", progressController, false));
         addComponentDirect(buttonNewUpload = createButton("import new file", "start_new", progressController, false));
-//        addComponentDirect(buttonNewUpload);
 
     }
 

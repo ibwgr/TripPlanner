@@ -2,6 +2,11 @@ package model.common;
 
 import java.awt.*;
 
+/**
+ * Hilfsklasse zum Speichern von Optionen/Metadaten zu einer View
+ *
+ * @author  Dieter Biedermann
+ */
 public class ViewInfo {
 
     private String title;

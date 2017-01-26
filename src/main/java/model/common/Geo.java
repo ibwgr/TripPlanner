@@ -1,10 +1,19 @@
 package model.common;
 
+/**
+ * Ermittelt ob sich zwei Koordinaten innerhalb eines gewissens (quadratischen)
+ * Radius befindet.
+ * Beispiel: Um das IBW Gebaeude in Chur legen wir ein 10km Quadrat, genannt BoundingBox.
+ * Die Abfrage ob sich der Hauptbahnhof in Zuerich innerhalb dieser Boundingbox befindet,
+ * wird verneint. Hingegen waere die Abfrage mit dem Bahnhof in Chur mit ja zu beantworten.
+ *
+ * @author  Reto Kaufmann
+ */
 public class Geo {
 
     public static double[] getBoundingBox(double lat, double lon, double radius) {
 
-        // BoundingBox (unser Quadrat um lat/long Position), siehe test-google-maps-1km.html
+        // BoundingBox (unser Quadrat um lat/long Position)
         double[] boundingBoxArray = new double[4];
         //
         double earth_radius = 6371; // Erd Radius in KM
