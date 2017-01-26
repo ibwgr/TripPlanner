@@ -61,7 +61,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "show_map":
                 executeActionShowMap();
                 break;
-            case "newActivty":
+            case "new_activity":
                 executeActionNewActivty();
                 break;
             case "update_activity":

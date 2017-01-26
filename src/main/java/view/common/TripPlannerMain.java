@@ -75,7 +75,7 @@ public class TripPlannerMain extends JFrame {
         headerPanel.setSize(new Dimension(300, 60));
 
         // 1. Feld: Applikationsnamen
-        titleLabel = new JLabel("TripPlanner");
+        titleLabel = new JLabel(" TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
 
