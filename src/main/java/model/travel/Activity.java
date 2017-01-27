@@ -64,7 +64,6 @@ public class Activity {
         }
         System.out.println("activity query: " +query);
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
         try {
             preparedStatement.setLong(1, trip.getId());
             preparedStatement.setString(2, poi.getId());
@@ -74,9 +73,7 @@ public class Activity {
             if (id != null) {
                 preparedStatement.setLong(6, id);
             }
-
             System.out.println("save Activity query: " + preparedStatement.toString());
-
             preparedStatement.executeUpdate();
             // falls INSERT, sind wir am Resultat (Primary Key: ID) interessiert
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -87,7 +84,6 @@ public class Activity {
                     this.setId((long) incrementId);
                 }
             }
-
         } finally {
             databaseProxy.close();
         }
@@ -100,9 +96,7 @@ public class Activity {
             throw new IllegalArgumentException("Cannot delete Activity (not yet saved)");
         }
         query = "delete from tp_activity where id = ?";
-
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
-
         try {
             preparedStatement.setLong(1, id);
 
@@ -127,8 +121,11 @@ public class Activity {
             preparedStatement = databaseProxy.prepareStatement(
                     "select trip_id, activity_id, date, comment, city, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
-                            "where trip_id = ? order by date asc");
+                            "where trip_id = ? " +
+                            "and activity_id is not null " +
+                            "order by date asc ");
             preparedStatement.setLong(1, trip.getId());
+            System.out.println("select activity query: " + preparedStatement.toString());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -179,6 +176,7 @@ public class Activity {
                             "from tp_trip_full_v " +
                             "where activity_id = ? ");
             preparedStatement.setLong(1, currentActivityId);
+            System.out.println("select activity query: " + preparedStatement.toString());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
