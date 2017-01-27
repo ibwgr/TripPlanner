@@ -41,7 +41,7 @@ public class CitySearchView extends JPanel implements SearchView {
 
         // NORTH: Search criteria
         FormPanel formPanel1 = new FormPanel(100,16);
-        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(searchText = new JTextField(20));
         formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_city", searchController));
         formPanel1.addPanelWithLabel("City name:", true);
 

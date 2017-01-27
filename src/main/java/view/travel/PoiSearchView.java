@@ -62,7 +62,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategoriesForComboBox()));
         formPanel1.addPanelWithLabel("Poi category:", true);
 
-        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(searchText = new JTextField(20));
         formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_poi", searchController));
         formPanel1.addPanelWithLabel("or Poi name:", true);
 
