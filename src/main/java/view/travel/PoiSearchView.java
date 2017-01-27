@@ -3,6 +3,7 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
+import model.common.DatabaseProxy;
 import model.common.Pair;
 import model.common.Poi;
 import model.common.PoiCategory;
@@ -40,7 +41,7 @@ public class PoiSearchView extends JPanel implements SearchView {
     public PoiSearchView(MainController mainController, Poi city) {
         this.mainController = mainController;
         this.city = city;
-        searchController = new SearchController(this, mainController);
+        searchController = new SearchController(this, mainController, new DatabaseProxy());
 
         this.setLayout(new BorderLayout());
 

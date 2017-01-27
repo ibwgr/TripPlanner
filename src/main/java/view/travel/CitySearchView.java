@@ -3,6 +3,7 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
+import model.common.DatabaseProxy;
 import model.common.Poi;
 import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
@@ -34,7 +35,7 @@ public class CitySearchView extends JPanel implements SearchView {
 
     public CitySearchView(MainController mainController) {
         this.mainController = mainController;
-        searchController = new SearchController(this, mainController);
+        searchController = new SearchController(this, mainController, new DatabaseProxy());
 
         this.setLayout(new BorderLayout());
 
