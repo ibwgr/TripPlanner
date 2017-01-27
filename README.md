@@ -35,7 +35,6 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
     4. Property File mit dem Datenbank-Namen und den Datenbank-Credentials anpassen: /resources/db.properties
     5. IntelliJ start Klasse: /src/main/java/Start.java
 
-Zur Info bezüglich Java SDK in IntelliJ siehe <a href="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_IntelliJ_JDK.png</a>hier</a>
 
 ####Anleitung Admin-Funktionen
 1. Login als "admin" (PW="admin")
