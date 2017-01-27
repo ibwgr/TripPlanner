@@ -16,7 +16,6 @@ import static org.mockito.Mockito.when;
 
 public class PoiTest {
 
-    @Category({ UnitTest.class })
     @Test
     public void searchCityByNameReturnsCorrectCity() throws SQLException {
 
