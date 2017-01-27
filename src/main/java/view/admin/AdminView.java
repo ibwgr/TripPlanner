@@ -23,6 +23,7 @@ public class AdminView extends FormPanel {
     JRadioButton fileTypeCategory, fileTypePoi;
     JRadioButton fileDelimiterPipe, fileDelimiterComma, fileDelimiterSemicolon;
     JCheckBox fileHasHeader;
+    JTextArea filePreview;
 
     public AdminView(MainController mainController) {
         // Anzahl Zeilen und Spalten für diese View
@@ -34,6 +35,10 @@ public class AdminView extends FormPanel {
         addComponentToPanel(fileName = new JLabel("Please choose file"));
         addComponentToPanel(createButton("Open file", "open_file", adminController));
         addPanelWithLabel("File:", true);
+
+        // Anzeige des Filenamens und File Öffnen Button
+        addComponentToPanel(new JScrollPane(filePreview = createTextArea("", 5, 40, false)));
+        addPanelWithLabel("File Preview:", true);
 
         // File Type: PoiCategory oder Point of interest
         fileTypeGroup = new ButtonGroup();
@@ -72,6 +77,10 @@ public class AdminView extends FormPanel {
 
     public Boolean getFileHasHeader() {
         return fileHasHeader.isSelected();
+    }
+
+    public void setFilePreview(String filePreview) {
+        this.filePreview.setText(filePreview);
     }
 
     public File getFile() {

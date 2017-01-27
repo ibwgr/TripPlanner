@@ -4,6 +4,8 @@ import com.teamdev.jxmaps.*;
 
 /**
  * Hilfsmethoden fuer die Google Maps Klassen
+ *
+ * @author  Reto Kaufmann
  */
 public class MapHelper {
 

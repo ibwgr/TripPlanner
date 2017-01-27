@@ -27,14 +27,43 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
   <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Komponenten.jpg" width="800" height="600"/>
 </p>
 
-<b>Screeshot</b>
+<b>Instsallationsanleitung</b>
+<br/>1. IntelliJ "New - Project from version control" (git clone https://github.com/ibwgr/TripPlanner)
+<br/>2. Postgres DB: Create Database
+<br/>3. Postgres DB: das db_script.sql file auf der neuen Datenbank starten (/resources/db_script.sql)
+<br/>4. Property File mit den Datenbank-Credentials anpassen: /resources/db.properties
+<br/>5. IntelliJ start Klasse: /src/main/java/Start.java
+
+
+<b>Betriebsanleitung Admin Funktionen</b>
+<br/>1. Login als "admin" (PW="admin")
+<br/>2. Importieren der Kategorien-Datei: /resources/poi_categories.csv
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_Import_Category.png" width="400" height="300"/>
+<br/>3. Importieren der POI (Point of Interests) Dateien, z.B.: /resources/sweden-latest.csv und switzerland-latest.csv usw.
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_Import_Poi.png" width="400" height="300"/>
+
+<b>Betriebsanleitung Benutzer Funktionen</b>
+<br/>1. Login als "benutzer" (PW="benutzer")
+<br/>2. Neue Reise erfassen
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_TripView.png" />
+<br/>3. Neue Aktivität zur Reise erfassen
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_ActivityView.png" />
+<br/>4. Ort suchen
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_CitySearch.png" />
+<br/>5. POI zum Ort suchen
+<br/><img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_PointOfInterestSearch.png" />
+
+
+<p>&nbsp;</p>
+<b>Demo / Screeshot</b>
 
 Aktivitätenliste mit Google Map Ansicht
 
 <p align="left">
-  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot2.jpg" width="800" height="600"/>
+  <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot2.jpg" /><br/>
 </p>
 
+<p>&nbsp;</p>
 <b>Lizenz</b>
 
 Lizenziert unter der GNU Lesser General Public License, siehe <a href="https://github.com/ibwgr/TripPlanner/blob/master/COPYRIGHT.txt">COPYRIGHT.txt</a> und <a href="https://github.com/ibwgr/TripPlanner/blob/master/COPYING.LESSER.GNU-LPGL.txt">COPYING.LESSER.GNU-LPGL.txt</a> </br>

@@ -3,6 +3,7 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
+import model.common.DatabaseProxy;
 import model.common.Poi;
 import model.common.PoiCategory;
 import org.jdesktop.swingx.JXDatePicker;
@@ -16,6 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+/**
+ * Mit dieser View können Orte (Cities) gesucht und einem Trip hinzugefügt werden.
+ *
+ * @author  Dieter Biedermann
+ */
 public class CitySearchView extends JPanel implements SearchView {
 
     MainController mainController;
@@ -29,13 +35,13 @@ public class CitySearchView extends JPanel implements SearchView {
 
     public CitySearchView(MainController mainController) {
         this.mainController = mainController;
-        searchController = new SearchController(this, mainController);
+        searchController = new SearchController(this, mainController, new DatabaseProxy());
 
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
         FormPanel formPanel1 = new FormPanel(100,16);
-        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(searchText = new JTextField(20));
         formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_city", searchController));
         formPanel1.addPanelWithLabel("City name:", true);
 
@@ -71,8 +77,7 @@ public class CitySearchView extends JPanel implements SearchView {
         formPanel2.addComponentToPanel(datePicker = new JXDatePicker());
         formPanel2.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5,30);
-        formPanel2.addComponentToPanel(new JScrollPane(commentText));
+        formPanel2.addComponentToPanel(new JScrollPane(commentText = formPanel2.createTextArea("", 5, 30, true)));
         formPanel2.addPanelWithLabel("Comment:", true);
 
         formPanel2.addComponentToPanel(formPanel2.createButton("Add Activity", "add_activity", searchController));

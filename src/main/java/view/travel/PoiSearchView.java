@@ -3,6 +3,7 @@ package view.travel;
 import com.teamdev.jxmaps.MapViewOptions;
 import controller.common.MainController;
 import controller.travel.SearchController;
+import model.common.DatabaseProxy;
 import model.common.Pair;
 import model.common.Poi;
 import model.common.PoiCategory;
@@ -18,6 +19,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
+/**
+ * Mit dieser View können Point of interest gesucht und einem Trip hinzugefügt werden.
+ *
+ * @author  Dieter Biedermann
+ */
 public class PoiSearchView extends JPanel implements SearchView {
 
     MainController mainController;
@@ -35,23 +41,17 @@ public class PoiSearchView extends JPanel implements SearchView {
     public PoiSearchView(MainController mainController, Poi city) {
         this.mainController = mainController;
         this.city = city;
-        searchController = new SearchController(this, mainController);
+        searchController = new SearchController(this, mainController, new DatabaseProxy());
 
         this.setLayout(new BorderLayout());
 
         // NORTH: Search criteria
         FormPanel formPanel1 = new FormPanel(250, 16);
-/*
-        formPanel1.addComponentToPanel(new JLabel(city.getName()));
-        formPanel1.addPanelWithLabel("City:", true);
-*/
 
         Double[] radiusList = {1d,5d,10d,15d};
         formPanel1.addComponentToPanel(radiusCombo = new JComboBox<Double>());
         radiusCombo.setModel(new DefaultComboBoxModel<>(radiusList));
-        formPanel1.addPanelWithLabel("City: " + city.getName() + "  /  Radius in km:", true);
-
-//        formPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<PoiCategory>());
+        formPanel1.addPanelWithLabel("City: " + city.getShortName() + "  /  Radius in km:", true);
 
         formPanel1.addComponentToPanel(poiCategoryCombo = new JComboBox<Pair<String, PoiCategory>>());
         // Problem auf Windows (Offenbar nicht auf MacBook)
@@ -62,7 +62,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         poiCategoryCombo.setModel(new ListComboBoxModel<>(PoiCategory.getAllPoiCategoriesForComboBox()));
         formPanel1.addPanelWithLabel("Poi category:", true);
 
-        formPanel1.addComponentToPanel(searchText = new JTextField(10));
+        formPanel1.addComponentToPanel(searchText = new JTextField(20));
         formPanel1.addComponentToPanel(formPanel1.createButton("Search", "search_poi", searchController));
         formPanel1.addPanelWithLabel("or Poi name:", true);
 
@@ -98,8 +98,7 @@ public class PoiSearchView extends JPanel implements SearchView {
         formPanel2.addComponentToPanel(datePicker = new JXDatePicker());
         formPanel2.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5, 30);
-        formPanel2.addComponentToPanel(new JScrollPane(commentText));
+        formPanel2.addComponentToPanel(new JScrollPane(commentText = formPanel2.createTextArea("", 5, 30, true)));
         formPanel2.addPanelWithLabel("Comment:", true);
 
         formPanel2.addComponentToPanel(formPanel2.createButton("Add Activity", "add_activity", searchController));

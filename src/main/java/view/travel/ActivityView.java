@@ -99,7 +99,6 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "new_activity", activityController));
 //        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Show Map View", "show_map", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("Export to PDF", "export_pdf", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));
@@ -107,8 +106,7 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(datePicker = new JXDatePicker());
         buttonPanel.addPanelWithLabel("Date:", true);
 
-        commentText = new JTextArea(5,30);
-        buttonPanel.addComponentToPanel(new JScrollPane(commentText));
+        buttonPanel.addComponentToPanel(new JScrollPane(commentText = buttonPanel.createTextArea("", 5, 30, true)));
         buttonPanel.addPanelWithLabel("Comment:", true);
 
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Update", "update_activity", activityController));

@@ -1,6 +1,7 @@
 package controller.travel;
 
 import controller.common.MainController;
+import model.common.DatabaseProxy;
 import model.common.Geo;
 import model.common.Poi;
 import model.travel.Activity;
@@ -24,10 +25,12 @@ public class SearchController implements ActionListener {
 
     SearchView searchView;
     MainController mainController;
+    DatabaseProxy databaseProxy;
 
-    public SearchController(SearchView searchView, MainController mainController) {
+    public SearchController(SearchView searchView, MainController mainController, DatabaseProxy databaseProxy) {
         this.searchView = searchView;
         this.mainController = mainController;
+        this.databaseProxy = databaseProxy;
     }
 
     public void searchCity() {
@@ -35,10 +38,14 @@ public class SearchController implements ActionListener {
             mainController.showErrorMessage("Search text is too short. Minimum length is 3 characters.");
             return;
         }
-        searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText()));
+        searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText(), databaseProxy));
     }
 
     public void searchPoi() {
+        if (searchView.getCity() == null) {
+            mainController.showErrorMessage("City is mandatory to search for a poi.");
+            return;
+        }
         // Geo Umkreissuche
         double[] boundingBox = Geo.getBoundingBox(searchView.getCity().getLatitudeDouble()
                 ,searchView.getCity().getLongitudeDouble()
@@ -61,13 +68,14 @@ public class SearchController implements ActionListener {
         }
     }
 
-    private void addActivity() {
+    public void addActivity() {
 
         if (searchView.getPoi() == null
                 || searchView.getDate() == null
+                || searchView.getComment() == null
                 || searchView.getComment().isEmpty()
                 ) {
-            mainController.showErrorMessage("City/Point of interest, Date or Comment is missing");
+            mainController.showErrorMessage("City/Point of interest, Date or Comment is missing.");
             return;
         }
 
