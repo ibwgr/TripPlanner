@@ -71,6 +71,7 @@ public class ActivityTest {
     public void integrationsTestSearchByTripWithRealDbAccessReturnsActivityList() throws Exception {
         ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
+        System.out.println(activityList.size());
         Assert.assertEquals(realerTripIdausDb.getCountActivities(), activityList.size());
     }
 
@@ -85,7 +86,6 @@ public class ActivityTest {
     // INTEGRATIONSTEST
     @Test
     public void integrationsTestUpdateDatePlusOneDayReturnsActivityWithDatePlus1() throws Exception {
-        User user = getTestUser();
         ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
         for (Activity activity: activityList) {
@@ -99,7 +99,6 @@ public class ActivityTest {
     // INTEGRATIONSTEST
     @Test
     public void integrationsTestUpdateDateMinusOneDayReturnsActivityWithDateMinus1() throws Exception {
-        User user = getTestUser();
         ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
         for (Activity activity: activityList) {
