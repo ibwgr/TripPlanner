@@ -1,6 +1,5 @@
 package view.common;
 
-import apple.laf.JRSUIConstants;
 import controller.common.MainController;
 import model.common.Pair;
 import model.common.ViewInfo;
