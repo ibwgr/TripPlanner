@@ -23,12 +23,10 @@ import java.util.ArrayList;
  *
  * Stellt Methoden zum Hinzufügen/Entfernen von Content-Views zur Verfügung.
  *
- * @author  Reto Kaufmann
  * @author  Dieter Biedermann
+ * @author  Reto Kaufmann
  */
 public class TripPlannerMain extends JFrame {
-
-    // TODO Frage: Sollen wir am Anfang nicht gleich auf Fullsize wechseln?
 
     private JLabel titleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
     private JPanel errorPanel, headerPanel, subHeaderPanel;
@@ -258,15 +256,6 @@ public class TripPlannerMain extends JFrame {
             jJMenuBar = new JMenuBar();
             jJMenuBar.add(getLoginMenu());
             jJMenuBar.add(getHelpMenu());
-//            jJMenuBar.add(getTestMenu());
-            //jJMenuBar.add(getLoggedInInformationText());
-//            JMenuItem menuItem = new JMenuItem();
-//            JPanel panelLabel = new JPanel();
-//            JLabel lblSomeText = new JLabel("-- no user --");
-//            lblSomeText.setFont(menuItem.getFont());
-//            lblSomeText.setForeground(menuItem.getForeground());
-//            panelLabel.add(lblSomeText);
-//            jJMenuBar.add(panelLabel);
         }
         return jJMenuBar;
     }
@@ -402,6 +391,7 @@ public class TripPlannerMain extends JFrame {
                 // If Nimbus is not available, set the GUI to the default look and feel.
                 // Set cross-platform Java Look and Feel (also called "Metal")
                 // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                // ==> NEIN, einfach den System-Standard verwenden
             }
         }
     }

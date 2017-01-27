@@ -21,6 +21,7 @@ import view.common.FormPanel;
 /**
  * Diese View zeigt die Activity-Liste (inkl. POI) der aktuellen Reise auf
  * Zudem wird die Activity-Liste daneben in Google Maps dargestellt
+ * Neue Activities koennen erfasst werde
  *
  * @author  Reto Kaufmann
  * @author  Dieter Biedermann

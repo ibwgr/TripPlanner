@@ -10,6 +10,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Diese Klasse behandelt Trip (Reisen) Daten aus der Tabelle TP_TRIPS.
+ *
+ * Zur Suche von Trips stehen folgende statischen Methoden zur Verfügung:
+ * - searchById    (einzelne Reise, aber zwingend auch im Kontext des gesetzten Users)
+ * - searchByUser  (somit alle Reisen des Users)
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Trip {
 
   // Instanzvariablen Transfer-Object
