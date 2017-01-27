@@ -33,6 +33,7 @@ public class TripTest {
         ArrayList<Trip> tripList = Trip.searchByUser(user);
         if (tripList.size() > 0) {
             realerTripIdausDb = tripList.get(1).getId();
+            System.out.println("*** Test Trip ID : " +realerTripIdausDb);
         }
     }
 
@@ -74,31 +75,22 @@ public class TripTest {
         return testUser;
     }
 
-
-//    // TEST MACHT VOELLIG KEINEN SINN! MUESSTE JA ALLES MOCKEN, KEINERLEI TEST!
-//    @Category({ UnitTest.class })
-//    @Test
-//    public void fakeTestSearchByUserReturnsFakeTripList() throws Exception {
-//        User user = getTestUser();
-//        ArrayList<Trip> tripList = Mockito.mock(Trip.class).searchByUser(user);
-//        ...
-//    }
-
+    //-------------------------------------------------------------------------------
+    // Integrationstests
+    //-------------------------------------------------------------------------------
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSearchByUserWithRealDbAccessReturnsTripList() throws Exception {
         User user = getTestUser();
         ArrayList<Trip> tripList = Trip.searchByUser(user);
-        // aus DB gelesener Wert vergleichen, aber wie wissen ja nicht genau
-        // wieviele es sind!
-        //Assert.assertEquals(3, tripList.size());
+        // aus DB gelesener Wert vergleichen, aber wie wissen ja nicht genau wieviele es sind!
+        // Assert.assertEquals(3, tripList.size());
         if (tripList.size() > 1) {
             Assert.assertTrue(true);
         } else {
             Assert.assertTrue(false);
         }
-
     }
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
