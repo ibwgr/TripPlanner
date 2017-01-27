@@ -47,17 +47,17 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_TripView.png" width="800" height="450" />
 3. Mittels Doppelklick auf die Reise wird man zur Aktivitätsliste weitergeleitet, diese ist noch leer
 4. Neue Aktivität zur Reise erfassen mittels "New Activity"
-<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_ActivityView.png" width="800" height="450" />
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_ActivityView.png" width="800" height="545" />
 5. Man wird zur Ort Suche weitergeleitet
 6. Ort suchen durch eingabe eines Ortnamens (oder Teile davon) im Feld "City Name" und Search
-<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_CitySearch.png" width="800" height="450" />
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_CitySearch.png" width="800" height="545" />
 7. Nun einen der aufgefundenen Ortschaften anklicken (auswählen)
 8. Jetzt kann man entweder mit "Add Activity" diesen Ort alleine zur Aktivitätsliste hinzufüen
   ODER man klickt auf "Search POI near city" um nach Interessantem in der Gegend um den Ort zu suchen.
 9. In diesem Fall wird man wird zur POI Suche weitergeleitet
 10. Nun entweder nach POI Kategorie suchen (Dropdown) ODER nach POI Name wie z.B. "Hotel"
 11. Aus der Liste der aufgefundenen POI einen auswählen, unten Datum und Kommentar eingeben und speichern.
-<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_PointOfInterestSearch.png" width="800" height="450" />
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_PointOfInterestSearch.png" width="800" height="545" />
 Grundsätzlich kann man sich mit den Pfeiltasten oder dem X innerhalb der Fenster navigieren.
 
 <p>&nbsp;</p>
