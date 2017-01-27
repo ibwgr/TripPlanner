@@ -9,6 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Diese Klasse behandelt Activities Daten aus der Tabelle TP_ACTIVITY.
+ *
+ * Zur Suche von Activities stehen folgende statischen Methoden zur Verfügung:
+ * - searchById    (einzelne Activity)
+ * - searchByTrip  (alle Activities einer Reise)
+ * beide dieser Suchoperationen koennen nur im Kontext eines gesetzten Users stattfinden
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Activity {
 
     private Long id;
@@ -77,8 +88,6 @@ public class Activity {
                 }
             }
 
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -100,8 +109,6 @@ public class Activity {
             System.out.println("delete Activity query: " + preparedStatement.toString());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -147,7 +154,9 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -195,12 +204,16 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("DB [activity] ID : " +activity.getId());
+        if (activity != null) {
+            System.out.println("DB [activity] ID : " + activity.getId());
+        }
         return activity;
     }
 
@@ -271,8 +284,6 @@ public class Activity {
             //
             this.setDate(Util.addDays(this.getDate(),days));
             //
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }

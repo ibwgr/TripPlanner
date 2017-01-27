@@ -140,6 +140,11 @@ public class MainController implements ActionListener {
         }
     }
 
+    /**
+     * Öffnet die View i aus der viewList
+     * - Wenn notwendig wird die View neu geladen (neu instanziert)
+     * - Die Navigationsbutton werden disabled/enabled
+     */
     private void openView(int i) {
         ViewInfo viewInfo = viewList.get(i - 1);
         String title = viewInfo.getTitle();
@@ -180,9 +185,17 @@ public class MainController implements ActionListener {
         tripPlannerMain.setViewListComboBoxSelectedIndex(currentViewNo);
     }
 
+    /**
+     * Alle Views auf NULL setzen und alle Einträge in der viewList löschen
+     */
     public void clearViewList() {
         viewList.clear();
         currentViewNo = viewList.size();
+        tripView = null;
+        activityView = null;
+        citySearchView = null;
+        poiSearchView = null;
+        bigMapView = null;
     }
 
     public void closeCurrentView() {

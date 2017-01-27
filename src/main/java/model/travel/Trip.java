@@ -10,6 +10,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Diese Klasse behandelt Trip (Reisen) Daten aus der Tabelle TP_TRIPS.
+ *
+ * Zur Suche von Trips stehen folgende statischen Methoden zur Verfügung:
+ * - searchById    (einzelne Reise, aber zwingend auch im Kontext des gesetzten Users)
+ * - searchByUser  (somit alle Reisen des Users)
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Trip {
 
   // Instanzvariablen Transfer-Object
@@ -43,7 +53,7 @@ public class Trip {
     this.id = id;
     this.user = user;
     this.name = name;
-  };
+  }
 
   // Getter/Setter Instanz-Methoden
   public Long getId() {
@@ -135,7 +145,9 @@ public class Trip {
     } finally {
       // close anyway
       try {
-        resultset.close();
+        if (resultset != null) {
+          resultset.close();
+        }
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -183,7 +195,9 @@ public class Trip {
     } finally {
       // close anyway
       try {
-        resultset.close();
+        if (resultset != null) {
+          resultset.close();
+        }
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -229,8 +243,6 @@ public class Trip {
         }
       }
 
-    } catch (SQLException e) {
-      throw e;
     } finally {
       databaseProxy.close();
     }
@@ -249,8 +261,6 @@ public class Trip {
     System.out.println("Delete Trip query: " + preparedStatement.toString());
     try {
       preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      throw e;
     } finally {
       databaseProxy.close();
     }

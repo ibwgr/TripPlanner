@@ -15,14 +15,18 @@ import java.util.ArrayList;
 /**
  * Haupt-View für die Applikation
  *
+ * Die View wird in die folgenden Bereiche aufgeteilt:
+ * - Header Panel: Enthällt den Titel, User und Navigations-Componenten
+ * - Subheader Panel: kann einen Text anzeigen unterhalb des Headers anzeigen
+ * - Error Panel: Zeigt eine Fehlermeldung mit einem Schliessen-Button an
+ * - Content Panel: Zeigt den Content an
+ *
  * Stellt Methoden zum Hinzufügen/Entfernen von Content-Views zur Verfügung.
  *
- * @author  Reto Kaufmann
  * @author  Dieter Biedermann
+ * @author  Reto Kaufmann
  */
 public class TripPlannerMain extends JFrame {
-
-    // TODO Frage: Sollen wir am Anfang nicht gleich auf Fullsize wechseln?
 
     private JLabel titleLabel, usernameLabel, errorMessageLabel, subTitleLabel;
     private JPanel errorPanel, headerPanel, subHeaderPanel;
@@ -32,18 +36,12 @@ public class TripPlannerMain extends JFrame {
     private MainController mainController;
     private ArrayList<Component> componentList = new ArrayList<>();
     private JComboBox<Pair<String, Component>> viewListComboBox;
-    private ComboBoxModel<Pair<String, Component>> viewListComboBoxModel;
     private JPanel contentPanel;
     private JMenuBar jJMenuBar = null;
     private JMenu loginMenu = null, helpMenu = null, testMenu = null;
     private JMenuItem loginMenuItem = null, exitMenuItem = null, aboutMenuItem = null, citySearchMenuItem = null;
 
     private Color headerColor = Color.decode("#96BFE1");
-
-    public static void main(String[] args) {
-        TripPlannerMain tripPlannerMain = new TripPlannerMain(1,1);
-        tripPlannerMain.setVisible(true);
-    }
 
     public TripPlannerMain(int rows, int cols) {
         setLookAndFeel();
@@ -75,7 +73,7 @@ public class TripPlannerMain extends JFrame {
         headerPanel.setSize(new Dimension(300, 60));
 
         // 1. Feld: Applikationsnamen
-        titleLabel = new JLabel("TripPlanner");
+        titleLabel = new JLabel(" TripPlanner");
         titleLabel.setFont(new Font("TimesRoman", Font.PLAIN, 24));
         headerPanel.add(titleLabel);
 
@@ -258,15 +256,6 @@ public class TripPlannerMain extends JFrame {
             jJMenuBar = new JMenuBar();
             jJMenuBar.add(getLoginMenu());
             jJMenuBar.add(getHelpMenu());
-//            jJMenuBar.add(getTestMenu());
-            //jJMenuBar.add(getLoggedInInformationText());
-//            JMenuItem menuItem = new JMenuItem();
-//            JPanel panelLabel = new JPanel();
-//            JLabel lblSomeText = new JLabel("-- no user --");
-//            lblSomeText.setFont(menuItem.getFont());
-//            lblSomeText.setForeground(menuItem.getForeground());
-//            panelLabel.add(lblSomeText);
-//            jJMenuBar.add(panelLabel);
         }
         return jJMenuBar;
     }
@@ -317,11 +306,16 @@ public class TripPlannerMain extends JFrame {
                 {
                     JFrame f = new JFrame();
                     f.setVisible(false);
-                    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     JDialog d = new JDialog(f,true);
-                    d.getContentPane().add(new JLabel("TripPlanner System V1.0",JLabel.CENTER));
+                    JTextArea aboutText = new JTextArea("TripPlanner System V1.0\n\n" +
+                            "Semesterarbeit\n" +
+                            "NDS HF Applikationsentwicklung, IBW Chur 2017/01\n\n" +
+                            "Reto Kaufmann / Dieter Biedermann");
+                    aboutText.setEnabled(false);
+                    d.getContentPane().add(aboutText);
                     d.setTitle("About");
-                    d.setSize(350,100);
+                    d.setSize(400,130);
                     d.setLocation(300,180);
                     d.setVisible(true);
                     d.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -397,6 +391,7 @@ public class TripPlannerMain extends JFrame {
                 // If Nimbus is not available, set the GUI to the default look and feel.
                 // Set cross-platform Java Look and Feel (also called "Metal")
                 // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+                // ==> NEIN, einfach den System-Standard verwenden
             }
         }
     }

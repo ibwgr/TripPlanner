@@ -34,8 +34,7 @@ public class Poi {
         this.latitude = latitude;
     }
 
-    public static ArrayList<Poi> searchCityByName(String name) {
-        DatabaseProxy databaseProxy = new DatabaseProxy();
+    public static ArrayList<Poi> searchCityByName(String name, DatabaseProxy databaseProxy) {
         ArrayList<Poi> poiList = new ArrayList<>();
         String query = "select id, name, category_id, longitude, latitude from poi "
                         + "where category_id in ('66','69','70') and lower(name) like lower(?)";
@@ -250,5 +249,10 @@ public class Poi {
     @Override
     public String toString() {
         return name + " (" + poiCategory + ")";
+    }
+
+    public String getShortName() {
+        int maxLength = 16;
+        return name.substring(0,name.length() < maxLength ? name.length() : maxLength);
     }
 }

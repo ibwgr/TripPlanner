@@ -5,11 +5,9 @@ import model.common.DatabaseProxy;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.*;
 
 /**
  * Controller Class für AdminView
@@ -37,6 +35,23 @@ public class AdminController implements ActionListener {
         file = adminView.getFile();
         if (file != null) {
             adminView.setFileName(file.getName());
+            try {
+                StringBuilder sb = new StringBuilder();
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                for (int i = 0; i < 5 || i < br.lines().count(); i++) {
+                    String line = br.readLine();
+                    if (line != null) {
+                        sb.append(br.readLine());
+                        sb.append("\n");
+                    }
+                }
+                sb.deleteCharAt(sb.length()-1);
+                adminView.setFilePreview(String.valueOf(sb));
+            } catch (FileNotFoundException e) {
+                mainController.showErrorMessage("File not found: " + e.getMessage());
+            } catch (IOException e) {
+                mainController.showErrorMessage("File reading error: " + e.getMessage());
+            }
         }
     }
 

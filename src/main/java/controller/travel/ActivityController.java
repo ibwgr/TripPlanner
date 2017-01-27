@@ -16,7 +16,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * Controller Class fuer ActivityView
  *
+ * Diese Klasse steuert alle Aktionen
+ * Bindeglied zwischen ActivityView und Activity Model
+ *
+ * @author  Dieter Biedermann
+ * @author  Reto Kaufmann
  */
 public class ActivityController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
@@ -61,7 +67,7 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
             case "show_map":
                 executeActionShowMap();
                 break;
-            case "newActivty":
+            case "new_activity":
                 executeActionNewActivty();
                 break;
             case "update_activity":
@@ -179,17 +185,12 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
     //----------------------------------------------------
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println("Maus gecklickt!");
+        System.out.println("Maus Klick, wird momentan nicht benuezt...");
 
         if(mouseEvent.getClickCount()==2){
-            System.out.println("Maus Doppelklick!");
-            // doppelklick ist dasselbe wie wenn man auf den Detail Button druecken wuerde!
-            //executeActionDetail();
+            System.out.println("Maus Doppelklick, wird momentan nicht benuezt...");
         }
     }
 
-//    public Object getFullTripActivityPath() {
-//        ArrayList<Activity> getActivityList();
-//        return null;
-//    }
+
 }

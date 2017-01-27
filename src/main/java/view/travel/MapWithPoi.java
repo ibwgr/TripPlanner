@@ -7,6 +7,12 @@ import model.common.Poi;
 
 import java.util.ArrayList;
 
+/**
+ * Map nur mit Markern
+ *
+ * @author  Dieter Biedermann
+ * @author  Reto Kaufmann
+ */
 public class MapWithPoi extends MapView {
 
     SearchView searchView;
@@ -28,7 +34,13 @@ public class MapWithPoi extends MapView {
                 if (status == MapStatus.MAP_STATUS_OK) {
                     map = getMap();
                     map.setZoom(10.0);
-                    map.setCenter(new LatLng(46.8555150,9.5254066));
+                    if (searchView.getCity() != null) {
+                        // zentrieren auf aktuell ausgewaehltem Ort
+                        map.setCenter(new LatLng(searchView.getCity().getLatitudeDouble(), searchView.getCity().getLongitudeDouble()));
+                    } else {
+                        // default Chur
+                        map.setCenter(new LatLng(46.8555150, 9.5254066));
+                    }
                     // unbenoetigte optische Google Map Elemente entfernen
                     MapHelper.removeGoogleMapElements(map);
                 }

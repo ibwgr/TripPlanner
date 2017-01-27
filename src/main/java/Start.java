@@ -1,9 +1,10 @@
-import org.apache.commons.lang3.SystemUtils;
 import view.common.TripPlannerMain;
 
-import javax.swing.*;
-import javax.swing.UIManager.*;
-
+/**
+ * Mit dieser Klasse wird die TripPlanner Applikation gestartet.
+ *
+ * @author  Reto Kaufmann
+ */
 public class Start {
     public static void main(String[] args) {
         // START TRIPPLANNER
