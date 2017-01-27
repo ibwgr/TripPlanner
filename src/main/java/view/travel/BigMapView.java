@@ -6,6 +6,12 @@ import controller.common.MainController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Diese View zeigt dieGesamtreise im Grossformat als Google Maps dar.
+ * (Es wird keine Liste angezeigt)
+ *
+  * @author  Dieter Biedermann
+ */
 public class BigMapView extends JPanel {
 
     MainController mainController;
