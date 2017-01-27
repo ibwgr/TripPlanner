@@ -80,7 +80,7 @@ public class MainController implements ActionListener {
                 break;
             case "close_view":
                 /*
-                 * eine View nach vorne
+                 * View schliessen
                  */
                 closeCurrentView();
                 break;
