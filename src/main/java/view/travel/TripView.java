@@ -6,7 +6,6 @@ import model.travel.Trip;
 import view.common.FormPanel;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Diese Klasse zeigt alle Trips des Users an
+ * Neue Trips koennen erfasst werden
  *
  * @author  Reto Kaufmann
  */

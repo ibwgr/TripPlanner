@@ -21,6 +21,7 @@ import view.common.FormPanel;
 /**
  * Diese View zeigt die Activity-Liste (inkl. POI) der aktuellen Reise auf
  * Zudem wird die Activity-Liste daneben in Google Maps dargestellt
+ * Neue Activities koennen erfasst werde
  *
  * @author  Reto Kaufmann
  * @author  Dieter Biedermann
@@ -99,7 +100,6 @@ public class ActivityView extends JPanel {
         buttonPanel.addComponentToPanel(buttonPanel.createButton("New Activity", "new_activity", activityController));
 //        buttonPanel.addComponentToPanel(buttonPanel.createLabel(""));
         buttonPanel.addComponentToPanel(buttonPanel.createButton("Show Map View", "show_map", activityController));
-        buttonPanel.addComponentToPanel(buttonPanel.createButton("Export to PDF", "export_pdf", activityController));
         buttonPanel.addPanel(true);
 
         buttonPanel.addComponentDirect(new JLabel(""));

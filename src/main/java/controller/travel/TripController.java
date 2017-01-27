@@ -13,11 +13,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Created by user on 08.01.2017.
+ * Controller Class fuer TripVew
+ *
+ * Diese Klasse steuert alle Aktionen
+ * Bindeglied zwischen TripView und Trip Model
+ *
+ * @author  Dieter Biedermann
+ * @author  Reto Kaufmann
  */
 public class TripController extends MouseAdapter implements ActionListener, ListSelectionListener {
 
-    DatabaseProxy databaseProxy = new DatabaseProxy();
     TripView tripView;
     MainController mainController;
 
@@ -135,14 +140,10 @@ public class TripController extends MouseAdapter implements ActionListener, List
     //----------------------------------------------------
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println("Maus gecklickt!");
         if(mouseEvent.getClickCount()==2){
-            System.out.println("Maus Doppelklick!");
             // doppelklick ist dasselbe wie wenn man auf den Detail Button druecken wuerde!
             executeActionDetail();
         }
     }
-
-
 
 }

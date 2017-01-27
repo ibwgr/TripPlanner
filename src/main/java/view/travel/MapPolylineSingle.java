@@ -5,7 +5,6 @@ import com.teamdev.jxmaps.swing.MapView;
 import controller.common.MainController;
 import model.common.Pair;
 import model.travel.Activity;
-import sun.applet.Main;
 
 import java.util.ArrayList;
 
@@ -13,6 +12,7 @@ import java.util.ArrayList;
  * Map mit Verbindungslinien zwischen den Markern
  * ohne Synchronisation auf Tabelle
  *
+ * @author  Dieter Biedermann
  * @author  Reto Kaufmann
  */
 public class MapPolylineSingle extends MapView {
@@ -34,7 +34,7 @@ public class MapPolylineSingle extends MapView {
             public void onMapReady(MapStatus status) {
                 if (status == MapStatus.MAP_STATUS_OK) {
                     map = getMap();
-                    map.setZoom(10.0);
+                    map.setZoom(8.0);
                     map.setCenter(new LatLng(46.8555150,9.5254066));
                     setMarkerList(Activity.searchByTrip(mainController.getTrip()));
                     // unbenoetigte optische Google Map Elemente entfernen
@@ -101,7 +101,9 @@ public class MapPolylineSingle extends MapView {
     public void setWindow(Activity activity) {
         if (activity != null) {
             InfoWindow window = new InfoWindow(map);
-            window.setContent("<b>" + activity.getCity() +": " +activity.getPoi().getName() + "</b><p>" + activity.getComment() + "</p>");
+            window.setContent("<b>" + activity.getCity() +": " +activity.getPoi().getName() +
+                    "</b><br>" + activity.getDate() +
+                    "<p>" + activity.getComment() + "</p>");
 
             // falls Fenster bereits offen ist, schliessen
             for (InfoWindow window2 : windowList) {

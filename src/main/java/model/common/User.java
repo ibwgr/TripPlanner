@@ -6,9 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * Diese Klasse behandelt User Daten aus der Tabelle TP_USER.
  *
+ * Ueber die login() Methode kann sich ein User einloggen. Dabei wird mittels
+ * searchByCredentials() geprueft ob sich der Benutzer in der User Tabelle
+ * befindet und UserID/Passwort stimmt
  *
  * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
  */
 public class User {
 
@@ -16,7 +21,7 @@ public class User {
   private Long id;
   private String username;
   private String password;
-  private String email;  // todo email soll als hashwert abgelegt sein
+  private String email;
   private String name;
   private Long type;
 
@@ -39,7 +44,7 @@ public class User {
     setType(type);
   }
   public User(){
-  };
+  }
 
   // Methoden
   public Long getId() {
@@ -137,15 +142,7 @@ public class User {
     }
   }
 
-  public String getLoginInformation() {
-    return "x";
-  }
-
   // DB Methoden
-  public ArrayList<User> search()  {
-    return null;
-  }
-
 
   // Search by Credentials (Username AND Password)
   public User searchByCredentials() {
@@ -163,7 +160,8 @@ public class User {
     ResultSet resultSet = null;
     User user = null;
     try {
-      PreparedStatement preparedStatement = databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = ? ");
+      PreparedStatement preparedStatement =
+              databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = md5(?) ");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
       resultSet = preparedStatement.executeQuery();

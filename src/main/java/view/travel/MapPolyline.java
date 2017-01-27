@@ -27,6 +27,7 @@ import model.travel.Activity;
 /**
  * Map mit Verbindungslinien zwischen den Markern
  *
+ * @author  Dieter Biedermann
  * @author  Reto Kaufmann
  */
 public class MapPolyline extends MapView {

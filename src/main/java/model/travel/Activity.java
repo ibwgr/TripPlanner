@@ -9,6 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Diese Klasse behandelt Activities Daten aus der Tabelle TP_ACTIVITY.
+ *
+ * Zur Suche von Activities stehen folgende statischen Methoden zur Verfügung:
+ * - searchById    (einzelne Activity)
+ * - searchByTrip  (alle Activities einer Reise)
+ * beide dieser Suchoperationen koennen nur im Kontext eines gesetzten Users stattfinden
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Activity {
 
     private Long id;
@@ -53,7 +64,6 @@ public class Activity {
         }
         System.out.println("activity query: " +query);
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
         try {
             preparedStatement.setLong(1, trip.getId());
             preparedStatement.setString(2, poi.getId());
@@ -63,9 +73,7 @@ public class Activity {
             if (id != null) {
                 preparedStatement.setLong(6, id);
             }
-
             System.out.println("save Activity query: " + preparedStatement.toString());
-
             preparedStatement.executeUpdate();
             // falls INSERT, sind wir am Resultat (Primary Key: ID) interessiert
             ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -76,9 +84,6 @@ public class Activity {
                     this.setId((long) incrementId);
                 }
             }
-
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -91,17 +96,13 @@ public class Activity {
             throw new IllegalArgumentException("Cannot delete Activity (not yet saved)");
         }
         query = "delete from tp_activity where id = ?";
-
         PreparedStatement preparedStatement = databaseProxy.prepareStatement(query);
-
         try {
             preparedStatement.setLong(1, id);
 
             System.out.println("delete Activity query: " + preparedStatement.toString());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -120,8 +121,11 @@ public class Activity {
             preparedStatement = databaseProxy.prepareStatement(
                     "select trip_id, activity_id, date, comment, city, poi_id, longitude, latitude, poi_name, category_id, poi_category_name, longitude, latitude, category_id, poi_category_name\n" +
                             "from tp_trip_full_v " +
-                            "where trip_id = ? order by date asc");
+                            "where trip_id = ? " +
+                            "and activity_id is not null " +
+                            "order by date asc ");
             preparedStatement.setLong(1, trip.getId());
+            System.out.println("select activity query: " + preparedStatement.toString());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -147,7 +151,9 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -170,6 +176,7 @@ public class Activity {
                             "from tp_trip_full_v " +
                             "where activity_id = ? ");
             preparedStatement.setLong(1, currentActivityId);
+            System.out.println("select activity query: " + preparedStatement.toString());
             resultset = preparedStatement.executeQuery();
             while (resultset.next()){
                 System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -195,12 +202,16 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("DB [activity] ID : " +activity.getId());
+        if (activity != null) {
+            System.out.println("DB [activity] ID : " + activity.getId());
+        }
         return activity;
     }
 
@@ -271,8 +282,6 @@ public class Activity {
             //
             this.setDate(Util.addDays(this.getDate(),days));
             //
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
