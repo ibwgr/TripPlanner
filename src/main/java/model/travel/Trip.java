@@ -122,6 +122,7 @@ public class Trip {
               "where user_id = ? " +
               "order by trip_id desc");
       preparedStatement.setLong(1, user.getId());
+      System.out.println("select trip query: " + preparedStatement.toString());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -131,9 +132,6 @@ public class Trip {
         //System.out.println("DB, MAX DATE  : " +resultset.getDate("max_date"));
         // neues TRIP Objekt
         Trip trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
-        //trip.setId(resultset.getLong("trip_id"));
-        //trip.setName(resultset.getString("trip_name"));
-        //trip.setUser_id(1L);
         trip.setCountActivities(resultset.getInt("count_acitvities"));
         trip.setMinDate(resultset.getDate("min_date"));
         trip.setMaxDate(resultset.getDate("max_date"));
@@ -171,7 +169,7 @@ public class Trip {
                       "from tp_trip_aggr_v " +
                       "where trip_id = ? ");
       preparedStatement.setLong(1, id);
-      System.out.println("Query:"+preparedStatement.toString());
+      System.out.println("select trip query: " + preparedStatement.toString());
       resultset = preparedStatement.executeQuery();
       while (resultset.next()){
         System.out.println("DB, TRIP_ID   : " +resultset.getLong("trip_id"));
@@ -183,9 +181,6 @@ public class Trip {
         // neues TRIP Objekt
         User user = User.searchById(databaseProxy, resultset.getLong("user_id"));
         trip = new Trip(resultset.getLong("trip_id"), user, resultset.getString("trip_name"));
-        //trip.setId(resultset.getLong("trip_id"));
-        //trip.setName(resultset.getString("trip_name"));
-        //trip.setUser_id(1L);
         trip.setCountActivities(resultset.getInt("count_acitvities"));
         trip.setMinDate(resultset.getDate("min_date"));
         trip.setMaxDate(resultset.getDate("max_date"));
@@ -220,18 +215,14 @@ public class Trip {
       query = "update tp_trip set user_id = ?, name = ? "
               + "where id = ?";
     }
-
     PreparedStatement preparedStatement = databaseProxy.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
     try {
       preparedStatement.setLong(1, user.getId());
       preparedStatement.setString(2, this.name);
       if (id != null) {
         preparedStatement.setLong(3, id);
       }
-
       System.out.println("save Trip query: " + preparedStatement.toString());
-
       preparedStatement.executeUpdate();
       // falls INSERT, sind wir am Resultat (Primary Key: ID) interessiert
       ResultSet rs = preparedStatement.getGeneratedKeys();
@@ -242,7 +233,6 @@ public class Trip {
           this.setId((long) incrementId);
         }
       }
-
     } finally {
       databaseProxy.close();
     }
@@ -266,8 +256,4 @@ public class Trip {
     }
   }
 
-
-
 }
-
-

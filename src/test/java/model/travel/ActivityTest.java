@@ -4,9 +4,11 @@ import model.common.DatabaseProxy;
 import model.common.User;
 import model.common.Util;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,50 +17,76 @@ import java.util.Date;
  */
 public class ActivityTest {
 
-    // Helper / fake Object
-    private static User getFakeUser() {
-        DatabaseProxy databaseProxy = new DatabaseProxy();
-        User fakeUser = new User();
-        fakeUser.setUsername("benutzer");
-        fakeUser.setPassword("benutzer");
-        fakeUser.setId(1L);
-        return fakeUser;
+    private static Trip realerTripIdausDb;
+
+    // Es besteht das Problem dass  aufgrund der Integrationstests zwingend ein "echter"
+    // Trip ermittelt werden muss, der effektiv in der DB besteht, da sonst die Assertions fehlschlagen.
+    // Deswegen die BEFORE Annoation. Wir suchen uns den erstbesten Trip aus der DB und verwenden
+    // diesen fuer die weiteren Tests.
+    @Before
+    public void initializeTestCases() {
+        User user = getTestUser();
+        ArrayList<Trip> tripList = Trip.searchByUser(user);
+        if (tripList.size() > 0) {
+            this.realerTripIdausDb = tripList.get(1);
+            this.realerTripIdausDb.setName("Test Ferien");
+            System.out.println("*** Test Trip ID : " +realerTripIdausDb.getId());
+        }
     }
 
-    // Helper / Fake Object
-    private static Trip getFakeTrip(){
-        Trip fakeTrip = new Trip();
-        fakeTrip.setId(1L);
-        fakeTrip.setName("Fake Ferien");
-        fakeTrip.setUser(getFakeUser());
-        return fakeTrip;
+    // Helper / Test Object (ohne ID, deshalb auch nicht in DB existent)
+    private static Trip getNewTestTripWithoutId(){
+        Trip testTrip = new Trip();
+        testTrip.setName("Test Ferien "
+                +new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        testTrip.setUser(getTestUser());
+        return testTrip;
     }
+
+    // Helper / Test Object (bestehend in DB, siehe \TripPlanner\resources\db_script.sql)
+    private static ArrayList<Trip> getTestTripList() {
+        ArrayList<Trip> testTripList = new ArrayList<Trip>();
+        testTripList.add(realerTripIdausDb);
+        testTripList.add(realerTripIdausDb);
+        testTripList.add(realerTripIdausDb);
+        return  testTripList;
+    }
+
+    // Helper / Test Object (bestehend in DB, siehe \TripPlanner\resources\db_script.sql)
+    private static User getTestUser() {
+        DatabaseProxy databaseProxy = new DatabaseProxy();
+        User testUser = new User();
+        testUser.setUsername("benutzer");
+        testUser.setPassword("benutzer");
+        testUser.setId(1L); // fix!
+        return testUser;
+    }
+
+    //-------------------------------------------------------------------------------
+    // Integrationstests
+    //-------------------------------------------------------------------------------
 
     // INTEGRATIONSTEST
-    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByTripWithRealDbAccessReturnsActivityList() throws Exception {
-        User user = getFakeUser();
-        ArrayList<Activity> activityList = Activity.searchByTrip(getFakeTrip());
+        ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
-        Assert.assertEquals(3, activityList.size());
+        System.out.println(activityList.size());
+        Assert.assertEquals(realerTripIdausDb.getCountActivities(), activityList.size());
     }
 
     // INTEGRATIONSTEST
-    @Ignore  // TODO weil es die ID 1 in getFakeTrip() allenfalls gar nicht gibt!
     @Test
     public void integrationsTestSearchByIdWithRealDbAccessReturnsActivity() throws Exception {
-        User user = getFakeUser();
-        Activity activity = Activity.searchById(5L);
+        Activity activity = Activity.searchById(realerTripIdausDb.getId());
         // aus DB gelesener Wert!
-        Assert.assertEquals(new Long(5), activity.getId());
+        Assert.assertEquals(realerTripIdausDb.getId(), activity.getId());
     }
 
     // INTEGRATIONSTEST
     @Test
     public void integrationsTestUpdateDatePlusOneDayReturnsActivityWithDatePlus1() throws Exception {
-        User user = getFakeUser();
-        ArrayList<Activity> activityList = Activity.searchByTrip(getFakeTrip());
+        ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
         for (Activity activity: activityList) {
             Date dateBefore = activity.getDate();
@@ -71,8 +99,7 @@ public class ActivityTest {
     // INTEGRATIONSTEST
     @Test
     public void integrationsTestUpdateDateMinusOneDayReturnsActivityWithDateMinus1() throws Exception {
-        User user = getFakeUser();
-        ArrayList<Activity> activityList = Activity.searchByTrip(getFakeTrip());
+        ArrayList<Activity> activityList = Activity.searchByTrip(realerTripIdausDb);
         // aus DB gelesener Wert!
         for (Activity activity: activityList) {
             Date dateBefore = activity.getDate();
