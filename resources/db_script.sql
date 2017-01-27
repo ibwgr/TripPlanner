@@ -218,7 +218,7 @@ INSERT INTO tp_user (username,
                      name,
                      type)                   /* 1 = User, 2 = Administrator */
 VALUES ('benutzer',
-        'benutzer',
+        md5('benutzer'),
         'benutzer@example.com',
         'benutzer',
         1);
@@ -229,7 +229,7 @@ INSERT INTO tp_user (username,
                      name,
                      type)                   /* 1 = User, 2 = Administrator */
 VALUES ('admin',
-        'admin',
+        md5('admin'),
         'admin@example.com',
         'admin',
         2);
