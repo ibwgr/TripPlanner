@@ -5,8 +5,6 @@ import model.common.DatabaseProxy;
 import view.admin.AdminView;
 import view.admin.ProgressView;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;

@@ -39,7 +39,7 @@ public class User {
     setType(type);
   }
   public User(){
-  };
+  }
 
   // Methoden
   public Long getId() {
@@ -163,7 +163,7 @@ public class User {
     ResultSet resultSet = null;
     User user = null;
     try {
-      PreparedStatement preparedStatement = databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = ? ");
+      PreparedStatement preparedStatement = databaseProxy.prepareStatement("SELECT id, username, password, email, name, type FROM tp_user where username = ? and password = md5(?) ");
       preparedStatement.setString(1, username);
       preparedStatement.setString(2, password);
       resultSet = preparedStatement.executeQuery();

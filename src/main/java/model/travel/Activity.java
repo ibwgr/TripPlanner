@@ -77,8 +77,6 @@ public class Activity {
                 }
             }
 
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -100,8 +98,6 @@ public class Activity {
             System.out.println("delete Activity query: " + preparedStatement.toString());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }
@@ -147,7 +143,9 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -195,12 +193,16 @@ public class Activity {
         } finally {
             // close anyway
             try {
-                resultset.close();
+                if (resultset != null) {
+                    resultset.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("DB [activity] ID : " +activity.getId());
+        if (activity != null) {
+            System.out.println("DB [activity] ID : " + activity.getId());
+        }
         return activity;
     }
 
@@ -271,8 +273,6 @@ public class Activity {
             //
             this.setDate(Util.addDays(this.getDate(),days));
             //
-        } catch (SQLException e) {
-            throw e;
         } finally {
             databaseProxy.close();
         }

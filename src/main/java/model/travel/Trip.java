@@ -43,7 +43,7 @@ public class Trip {
     this.id = id;
     this.user = user;
     this.name = name;
-  };
+  }
 
   // Getter/Setter Instanz-Methoden
   public Long getId() {
@@ -135,7 +135,9 @@ public class Trip {
     } finally {
       // close anyway
       try {
-        resultset.close();
+        if (resultset != null) {
+          resultset.close();
+        }
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -183,7 +185,9 @@ public class Trip {
     } finally {
       // close anyway
       try {
-        resultset.close();
+        if (resultset != null) {
+          resultset.close();
+        }
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -229,8 +233,6 @@ public class Trip {
         }
       }
 
-    } catch (SQLException e) {
-      throw e;
     } finally {
       databaseProxy.close();
     }
@@ -249,8 +251,6 @@ public class Trip {
     System.out.println("Delete Trip query: " + preparedStatement.toString());
     try {
       preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-      throw e;
     } finally {
       databaseProxy.close();
     }
