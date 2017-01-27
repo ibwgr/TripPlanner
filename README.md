@@ -29,8 +29,8 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 
 ###Instsallationsanleitung
     1. IntelliJ "New - Project from version control" (git clone https://github.com/ibwgr/TripPlanner)
-    2. Postgres DB: Create Database
-    3. Postgres DB: das db_script.sql file auf der neuen Datenbank starten (/resources/db_script.sql)
+    2. Postgres DB: Neue Datenbank mit frei wählbarem Namen angeben (z.B. CREATE DATABASE trip_planner_db;)
+    3. Postgres DB: Das <b>db_script.sql file</b> auf der neuen Datenbank starten (/resources/db_script.sql)
     4. Property File mit dem Datenbank-Namen und den Datenbank-Credentials anpassen: /resources/db.properties
     5. IntelliJ start Klasse: /src/main/java/Start.java
 
