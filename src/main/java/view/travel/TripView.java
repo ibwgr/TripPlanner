@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 /**
  * Diese Klasse zeigt alle Trips des Users an
+ * Neue Trips koennen erfasst werden
  *
  * @author  Reto Kaufmann
  */

@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Map mit Verbindungslinien zwischen den Markern
  * ohne Synchronisation auf Tabelle
  *
+ * @author  Dieter Biedermann
  * @author  Reto Kaufmann
  */
 public class MapPolylineSingle extends MapView {

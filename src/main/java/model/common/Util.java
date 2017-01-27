@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
+ * Generelle Hilfsklasse fuer Unterstuetzungsmethoden
  *
  * @author  Reto Kaufmann
  */
@@ -15,7 +15,7 @@ public class Util {
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        cal.add(Calendar.DATE, days); //minus wuerde vermindern
         return cal.getTime();
     }
 }

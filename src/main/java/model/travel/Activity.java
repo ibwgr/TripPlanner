@@ -9,6 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Diese Klasse behandelt Activities Daten aus der Tabelle TP_ACTIVITY.
+ *
+ * Zur Suche von Activities stehen folgende statischen Methoden zur Verfügung:
+ * - searchById    (einzelne Activity)
+ * - searchByTrip  (alle Activities einer Reise)
+ * beide dieser Suchoperationen koennen nur im Kontext eines gesetzten Users stattfinden
+ *
+ * @author  Reto Kaufmann
+ * @author  Dieter Biedermann
+ */
 public class Activity {
 
     private Long id;
