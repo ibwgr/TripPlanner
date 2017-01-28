@@ -110,10 +110,11 @@ public class TripView extends JPanel {
 
         bottomButtonPanel.addComponentToPanel(newTripNameField = new JTextField(20));
         bottomButtonPanel.addPanelWithLabel("Trip Name / Label:", true);
+        newTripNameField.setActionCommand("saveNewTrip");
+        newTripNameField.addActionListener(tripController);
 
         bottomButtonPanel.addComponentToPanel(newTripSaveButton = bottomButtonPanel.createButton("Save", "saveNewTrip", tripController));
         bottomButtonPanel.addPanelWithLabel("",true);
-
 
     }
 
