@@ -27,10 +27,12 @@ public class ActivityTest {
     public void initializeTestCases() {
         User user = getTestUser();
         ArrayList<Trip> tripList = Trip.searchByUser(user);
-        if (tripList.size() > 0) {
-            this.realerTripIdausDb = tripList.get(1);
-            this.realerTripIdausDb.setName("Test Ferien");
-            System.out.println("*** Test Trip ID : " +realerTripIdausDb.getId());
+        for (Trip trip : tripList) {
+            if (trip.getCountActivities() > 0) {
+                this.realerTripIdausDb = trip;
+                this.realerTripIdausDb.setName("Test Ferien");
+                System.out.println("*** Test Trip ID : " + realerTripIdausDb.getId());
+            }
         }
     }
 
