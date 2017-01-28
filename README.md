@@ -29,11 +29,13 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 
 ###Installationsanleitung
     1. IntelliJ "New - Project from version control" (git clone https://github.com/ibwgr/TripPlanner)
-       Eventuell muss auf dem IntelliJ Projekt noch die Java SDK Version angegeben werden. 
+       - Non-managed pom.xml file found: Add as Maven Project
+       - Java SDK in auf Projekt setzten 
+       - Allfällig weitere notwendige IntelliJ Projekt-Einstellungen sind am Schluss dieses Dokuments beschrieben) 
     2. Postgres DB: Neue Datenbank mit frei wählbarem Namen anlegen (z.B. CREATE DATABASE trip_planner_db;)
     3. Postgres DB: Das db_script.sql file auf der neuen Datenbank ausführen (/resources/db_script.sql)
     4. Property File mit dem Datenbank-Namen und den Datenbank-Credentials anpassen: /resources/db.properties
-    5. IntelliJ start Klasse: /src/main/java/Start.java
+    5. In IntelliJ folgende Klasse starten: /src/main/java/Start.java
 
 
 ####Anleitung Admin-Funktionen
@@ -66,9 +68,24 @@ Grundsätzlich kann man sich mit den Pfeiltasten oder dem X innerhalb der Fenste
 <p>&nbsp;</p>
 
 ####Source Code Testing
-Innerhalb IntelliJ werden mittels<b>“Run all tests”</b>alle Unit Tests und alle Integrationstests gestartet. Hierbei muss somit die DB gestartet sein.<br/>
-Laufen die Tests unter Maven, werden bei<b>“mvn test”</b>explizit nur die Unit-Tests durch laufen.<br/>
+Innerhalb IntelliJ werden mittels <b>“Run all tests”</b> alle Unit Tests und alle Integrationstests gestartet. Hierbei muss somit die DB gestartet sein.<br/>
+Laufen die Tests unter Maven, werden bei <b>“mvn test”</b> explizit nur die Unit-Tests durch laufen.<br/>
 Travis startet beim Push und nach dem Merge (Pull Request in Master) auch die Unit-Tests via Maven. 
+
+<p>&nbsp;</p>
+
+####IntelliJ 
+Folgende Einstellungen auf dem IntelliJ sind zu setzen, damit sich das Start.java Programm problemlos starten lässt:
+1. Nach dem "File new project from version control" bemerkt IntelliJ dass es sich hier um ein Maven Projekt handelt und frägt nach was mit dem pom.xml geschehen soll. Am einfachsten man klickt auf "Add as Maven Project". Falls das Fenster mit dieser Frage verschwunden ist, kann man es im Event Log Fenster wieder auffinden.
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project2.jpg" width="556" height="156"/>
+2. Das Project SDK muss zwingend gesetzt sein (Java 8) 
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project1.jpg" width="538" height="386"/>
+(Project compiler output muss nicht zwingend gesetzt sein)
+3. Eigentlich sollte die Projektstruktur von IntelliJ automatisch erkannt werden. Falls nicht, kann in der "Project Structure" unter Modules noch das Source und Test Verzeichnis markiert werden:
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project3.jpg" width="616" height="478"/>
+4. Sollten unerwarteterweise immer noch einige Libraries in den Imports als fehlend aufscheinen, dann kann mittels Maven - Reimport (auf Projektebene) das Neuladen aller Dependencies angestossen werden:
+<img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project4.jpg" width="456" height="283"/>
+
 
 <p>&nbsp;</p>
 
