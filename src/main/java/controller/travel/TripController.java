@@ -65,6 +65,10 @@ public class TripController extends MouseAdapter implements ActionListener, List
     }
 
     private void executeActionSaveNewTrip() {
+        if (tripView.getNewTripNameField().getText().isEmpty()) {
+            mainController.showErrorMessage("Please enter a name for the trip.");
+            return;
+        }
         Trip t = new Trip(null, mainController.getUser(), tripView.getNewTripNameField().getText());
         System.out.println("New Trip :" +t.getName());
         try {
