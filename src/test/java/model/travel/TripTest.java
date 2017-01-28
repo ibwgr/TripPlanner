@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  */
 public class TripTest {
 
-    private static Long realerTripIdausDb;
+    private static Trip realerTripIdausDb;
 
     // Es besteht das Problem dass  aufgrund der Integrationstests zwingend ein "echter"
     // Trip ermittelt werden muss, der effektiv in der DB besteht, da sonst die Assertions fehlschlagen.
@@ -32,18 +32,10 @@ public class TripTest {
         User user = getTestUser();
         ArrayList<Trip> tripList = Trip.searchByUser(user);
         if (tripList.size() > 0) {
-            realerTripIdausDb = tripList.get(1).getId();
+            this.realerTripIdausDb = tripList.get(1);
+            this.realerTripIdausDb.setName("Test Ferien");
+            System.out.println("*** Test Trip ID : " +realerTripIdausDb.getId());
         }
-    }
-
-    // Helper / Test Object (bestehend in DB, siehe \TripPlanner\resources\db_script.sql)
-    private static Trip getTestTrip(){
-        // hierbei
-        Trip testTrip = new Trip();
-        testTrip.setId(realerTripIdausDb);
-        testTrip.setName("Test Ferien");
-        testTrip.setUser(getTestUser());
-        return testTrip;
     }
 
     // Helper / Test Object (ohne ID, deshalb auch nicht in DB existent)
@@ -58,9 +50,9 @@ public class TripTest {
     // Helper / Test Object (bestehend in DB, siehe \TripPlanner\resources\db_script.sql)
     private static ArrayList<Trip> getTestTripList() {
         ArrayList<Trip> testTripList = new ArrayList<Trip>();
-        testTripList.add(getTestTrip());
-        testTripList.add(getTestTrip());
-        testTripList.add(getTestTrip());
+        testTripList.add(realerTripIdausDb);
+        testTripList.add(realerTripIdausDb);
+        testTripList.add(realerTripIdausDb);
         return  testTripList;
     }
 
@@ -74,46 +66,35 @@ public class TripTest {
         return testUser;
     }
 
-
-//    // TEST MACHT VOELLIG KEINEN SINN! MUESSTE JA ALLES MOCKEN, KEINERLEI TEST!
-//    @Category({ UnitTest.class })
-//    @Test
-//    public void fakeTestSearchByUserReturnsFakeTripList() throws Exception {
-//        User user = getTestUser();
-//        ArrayList<Trip> tripList = Mockito.mock(Trip.class).searchByUser(user);
-//        ...
-//    }
-
+    //-------------------------------------------------------------------------------
+    // Integrationstests
+    //-------------------------------------------------------------------------------
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSearchByUserWithRealDbAccessReturnsTripList() throws Exception {
         User user = getTestUser();
         ArrayList<Trip> tripList = Trip.searchByUser(user);
-        // aus DB gelesener Wert vergleichen, aber wie wissen ja nicht genau
-        // wieviele es sind!
-        //Assert.assertEquals(3, tripList.size());
+        // aus DB gelesener Wert vergleichen, aber wie wissen ja nicht genau wieviele es sind!
+        // Assert.assertEquals(3, tripList.size());
         if (tripList.size() > 1) {
             Assert.assertTrue(true);
         } else {
             Assert.assertTrue(false);
         }
-
     }
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSearchByUserAndIdWithRealDbAccessReturnsTrip() throws Exception {
-         User user = getTestUser();
-         Trip trip = Trip.searchById(realerTripIdausDb);
+         Trip trip = Trip.searchById(realerTripIdausDb.getId());
          // aus DB gelesener Wert vergleichen
-         Assert.assertEquals(realerTripIdausDb, trip.getId());
+         Assert.assertEquals(realerTripIdausDb.getId(), trip.getId());
      }
 
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSaveWithoutIdInsertsNewTrip() throws Exception {
-        User user = getTestUser();
         // dieses Trip Objekt hat noch keine ID
         Trip trip = getNewTestTripWithoutId();
         // in DB speichern, wird ein INSERT ergeben
@@ -125,12 +106,10 @@ public class TripTest {
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
 
-
     // INTEGRATIONSTEST, wird nicht bei MVN TEST ausgefuehrt, aber bei allen IntelliJ Tests
     @Test
     public void integrationsTestSaveIdUpdatesTrip() throws Exception {
-        User user = getTestUser();
-        Trip trip = getTestTrip();
+        Trip trip = realerTripIdausDb;
         System.out.println("Trip ID: " +trip.getId());
         // in DB speichern, wird ein UPDATE ergeben
         trip.save();
@@ -139,7 +118,5 @@ public class TripTest {
         // aus DB gelesener Wert vergleichen
         Assert.assertEquals(trip.getId(), tripAusDb.getId());
     }
-
-    // TODO  @After : alle Testdaten wieder loeschen (also z.B. alle hier neu angelegten Trips)
 
 }
