@@ -29,7 +29,7 @@ public class AdminController implements ActionListener {
     }
 
     /**
-     * Öffne den File Chooser Dialog und zeige den Filenamen in der View an
+     * Öffne den File Chooser Dialog und zeige den Filenamen und einen Preview in der View an
      */
     public void openFile() {
         file = adminView.getFile();
@@ -41,7 +41,7 @@ public class AdminController implements ActionListener {
                 for (int i = 0; i < 5 || i < br.lines().count(); i++) {
                     String line = br.readLine();
                     if (line != null) {
-                        sb.append(br.readLine());
+                        sb.append(line);
                         sb.append("\n");
                     }
                 }
