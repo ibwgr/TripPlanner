@@ -59,28 +59,6 @@ public class UserTest {
         Assert.assertEquals("benutzer@example.com", foundUser.getEmail());
     }
 
-// TODO mockito will so nicht richtig...
-//    @Test
-//    public void fakeLoginUserWithUsernameAndCorrectPasswordReturnsTrue() throws Exception {
-//        User user = Mockito.mock(User.class);
-//        user.setUsername("benutzer");
-//        user.setPassword("benutzer");
-//        //
-//        // Mockito gibt diesen Fake User zurueck
-//        User fakeUser = new User();
-//        fakeUser.setEmail("fake-benutzer@example.com");
-//        fakeUser.setUsername(user.getUsername());
-//        fakeUser.setPassword(user.getPassword());
-//        fakeUser.setId(new Long(23));
-//        //
-//        when(user.searchByCredentials()).thenReturn(fakeUser);
-//        when(user.searchByCredentials(user.getUsername(),user.getPassword())).thenReturn(fakeUser);
-//        //
-//        // login erfolgreich
-//        Assert.assertEquals(true, user.login());
-//        Assert.assertEquals(true, user.isLoggedIn());
-//    }
-
     @Category({ UnitTest.class })
     @Test
     public void fakeLoginUserWithNoUsernameIsWrongAndShouldReturnFalse() throws Exception {
