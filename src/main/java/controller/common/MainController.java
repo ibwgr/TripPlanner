@@ -109,6 +109,8 @@ public class MainController implements ActionListener {
                 }
             }
             setSubTitle("Current Trip: " + trip.getName());
+        } else {
+            setSubTitle(" ");
         }
     }
 
