@@ -38,7 +38,7 @@ public class SearchController implements ActionListener {
             mainController.showErrorMessage("Search text is too short. Minimum length is 3 characters.");
             return;
         }
-        searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText(), databaseProxy));
+        searchView.setSearchResult(Poi.searchCityByName(searchView.getSearchText()));
     }
 
     public void searchPoi() {

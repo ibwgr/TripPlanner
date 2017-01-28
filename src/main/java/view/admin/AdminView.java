@@ -97,7 +97,7 @@ public class AdminView extends FormPanel {
 
             @Override
             public String getDescription() {
-                return "CSV Datei";
+                return "CSV File";
             }
         };
         fileChooser.setFileFilter(filter);
