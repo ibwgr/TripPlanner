@@ -27,12 +27,14 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
   <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Komponenten.jpg" width="800" height="600"/>
 </p>
 
-###Instsallationsanleitung
+###Installationsanleitung
     1. IntelliJ "New - Project from version control" (git clone https://github.com/ibwgr/TripPlanner)
+       Eventuell muss auf dem IntelliJ Projekt noch die Java SDK Version angegeben werden. 
     2. Postgres DB: Neue Datenbank mit frei wählbarem Namen anlegen (z.B. CREATE DATABASE trip_planner_db;)
     3. Postgres DB: Das db_script.sql file auf der neuen Datenbank ausführen (/resources/db_script.sql)
     4. Property File mit dem Datenbank-Namen und den Datenbank-Credentials anpassen: /resources/db.properties
     5. IntelliJ start Klasse: /src/main/java/Start.java
+
 
 ####Anleitung Admin-Funktionen
 1. Login als "admin" (PW="admin")
@@ -59,6 +61,14 @@ Die Applikation basiert auf den im ersten Semester erlernten Komponenten mit Jav
 11. Aus der Liste der aufgefundenen POI einen auswählen, unten Datum und Kommentar eingeben und speichern.
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/Screenshot_PointOfInterestSearch.png" width="800" height="545" />
 Grundsätzlich kann man sich mit den Pfeiltasten oder dem X innerhalb der Fenster navigieren.
+
+
+<p>&nbsp;</p>
+
+####Source Code Testing
+Innerhalb IntelliJ werden mittels<b>“Run all tests”</b>alle Unit Tests und alle Integrationstests gestartet. Hierbei muss somit die DB gestartet sein.<br/>
+Laufen die Tests unter Maven, werden bei<b>“mvn test”</b>explizit nur die Unit-Tests durch laufen.<br/>
+Travis startet beim Push und nach dem Merge (Pull Request in Master) auch die Unit-Tests via Maven. 
 
 <p>&nbsp;</p>
 

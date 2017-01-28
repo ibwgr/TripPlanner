@@ -36,7 +36,6 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
         this.mapView = mapView;
     }
 
-    // TODO, diese liste koennten wir uns auf einer Instanzvariable zwischenspeichern
     public ArrayList<Activity> getActivityList() {
         // ActivityListe (from Model)
         return Activity.searchByTrip(mainController.getTrip());
@@ -44,7 +43,6 @@ public class ActivityController extends MouseAdapter implements ActionListener, 
 
     public void setCurrentActivity(Long currentActivityId) {
         // dem MainController mitteilen welche Activity fixiert werden soll (fuer nachfolgende Aktionen)
-        // TODO die muessen wir hier eigentlich nicht nochmals lesen wenn wir sie schon haben
         Activity a = Activity.searchById(currentActivityId);
         mapView.setWindow(a);
         mainController.setActivity(a);
