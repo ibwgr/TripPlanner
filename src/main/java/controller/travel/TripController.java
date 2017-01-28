@@ -95,6 +95,7 @@ public class TripController extends MouseAdapter implements ActionListener, List
                 // LOESCHEN und REFRESH
                 try {
                     mainController.getTrip().delete();
+                    mainController.setTrip(null);
                     tripView.refreshTable();
                 } catch (SQLException e1) {
                     mainController.showErrorMessage("Error on deleting trip!");
