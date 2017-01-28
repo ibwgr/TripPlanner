@@ -74,16 +74,20 @@ Travis startet beim Push und nach dem Merge (Pull Request in Master) auch die Un
 
 <p>&nbsp;</p>
 
-####IntelliJ 
-Folgende Einstellungen auf dem IntelliJ sind zu setzen, damit sich das Start.java Programm problemlos starten lässt:
-1. Nach dem "File new project from version control" bemerkt IntelliJ dass es sich hier um ein Maven Projekt handelt und frägt nach was mit dem pom.xml geschehen soll. Am einfachsten man klickt auf "Add as Maven Project". Falls das Fenster mit dieser Frage verschwunden ist, kann man es im Event Log Fenster wieder auffinden.
+####IntelliJ
+1. Folgende Einstellungen auf dem IntelliJ sind zu setzen, damit sich das Start.java Programm problemlos starten lässt
+
+2. Nach dem "File new project from version control" bemerkt IntelliJ dass es sich hier um ein Maven Projekt handelt und frägt nach was mit dem pom.xml geschehen soll. Am einfachsten man klickt auf "Add as Maven Project". Falls das Fenster mit dieser Frage verschwunden ist, kann man es im Event Log Fenster wieder auffinden.
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project2.jpg" width="556" height="156"/>
-2. Das Project SDK muss zwingend gesetzt sein (Java 8) 
+
+3. Das Project SDK muss zwingend gesetzt sein (Java 8) 
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project1.jpg" width="538" height="386"/>
-(Project compiler output muss nicht zwingend gesetzt sein)
-3. Eigentlich sollte die Projektstruktur von IntelliJ automatisch erkannt werden. Falls nicht, kann in der "Project Structure" unter Modules noch das Source und Test Verzeichnis markiert werden:
+<br/>(Project compiler output muss nicht zwingend gesetzt sein)
+
+4. Eigentlich sollte die Projektstruktur von IntelliJ automatisch erkannt werden. Falls nicht, kann in der "Project Structure" unter Modules noch das Source und Test Verzeichnis markiert werden:
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project3.jpg" width="616" height="478"/>
-4. Sollten unerwarteterweise immer noch einige Libraries in den Imports als fehlend aufscheinen, dann kann mittels Maven - Reimport (auf Projektebene) das Neuladen aller Dependencies angestossen werden:
+
+5. Sollten unerwarteterweise immer noch einige Libraries in den Imports als fehlend aufscheinen, dann kann mittels Maven - Reimport (auf Projektebene) das Neuladen aller Dependencies angestossen werden:
 <img src="https://github.com/ibwgr/TripPlanner/blob/master/doc/IntelliJ-Project4.jpg" width="456" height="283"/>
 
 
